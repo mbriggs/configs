@@ -1,0 +1,41 @@
+#!/bin/env bash
+
+if [ -n "$(git status --porcelain)" ]
+then
+  echo -e "\e[31mDirectory is dirty.\e[0m"
+  exit 1
+fi
+
+git pull origin || exit 1
+echo
+
+tip="$(git log -1 --pretty=%B | cat)"
+branch="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+
+if [ "$tip" != "- wip -" ]
+then
+  echo -e "\e[31mlatest commit is not a wip commit:\e[0m $tip"
+  exit 1
+fi
+
+git reset --mixed HEAD~1
+echo
+
+git status
+echo
+
+echo -ne "\e[33mwip resumed. force push $branch to remote? (Y/n):\e[0m "
+read -n 1 -r
+echo
+if [[ "$REPLY" =~ ^[nN]$ ]]
+then
+  echo -e "\e[33mremote branch is out of sync, and still has the wip commit\e[0m"
+  exit 0
+fi
+
+git push origin "$branch" --force-with-lease
+
+echo
+echo
+echo -e "\e[35mwork has been resumed\e[0m."
+echo

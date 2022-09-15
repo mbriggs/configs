@@ -1,0 +1,38 @@
+[user]
+	name = Matt Briggs
+	email = matt@mattbriggs.net
+	signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCeMG03DC+4dKPLQkUuNAgguNHb3WGKtsutB1MuXYpLHo0mBG7DWDxUM00lmGwCqFGA+PwJIcGvUALDxvnqCW1z/knPSCDF2V0EjEQ7L6zHCBygTAPiBffg3lhVEQDyuL5i7HDMwY42GYeX2CmDOhyu0249qFpg/NgaZIU8QTyJZ0RdFa2nk0jhgv9ebGqKlzyua/+m6ZhwF2jXyMEuMIHQw3IwXyK2qf1QHWPjNX1Ir+jpcavLn+ctnryl+mdobeHz3mTzYFexZkKqaGFmfpKXTiWKexpHSajaRHeG/XJSL4djtnq3B9kY5czVb82m+KQVuE7h6u/hmu3B1EljOKOt
+[color]
+  ui = true
+[core]
+  editor = nvim
+  pager = delta
+  quotepath = false
+	excludesFile = /Users/mbriggs/.gitignore
+  autocrlf = input
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/
+[url "ssh://git@gitlab.com/"]
+  insteadOf = https://gitlab.com/
+[url "ssh://git@bitbucket.org/"]
+  insteadOf = https://bitbucket.org/
+[rerere]
+  enabled = 1
+  autoupdate = true
+[commit]
+	verbose = true
+	gpgsign = true
+[github]
+	user = mbriggs
+[merge]
+	conflictStyle = diff3
+[credential]
+	helper = store
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign

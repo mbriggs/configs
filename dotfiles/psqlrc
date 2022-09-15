@@ -1,0 +1,3 @@
+\pset pager off
+\x auto
+\set PROMPT1 '%M %n@%/%#%x '

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo "copying plist to /Library/LaunchDaemons/limit.maxfiles.plist"
+sudo cp limit.maxfiles.plist /Library/LaunchDaemons
+
+echo "setting owner to root:wheel"
+sudo chown root:wheel /Library/LaunchDaemons/limit.maxfiles.plist
+
+echo "loading..."
+launchctl load /Library/LaunchDaemons/limit.maxfiles.plist
+
+echo "done"
