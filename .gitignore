@@ -1,2 +1,5 @@
 dotfiles/ssh/known_keys
 dotfiles/ssh/authorized_keys
+
+dotfiles/ssh/known_hosts
+dotfiles/ssh/known_hosts.old
