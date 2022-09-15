@@ -13,5 +13,6 @@ for file in "$script_dir"/bin/*; do
 	# echo "$file -> $target/$base"
 
 	chmod -v +x "$file"
+	rm "$target/$base"
 	ln -sfv "$file" "$target/$base"
 done
