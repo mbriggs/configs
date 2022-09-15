@@ -1,0 +1,89 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+### path
+
+export BREW_PREFIX="/opt/homebrew"
+export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+export ZSH_THEME="powerlevel10k/powerlevel10k"
+export EDITOR=nvim
+
+export path=(
+	$BREW_PREFIX/bin
+	$BREW_PREFIX/opt/curl/bin
+	$BREW_PREFIX/opt/ruby/bin
+	$BREW_PREFIX/coreutils/libexec/gnubin
+	$HOME/.yarn/bin
+	$HOME/.cargo/bin
+	$HOME/.config/yarn/global/node_modules/.bin
+	$path
+	$HOME/go/bin
+	$HOME/.local/bin
+)
+
+### aliases
+
+alias ls="ls --color"
+alias vi="nvim"
+alias nx="npx nx"
+alias lg="lazygit"
+alias dk="docker"
+alias dkc="docker compose"
+alias dke='docker compose exec $DKC_MAIN'
+alias rails='docker compose exec $DKC_MAIN ./bin/rails'
+alias rlog="tail -f log/development.log"
+
+### brew
+
+if [ -f /opt/homebrew/etc/profile.d/z.sh ]
+then
+	source /opt/homebrew/etc/profile.d/z.sh
+fi
+
+if [ -f $BREW_PREFIX/bin/brew ]
+then
+	eval "$($BREW_PREFIX/bin/brew shellenv)"
+fi
+
+### direnv
+
+if command -v direnv &>/dev/null; then
+	eval "$(direnv hook zsh)"
+fi
+
+### fzf
+
+if [ -f ~/.fzf.zsh ]
+then
+	source ~/.fzf.zsh
+fi
+
+### p10k prompt
+
+p10k="$HOME/.local/share/powerlevel10k/powerlevel10k.zsh-theme"
+if [ -f "$p10k" ]
+then
+	source "$p10k"
+else
+  echo "installing p10k..."
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $(dirname "$p10k")
+	source "$p10k"
+fi
+
+p10k_conf="$HOME/.config/p10k/p10k.zsh"
+[[ ! -f "$p10k_conf" ]] || source "$p10k_conf"
+
+### chruby
+
+[[ ! -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh ]] || source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+### nvm
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

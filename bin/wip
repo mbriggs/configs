@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+branch="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+
+git add .
+git commit -m '- wip -'
+git pull origin "$branch" --rebase
+git push origin --set-upstream "$branch"
+
+echo -ne "\e[mmove local backwards? (Y/n):\e[0m "
+read -n 1 -r
+echo
+if [[ "$REPLY" =~ ^[yY]$ ]]
+then
+  git reset --hard HEAD~1
+fi
+
+echo
+echo -e "\e[35mwork has been stored in a temporary commit and pushed. current branch has been moved back. resume with wipr\e[0m."

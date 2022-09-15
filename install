@@ -1,0 +1,20 @@
+#/usr/bin/env bash
+
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+echo "running from $script_dir"
+
+if [[ $OSTYPE == "darwin"* ]]
+then
+  echo "-> Installing macOS tooling..."
+  . ./install-macos.sh
+  echo "-> Installing ulimit increase..."
+  pushd "$script_dir/ulimit" || exit 1
+  . ./install-ulimit-plist
+  popd || exit 1
+else
+  echo "$OSTYPE is not a supported os"
+  exit 1
+fi
+
+echo "-> Linking Configs"
+. ./link.sh
