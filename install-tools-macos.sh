@@ -10,6 +10,7 @@ echo "-- installing brew"
 curl -fsSL -o install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh || exit 1
 
 echo "-- installing tools"
+brew install --cask 1password/tap/1password-cli
 brew install ripgrep || exit 1
 brew install git || exit 1
 brew install make || exit 1
