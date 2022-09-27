@@ -16,9 +16,7 @@ brew install git || exit 1
 brew install make || exit 1
 
 echo "-- installing rust"
-brew install rust || exit 1
-
-echo "-- installing java"
+brew install rust || exit 1 echo "-- installing java"
 brew install java || exit 1
 
 echo "-- installing clojure"
@@ -65,3 +63,10 @@ make dependencies
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 popd || exit 1
+
+echo "--installing emacs"
+brew tap d12frosted/emacs-plus
+brew install emacs-plus --with-no-titlebar --with-imagemagick --with-native-comp --with-modern-doom3-icon
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+

@@ -10,6 +10,6 @@ echo "-> linking $script_dir/dotconfig to $target"
 for file in "$script_dir"/dotconfig/*; do
 	base=$(basename "$file")
 
-	rm "$target/$base"
+	rm -rf "$target/$base"
 	ln -sfv "$file" "$target/$base"
 done
