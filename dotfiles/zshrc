@@ -23,6 +23,7 @@ export path=(
 	$path
 	$HOME/go/bin
 	$HOME/.local/bin
+	$HOME/.config/emacs/bin
 )
 
 ### aliases
