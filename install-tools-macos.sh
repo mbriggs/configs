@@ -20,7 +20,9 @@ brew install git || exit 1
 brew install make || exit 1
 
 echo "-- installing rust"
-brew install rust || exit 1 echo "-- installing java"
+brew install rust || exit 1
+
+echo "-- installing java"
 brew install java || exit 1
 
 echo "-- installing clojure"
@@ -60,22 +62,23 @@ popd || exit 1
 echo "-- installing neovim"
 brew install neovim
 pushd "$HOME/.config" || exit 1
+rm -rf nvim
 git clone https://github.com/AstroNvim/AstroNvim.git "$HOME/.config/nvim"
-git clone git@github.com:mbriggs/nvim "$HOME/.config/nvim/lua/user"
+ln -s "$HOME/.config/astro" "$HOME/.config/nvim/lua/user"
 cd "$HOME/.config/nvim/lua/user" || exit 1
 make dependencies
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 popd || exit 1
 
-echo "--installing emacs"
-brew tap d12frosted/emacs-plus
-brew install emacs-plus --with-imagemagick --with-native-comp --with-modern-doom3-icon
-git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-~/.config/emacs/bin/doom install
-git clone https://github.com/eraserhd/parinfer-rust.git
-cd parinfer-rust || exit 1
-cargo build --release --features emacs
-cp target/release/libparinfer_rust.dylib ~/.config/emacs/.local/etc/parinfer-rust/parinfer-rust-darwin.so
-cd .. || exit 1
-rm -rf parinfer-rust
+# echo "--installing emacs"
+# brew tap d12frosted/emacs-plus
+# brew install emacs-plus --with-imagemagick --with-native-comp --with-modern-doom3-icon
+# git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+# ~/.config/emacs/bin/doom install
+# git clone https://github.com/eraserhd/parinfer-rust.git
+# cd parinfer-rust || exit 1
+# cargo build --release --features emacs
+# mkdir -p ~/.config/emacs/.local/etc/parinfer-rust
+# cp target/release/libparinfer_rust.dylib ~/.config/emacs/.local/etc/parinfer-rust/parinfer-rust-darwin.so
+# cd .. || exit 1
+# rm -rf parinfer-rust
