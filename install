@@ -3,6 +3,9 @@
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "running from $script_dir"
 
+echo "-> Linking Configs"
+. ./link.sh
+
 if [[ $OSTYPE == "darwin"* ]]
 then
   echo "-> Installing macOS tooling..."
@@ -16,5 +19,3 @@ else
   exit 1
 fi
 
-echo "-> Linking Configs"
-. ./link.sh
