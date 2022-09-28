@@ -9,6 +9,10 @@ xcode-select --install
 echo "-- installing brew"
 curl -fsSL -o install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh || exit 1
 
+echo "-- installing fonts"
+brew tap homebrew/cask-fonts
+brew install --cask font-jetbrains-mono
+
 echo "-- installing tools"
 brew install --cask 1password/tap/1password-cli
 brew install ripgrep || exit 1
@@ -66,7 +70,12 @@ popd || exit 1
 
 echo "--installing emacs"
 brew tap d12frosted/emacs-plus
-brew install emacs-plus --with-no-titlebar --with-imagemagick --with-native-comp --with-modern-doom3-icon
+brew install emacs-plus --with-imagemagick --with-native-comp --with-modern-doom3-icon
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
-
+git clone https://github.com/eraserhd/parinfer-rust.git
+cd parinfer-rust || exit 1
+cargo build --release --features emacs
+cp target/release/libparinfer_rust.dylib ~/.config/emacs/.local/etc/parinfer-rust/parinfer-rust-darwin.so
+cd .. || exit 1
+rm -rf parinfer-rust
