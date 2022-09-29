@@ -49,8 +49,8 @@ return {
 			q = { "<cmd>:qa<cr>", "Quit" },
 			Q = { "<cmd>:qa!<cr>", "Quit without saving" },
 
-			h = { nil },
-			c = { nil },
+			h = nil,
+			c = nil,
 
 			["E"] = {
 				name = "+Editor",
@@ -131,40 +131,6 @@ return {
 				q = { "<cmd>TroubleToggle quickfix<cr>", "QuickFix" },
 				l = { "<cmd>TroubleToggle loclist<cr>", "Location List" },
 				t = { "<cmd>TodoTrouble<cr>", "TODOs" },
-			},
-
-			a = {
-				name = "Annotate",
-				["<cr>"] = {
-					function()
-						require("neogen").generate()
-					end,
-					"Current",
-				},
-				c = {
-					function()
-						require("neogen").generate({ type = "class" })
-					end,
-					"Class",
-				},
-				f = {
-					function()
-						require("neogen").generate({ type = "func" })
-					end,
-					"Function",
-				},
-				t = {
-					function()
-						require("neogen").generate({ type = "type" })
-					end,
-					"Type",
-				},
-				F = {
-					function()
-						require("neogen").generate({ type = "file" })
-					end,
-					"File",
-				},
 			},
 
 			f = {
