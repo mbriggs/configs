@@ -57,11 +57,6 @@ local fix = {
 		requires = "nvim-lua/plenary.nvim",
 		config = require("user.plugins.todo-comments"),
 	},
-	-- tint inactive windows
-	{
-		"levouh/tint.nvim",
-		config = require("user.plugins.tint"),
-	},
 	-- open files over ssh
 	{ "lambdalisue/vim-protocol" },
 	-- highlight yanks
