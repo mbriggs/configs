@@ -211,6 +211,9 @@ return function(plugins)
 	plugins["akinsho/bufferline.nvim"] = nil
 	plugins["p00f/nvim-ts-rainbow"] = nil
 	plugins["rafamadriz/friendly-snippets"] = nil
+	plugins["Shatur/neovim-session-manager"] = nil
+	plugins["s1n7ax/nvim-window-picker"] = nil
+	plugins["famiu/bufdelete.nvim"] = nil
 	plugins["L3MON4D3/LuaSnip"] = {
 		config = function()
 			require("configs.luasnip")
