@@ -1,9 +1,11 @@
 return function()
 	local map = vim.keymap.set
 	local set = vim.opt
+
 	-- Set options
 	set.relativenumber = true
 	set.wrap = true
+	set.filetype = "on"
 
 	-- Set key bindings
 	map("n", "<C-s>", ":w!<CR>")
@@ -85,6 +87,6 @@ return function()
 	load_all(os.getenv("HOME") .. "/.config/nvim/lua/user/ft")
 
 	-- https://github.com/AstroNvim/AstroNvim/issues/513
-	vim.keymap.del("t", "<esc>")
-	vim.keymap.del("t", "jk")
+	-- vim.keymap.del("t", "<esc>")
+	-- vim.keymap.del("t", "jk")
 end
