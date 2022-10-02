@@ -17,6 +17,10 @@ require("user.ft_wk")("clojure", {
 				r = { "<cmd>ConjureEvalCommentRootForm<CR>", "Eval Root Form As Comment" },
 				w = { "<cmd>ConjureEvalCommentWord<CR>", "Eval Word As Comment" },
 			},
+
+			x = { "<cmd>ConjureCljLastException<cr>", "Last Exception" },
+			s = { "<cmd>ConjureCljViewSource<cr>", "View Source" },
+
 			l = {
 				name = "+Log",
 				s = { "<cmd>ConjureLogSplit<CR>", "Open Log in Split" },
