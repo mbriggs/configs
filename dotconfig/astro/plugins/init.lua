@@ -58,11 +58,10 @@ local fix = {
 		config = require("user.plugins.todo-comments"),
 	},
 	-- tint inactive windows
-	-- TODO: uncomment when 0.8.0 lands
-	-- {
-	-- 	"levouh/tint.nvim",
-	-- 	config = require("user.plugins.tint"),
-	-- },
+	{
+		"levouh/tint.nvim",
+		config = require("user.plugins.tint"),
+	},
 	-- open files over ssh
 	{ "lambdalisue/vim-protocol" },
 	-- highlight yanks
