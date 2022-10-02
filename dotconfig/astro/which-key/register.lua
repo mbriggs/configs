@@ -84,43 +84,6 @@ return {
 				["."] = { "<cmd>TestVisit<cr>", "Visit Test" },
 			},
 
-			["T"] = {
-				name = "+Terminal",
-				n = {
-					function()
-						require("core.utils").toggle_term_cmd("node")
-					end,
-					"Node",
-				},
-				u = {
-					function()
-						require("core.utils").toggle_term_cmd("ncdu")
-					end,
-					"NCDU",
-				},
-				t = {
-					function()
-						require("core.utils").toggle_term_cmd("htop")
-					end,
-					"Htop",
-				},
-				p = {
-					function()
-						require("core.utils").toggle_term_cmd("python")
-					end,
-					"Python",
-				},
-				l = {
-					function()
-						require("core.utils").toggle_term_cmd("lazygit")
-					end,
-					"Lazygit",
-				},
-				f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-				h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-				v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-			},
-
 			["x"] = {
 				name = "+Trouble",
 				x = { "<cmd>TroubleClose<cr>", "Close" },
@@ -134,35 +97,7 @@ return {
 			},
 
 			f = {
-				name = "Telescope",
-				["?"] = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-				["'"] = { "<cmd>Telescope marks<cr>", "Marks" },
-				b = { "<cmd>Telescope buffers<cr>", "Buffers" },
-				B = { "<cmd>Telescope bibtex<cr>", "BibTeX" },
-				c = { "<cmd>Telescope commands<cr>", "Commands" },
-				f = { "<cmd>Telescope find_files<cr>", "Files" },
-				F = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", "All Files" },
-				h = { "<cmd>Telescope oldfiles<cr>", "History" },
-				k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-				m = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-				M = { "<cmd>Telescope media_files<cr>", "Media" },
-				n = { "<cmd>Telescope notify<cr>", "Notifications" },
-				p = { "<cmd>Telescope project<cr>", "Projects" },
-				r = { "<cmd>Telescope registers<cr>", "Registers" },
-				t = { "<cmd>Telescope colorscheme<cr>", "Themes" },
 				w = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", "Words" },
-				o = {
-					function()
-						require("telescope.builtin").find_files({ cwd = vim.fn.expand("%:p:h") })
-					end,
-					"Other file",
-				},
-				d = {
-					function()
-						require("telescope.builtin").find_files({ cwd = vim.fn.expand("%:p:h") })
-					end,
-					"Words in directory",
-				},
 			},
 
 			d = {
