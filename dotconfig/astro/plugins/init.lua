@@ -11,11 +11,6 @@ local core = {
 		"sindrets/winshift.nvim",
 		config = require("user.plugins.winshift"),
 	},
-	-- pick window / show visited file path
-	{
-		"gbrlsnchs/winpick.nvim",
-		config = require("user.plugins.winpick"),
-	},
 	-- open file
 	{ "justinmk/vim-gtfo" },
 	-- correct typos on file open from cli

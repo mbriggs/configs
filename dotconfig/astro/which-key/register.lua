@@ -29,17 +29,6 @@ return {
 			["r"] = { [[<cmd>lua require('telescope').extensions.recent_files.pick()<cr>]], "Recent Files" },
 			["R"] = { "<cmd>lua require('spectre').open()<CR>", "Search and Replace" },
 
-			w = {
-				function()
-					local winid = require("winpick").select()
-
-					if winid then
-						vim.api.nvim_set_current_win(winid)
-					end
-				end,
-				"Pick Window",
-			},
-
 			g = {
 				c = { [[<cmd>DiffviewFileHistory %<cr>]], "File Commits" },
 				C = { [[<cmd>DiffviewFileHistory<cr>]], "Branch Commits" },
