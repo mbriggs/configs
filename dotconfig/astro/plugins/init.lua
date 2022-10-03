@@ -175,6 +175,12 @@ local tools = {
 		requires = "nvim-lua/plenary.nvim",
 		config = require("user.plugins.spectre"),
 	},
+	-- generate docstrings
+	{
+		"danymat/neogen",
+		config = require("user.plugins.neogen"),
+		requires = "nvim-treesitter/nvim-treesitter",
+	},
 }
 
 -- Clojure --

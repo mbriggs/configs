@@ -25,9 +25,10 @@ return {
 				toggleLines,
 				"Toggle Diagnostics",
 			},
-			["o"] = { [[<cmd>Neotree reveal<cr>]], "Open Explorer" },
-			["r"] = { [[<cmd>lua require('telescope').extensions.recent_files.pick()<cr>]], "Recent Files" },
-			["R"] = { "<cmd>lua require('spectre').open()<CR>", "Search and Replace" },
+			o = { [[<cmd>Neotree reveal<cr>]], "Open Explorer" },
+			r = { [[<cmd>lua require('telescope').extensions.recent_files.pick()<cr>]], "Recent Files" },
+			R = { "<cmd>lua require('spectre').open()<CR>", "Search and Replace" },
+			D = { "<cmd>Neogen<cr>", "Generate Docstring" },
 
 			g = {
 				c = { [[<cmd>DiffviewFileHistory %<cr>]], "File Commits" },
