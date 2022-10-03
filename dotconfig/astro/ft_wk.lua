@@ -1,5 +1,3 @@
-local wk = require("which-key")
-
 local ft_map = {}
 
 vim.cmd("autocmd FileType * lua SetWKBuffer()")
