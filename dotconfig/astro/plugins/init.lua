@@ -205,15 +205,15 @@ end
 
 return function(plugins)
 	-- Disabled Default Plugins
-	plugins["glepnir/dashboard-nvim"] = nil
-	plugins["goolord/alpha-nvim"] = nil
-	plugins["Shatur/neovim-session-manager"] = nil
-	plugins["akinsho/bufferline.nvim"] = nil
-	plugins["p00f/nvim-ts-rainbow"] = nil
-	plugins["rafamadriz/friendly-snippets"] = nil
-	plugins["Shatur/neovim-session-manager"] = nil
-	plugins["s1n7ax/nvim-window-picker"] = nil
-	plugins["famiu/bufdelete.nvim"] = nil
+	plugins["glepnir/dashboard-nvim"] = { disable = true }
+	plugins["goolord/alpha-nvim"] = { disable = true }
+	plugins["Shatur/neovim-session-manager"] = { disable = true }
+	plugins["akinsho/bufferline.nvim"] = { disable = true }
+	plugins["p00f/nvim-ts-rainbow"] = { disable = true }
+	plugins["rafamadriz/friendly-snippets"] = { disable = true }
+	plugins["Shatur/neovim-session-manager"] = { disable = true }
+	plugins["s1n7ax/nvim-window-picker"] = { disable = true }
+	plugins["famiu/bufdelete.nvim"] = { disable = true }
 	plugins["L3MON4D3/LuaSnip"] = {
 		config = function()
 			require("configs.luasnip")
