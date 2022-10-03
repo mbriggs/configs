@@ -1,12 +1,4 @@
 return function()
-	local set = vim.opt
-
-	-- Set options
-	set.relativenumber = true
-	set.wrap = true
-	set.filetype = "on"
-	set.relativenumber = false
-
 	-- snippets
 	require("luasnip/loaders/from_snipmate").lazy_load({
 		paths = { "./lua/user/snippets" },
