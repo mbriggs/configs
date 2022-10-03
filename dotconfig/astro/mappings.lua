@@ -1,21 +1,21 @@
 return {
 	n = {
-		["<cr>"] = {
+		["<CR>"] = {
 			":nohlsearch<cr>:w<cr>",
 			desc = "clear highlights and save",
 		},
 		-- start / end of line
-		["<s-h>"] = {
+		["<S-h>"] = {
 			"^",
 			desc = "start of line",
 		},
-		["<s-l>"] = {
+		["<S-l>"] = {
 			"$",
 			desc = "end of line",
 		},
 		-- toggle
 		["-"] = {
-			"<c-^>",
+			"<C-^>",
 			desc = "go to previous buffer",
 		},
 		-- resize
@@ -44,25 +44,25 @@ return {
 			desc = "resize current split right",
 		},
 		-- tmux
-		["<c-w>h"] = {
+		["<C-w>h"] = {
 			function()
 				require("tmux").move_left()
 			end,
 			desc = "move left in vim or tmux",
 		},
-		["<c-w>j"] = {
+		["<C-w>j"] = {
 			function()
 				require("tmux").move_bottom()
 			end,
 			desc = "move down in vim or tmux",
 		},
-		["<c-w>k"] = {
+		["<C-w>k"] = {
 			function()
 				require("tmux").move_top()
 			end,
 			desc = "move up in vim or tmux",
 		},
-		["<c-w>l"] = {
+		["<C-w>l"] = {
 			function()
 				require("tmux").move_right()
 			end,
