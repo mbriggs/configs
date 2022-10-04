@@ -33,8 +33,4 @@ return function()
 
 	local load_all = require("user.load_all")
 	load_all(os.getenv("HOME") .. "/.config/nvim/lua/user/ft")
-
-	-- https://github.com/AstroNvim/AstroNvim/issues/513
-	-- vim.keymap.del("t", "<esc>")
-	-- vim.keymap.del("t", "jk")
 end
