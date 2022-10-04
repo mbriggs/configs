@@ -6,6 +6,7 @@ return {
 	opt = {
 		cmdheight = 1,
 		relativenumber = false,
+		showtabline = 0,
 		wrap = true,
 	},
 }
