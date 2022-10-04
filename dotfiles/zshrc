@@ -80,8 +80,11 @@ p10k_conf="$HOME/.config/p10k/p10k.zsh"
 
 ### chruby
 
-[[ ! -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh ]] || source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+if [[ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh ]] 
+then
+  source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
+  source $HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh
+fi
 
 ### nvm
 
