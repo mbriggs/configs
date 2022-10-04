@@ -25,6 +25,16 @@ local core = {
 	{ "jinh0/eyeliner.nvim" },
 	-- zoom pane with <C-w>m
 	{ "dhruvasagar/vim-zoom" },
+	-- winbar config
+	{
+		"fgheng/winbar.nvim",
+		requires = {
+			"SmiteshP/nvim-gps",
+			config = [[require("nvim-gps").setup()]],
+			requires = "nvim-treesitter/nvim-treesitter",
+		},
+		config = require("user.plugins.winbar"),
+	},
 	-- colors
 	{
 		"catppuccin/nvim",
