@@ -3,7 +3,7 @@ return function()
 		enabled = true,
 
 		show_file_path = true,
-		show_symbols = true,
+		show_symbols = false,
 
 		exclude_filetype = {
 			"help",
