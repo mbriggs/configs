@@ -25,6 +25,7 @@ return {
 				toggleLines,
 				"Toggle Diagnostics",
 			},
+
 			o = { [[<cmd>Neotree reveal<cr>]], "Open Explorer" },
 			r = { [[<cmd>lua require('telescope').extensions.recent_files.pick()<cr>]], "Recent Files" },
 			R = { "<cmd>lua require('spectre').open()<CR>", "Search and Replace" },
@@ -40,7 +41,9 @@ return {
 			Q = { "<cmd>:qa!<cr>", "Quit without saving" },
 
 			h = nil,
-			c = nil,
+			c = { [["0]], "Last Yank Register" },
+
+			y = { [[<cmd>call setreg('+', @0) | echo "sent to clipboard"<cr>]], "Send last yank to system clipboard" },
 
 			["E"] = {
 				name = "+Editor",
