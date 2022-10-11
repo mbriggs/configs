@@ -228,7 +228,8 @@ return function(plugins)
 	plugins["p00f/nvim-ts-rainbow"] = { disable = true }
 	plugins["rafamadriz/friendly-snippets"] = { disable = true }
 	plugins["Shatur/neovim-session-manager"] = { disable = true }
-	plugins["s1n7ax/nvim-window-picker"] = { disable = true }
+	-- plugins["s1n7ax/nvim-window-picker"] = { disable = true }
+	plugins["mehalter/nvim-window-picker"] = { disable = true }
 	plugins["famiu/bufdelete.nvim"] = { disable = true }
 	plugins["L3MON4D3/LuaSnip"] = {
 		config = function()
