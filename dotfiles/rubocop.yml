@@ -35,3 +35,13 @@ Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 Style/MutableConstant:
   Enabled: false
+Style/WordArray:
+  EnforcedStyle: brackets
+Lint/MissingSuper:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Layout/IndentationStyle:
+  EnforcedStyle: tabs
+Layout/IndentationWidth:
+  Width: 1
