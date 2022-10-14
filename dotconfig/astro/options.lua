@@ -5,7 +5,6 @@ return {
 	},
 	opt = {
 		clipboard = "",
-		cmdheight = 1,
 		relativenumber = false,
 		showtabline = 0,
 		wrap = true,
