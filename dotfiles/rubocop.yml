@@ -45,3 +45,7 @@ Layout/IndentationStyle:
   EnforcedStyle: tabs
 Layout/IndentationWidth:
   Width: 1
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Layout/LineLength:
+  Enabled: false
