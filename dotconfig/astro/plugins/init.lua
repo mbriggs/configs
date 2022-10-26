@@ -98,6 +98,11 @@ local fix = {
 		after = "telescope.nvim",
 		config = require("user.plugins.telescope-live-grep"),
 	},
+	{
+		"princejoogie/dir-telescope.nvim",
+		after = "telescope.nvim",
+		config = require("user.plugins.dir-telescope"),
+	},
 }
 
 -- LSP --
