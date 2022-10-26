@@ -91,6 +91,11 @@ return {
 
 			f = {
 				w = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", "Words" },
+				d = {
+					name = "+dir",
+					f = { "<cmd>Telescope dir find_files<cr>", "Find files in directory" },
+					w = { "<cmd>Telescope dir live_grep<cr>", "Search files in directory" },
+				},
 			},
 
 			d = {
