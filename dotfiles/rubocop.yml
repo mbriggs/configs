@@ -1,13 +1,27 @@
-Style/FrozenStringLiteralComment:
+---
+Layout/CaseIndentation:
+  EnforcedStyle: end
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+Layout/FirstArrayElementIndentation:
   Enabled: false
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-  SupportedStyles:
-    - single_quotes
-    - double_quotes
-Style/IfUnlessModifier:
+Layout/IndentationStyle:
+  EnforcedStyle: tabs
+Layout/IndentationWidth:
+  Width: 1
+Layout/LineLength:
   Enabled: false
-Style/ModuleFunction:
+Lint/MissingSuper:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
   Enabled: false
 Metrics/ParameterLists:
   Enabled: false
@@ -15,37 +29,46 @@ Metrics/PerceivedComplexity:
   Enabled: false
 Naming/MethodParameterName:
   Enabled: false
-Metrics/MethodLength:
-  Enabled: false
-Metrics/CyclomaticComplexity:
-  Enabled: false
-Metrics/AbcSize:
+Style/ClassAndModuleChildren:
   Enabled: false
 Style/Documentation:
   Enabled: false
-Layout/FirstArrayElementIndentation:
+Style/For:
+  EnforcedStyle: for
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/InverseMethods:
+  Enabled: false
+Style/ModuleFunction:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Style/NegatedIf:
+  Enabled: false
+Style/NegatedIfElseCondition:
+  Enabled: false
+Style/NegatedUnless:
+  Enabled: false
+Style/NegatedWhile:
+  Enabled: false
+Style/RedundantReturn:
+  Enabled: false
+Style/SafeNavigation:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Style/SymbolProc:
   Enabled: false
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
-Style/GuardClause:
-  Enabled: false
-Layout/CaseIndentation:
-  EnforcedStyle: end
-Layout/EndAlignment:
-  EnforcedStyleAlignWith: variable
-Style/MutableConstant:
-  Enabled: false
 Style/WordArray:
   EnforcedStyle: brackets
-Lint/MissingSuper:
-  Enabled: false
-Metrics/BlockLength:
-  Enabled: false
-Layout/IndentationStyle:
-  EnforcedStyle: tabs
-Layout/IndentationWidth:
-  Width: 1
-Style/SymbolArray:
-  EnforcedStyle: brackets
-Layout/LineLength:
-  Enabled: false

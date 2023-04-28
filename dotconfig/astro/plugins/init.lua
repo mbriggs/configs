@@ -122,6 +122,11 @@ local lsp = {
 			{ "nvim-treesitter/nvim-treesitter" },
 		},
 	},
+	-- generate debug statements
+	{
+		"andrewferrier/debugprint.nvim",
+		config = require("user.plugins.debugprint"),
+	},
 	-- diagnostic window
 	{
 		"folke/lsp-trouble.nvim",
@@ -216,40 +221,46 @@ local clj = {
 	{ "guns/vim-sexp", requires = { { "tpope/vim-sexp-mappings-for-regular-people" } } },
 }
 
-local function label(plugins)
-	local labelled = {}
-	for _, plugin in ipairs(plugins) do
-		labelled[plugin[1]] = plugin
-	end
-	return labelled
-end
+-- local function label(plugins)
+-- 	local labelled = {}
+-- 	for _, plugin in ipairs(plugins) do
+-- 		labelled[plugin[1]] = plugin
+-- 	end
+-- 	return labelled
+-- end
 
 return function(plugins)
 	-- Disabled Default Plugins
-	plugins["glepnir/dashboard-nvim"] = { disable = true }
-	plugins["goolord/alpha-nvim"] = { disable = true }
-	plugins["Shatur/neovim-session-manager"] = { disable = true }
-	plugins["akinsho/bufferline.nvim"] = { disable = true }
-	plugins["p00f/nvim-ts-rainbow"] = { disable = true }
-	plugins["rafamadriz/friendly-snippets"] = { disable = true }
-	plugins["Shatur/neovim-session-manager"] = { disable = true }
-	plugins["s1n7ax/nvim-window-picker"] = { disable = true }
-	plugins["famiu/bufdelete.nvim"] = { disable = true }
-	plugins["L3MON4D3/LuaSnip"] = {
-		config = function()
-			require("configs.luasnip")
-		end,
-	}
+	-- plugins["glepnir/dashboard-nvim"] = { disable = true }
+	-- plugins["goolord/alpha-nvim"] = { disable = true }
+	-- plugins["Shatur/neovim-session-manager"] = { disable = true }
+	-- plugins["akinsho/bufferline.nvim"] = { disable = true }
+	-- plugins["p00f/nvim-ts-rainbow"] = { disable = true }
+	-- plugins["rafamadriz/friendly-snippets"] = { disable = true }
+	-- plugins["Shatur/neovim-session-manager"] = { disable = true }
+	-- plugins["s1n7ax/nvim-window-picker"] = { disable = true }
+	-- plugins["famiu/bufdelete.nvim"] = { disable = true }
+	-- plugins["L3MON4D3/LuaSnip"] = {
+	-- 	config = function()
+	-- 		require("configs.luasnip")
+	-- 	end,
+	-- }
 
 	local combined = vim.tbl_deep_extend(
 		"force",
 		plugins,
-		label(core),
-		label(tools),
-		label(fix),
-		label(lsp),
-		label(objects),
-		label(clj)
+		core,
+		tools,
+		fix,
+		lsp,
+		objects,
+		clj
+		-- label(core),
+		-- label(tools),
+		-- label(fix),
+		-- label(lsp),
+		-- label(objects),
+		-- label(clj)
 	)
 
 	return combined
