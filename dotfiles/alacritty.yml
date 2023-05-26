@@ -31,7 +31,7 @@ font:
   italic:
     family: VictorMono Nerd Font
     style: Oblique
-  size: 15
+  size: 14
 draw_bold_text_with_bright_colors: true
 live_config_reload: true
 color_schemes:
@@ -330,11 +330,14 @@ key_bindings:
   - { key: Comma, mods: Command, chars: "\x01," } # rename
   - { key: Period, mods: Command, chars: "\x01`" } # zoom
   - { key: Period, mods: Command|Shift, chars: "\x01z" } # zoom tmux
-  - { key: Semicolon, mods: Command, chars: "\x01:" } # run command
+  - { key: Semicolon, mods: Command|Shift, chars: "\x01:" } # run command
   - { key: W, mods: Command, chars: "\x01x" } # kill current pane
   - { key: Return, mods: Command, chars: "\x01\\" } # toggle status
   - { key: T, mods: Command, chars: "\x01c" } # create window
   # vim
+  - { key: Semicolon, mods: Command, chars: "\x1bl" } # copilot accept
+  - { key: RBracket, mods: Command, chars: "\x1b]" } # copilot next
+  - { key: LBracket, mods: Command, chars: "\x1b[" } # copilot prev
   - { key: G, mods: Command, chars: "\egnn" } # init inc selection
   - { key: U, mods: Command, chars: "grn" } # inc selection
   - { key: O, mods: Command, chars: "grm" } # dec selection

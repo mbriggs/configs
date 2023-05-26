@@ -19,12 +19,4 @@ return {
 	{ "dhruvasagar/vim-zoom", event = "BufReadPost" },
 	-- shadowenv integration
 	{ "Shopify/shadowenv.vim", event = "BufReadPost" },
-	-- copilot
-	{
-		"github/copilot.vim",
-		event = "BufReadPost",
-		config = function()
-			vim.cmd([[:Copilot setup]])
-		end,
-	},
 }
