@@ -1,5 +1,12 @@
-return function()
-	require("gopher").setup({
+-- go tooling
+return {
+	"olexsmir/gopher.nvim",
+	name = "gopher",
+	requires = { -- dependencies
+		"nvim-lua/plenary.nvim",
+		"nvim-treesitter/nvim-treesitter",
+	},
+	opts = {
 		commands = {
 			go = "go",
 			gomodifytags = "gomodifytags",
@@ -7,5 +14,5 @@ return function()
 			impl = "impl",
 			iferr = "iferr",
 		},
-	})
-end
+	}
+}

@@ -3,3 +3,4 @@ dotfiles/ssh/authorized_keys
 
 dotfiles/ssh/known_hosts
 dotfiles/ssh/known_hosts.old
+dotconfig/astro/lsp/formatting.lua
