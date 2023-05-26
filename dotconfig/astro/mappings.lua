@@ -44,7 +44,7 @@ return {
 			"<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
 			desc = "Words",
 		},
-		["<leader>fd"] = { desc = "+dir" },
+		["<leader>fd"] = { desc = " dir" },
 		["<leader>fdf"] = { "<cmd>Telescope dir find_files<cr>", desc = "Find files in directory" },
 		["<leader>fdw"] = { "<cmd>Telescope dir live_grep<cr>", desc = "Search files in directory" },
 
@@ -54,7 +54,7 @@ return {
 		["<leader>gd"] = { [[<cmd>DiffviewOpen<cr>]], desc = "View git diff" },
 
 		-- editor
-		["<leader>E"] = { desc = "Editor" },
+		["<leader>E"] = { desc = " Editor" },
 		["<leader>Em"] = { [[<cmd>Telescope marks<cr>]], desc = "Marks" },
 		["<leader>Eh"] = { [[<cmd>Telescope help_tags<cr>]], desc = "Help Tag" },
 		["<leader>E;"] = { [[<cmd>Telescope commands<cr>]], desc = "Commands" },
@@ -68,7 +68,7 @@ return {
 		["<leader>Es"] = { "<cmd>Sort<cr>", desc = "Sort" },
 
 		-- test
-		["<leader>t"] = { desc = "+Test" },
+		["<leader>t"] = { desc = "󰙨 Test" },
 		["<leader>tt"] = { "<cmd>TestNearest<cr>", desc = "Test Nearest" },
 		["<leader>tf"] = { "<cmd>TestFile<cr>", desc = "Test File" },
 		["<leader>ta"] = { "<cmd>TestSuite<cr>", desc = "Test Suite" },
@@ -76,7 +76,7 @@ return {
 		["<leader>t."] = { "<cmd>TestVisit<cr>", desc = "Visit Test" },
 
 		-- trouble
-		["<leader>x"] = { desc = "+Trouble" },
+		["<leader>x"] = { desc = " Trouble" },
 		["<leader>xx"] = { "<cmd>TroubleClose<cr>", desc = "Close" },
 		["<leader>xf"] = { "<cmd>TroubleToggle definitions<cr>", desc = "Definitions" },
 		["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
