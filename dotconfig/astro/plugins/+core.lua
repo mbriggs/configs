@@ -17,4 +17,14 @@ return {
 	{ "jinh0/eyeliner.nvim" },
 	-- zoom pane with <C-w>m
 	{ "dhruvasagar/vim-zoom" },
+	-- shadowenv integration
+	{ "Shopify/shadowenv.vim", lazy = false },
+	-- copilot
+	{
+		"github/copilot.vim",
+		event = "BufReadPost",
+		config = function()
+			vim.cmd([[:Copilot setup]])
+		end,
+	},
 }

@@ -7,6 +7,7 @@ return {
 		clipboard = "",
 		relativenumber = false,
 		showtabline = 0,
-		wrap = true,
+		cmdheight = 1,
+		wrap = false,
 	},
 }
