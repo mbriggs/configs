@@ -37,7 +37,7 @@ alias lg="lazygit"
 alias dk="docker"
 alias dkc="docker compose"
 alias dke='docker compose exec $DKC_MAIN'
-alias rails='docker compose exec $DKC_MAIN ./bin/rails'
+#alias rails='docker compose exec $DKC_MAIN ./bin/rails'
 alias rlog="tail -f log/development.log"
 
 ### brew
@@ -54,9 +54,13 @@ fi
 
 ### direnv
 
-if command -v direnv &>/dev/null; then
-	eval "$(direnv hook zsh)"
-fi
+#if command -v direnv &>/dev/null; then
+#	eval "$(direnv hook zsh)"
+#fi
+
+### shadowenv
+
+eval "$(shadowenv init zsh)"
 
 ### fzf
 
@@ -80,12 +84,12 @@ fi
 p10k_conf="$HOME/.config/p10k/p10k.zsh"
 [[ ! -f "$p10k_conf" ]] || source "$p10k_conf"
 
-### chruby
+## chruby
 
 # if [[ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh ]] 
 # then
-#   source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
-#   source $HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh
+#  source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
+#  source $HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh
 # fi
 
 ### nvm

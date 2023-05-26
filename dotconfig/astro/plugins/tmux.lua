@@ -1,5 +1,9 @@
-return function()
-	require("tmux").setup({
+-- tmux integration
+
+return {
+	"aserowy/tmux.nvim",
+	name = "tmux",
+	opts = {
 		copy_sync = {
 			enable = false,
 		},
@@ -11,5 +15,5 @@ return function()
 		resize = {
 			enable_default_keybindings = false,
 		},
-	})
-end
+	}
+}
