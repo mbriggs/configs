@@ -21,6 +21,7 @@ return {
 		requires = { "kyazdani42/nvim-web-devicons", lazy = false },
 		cmd = "TroubleToggle",
 	},
+	-- toggle diagnostic style
 	{
 		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		event = "LspAttach",
@@ -28,4 +29,6 @@ return {
 			require("lsp_lines").setup()
 		end,
 	},
+	-- provide a single command for both references and definition
+	{ "KostkaBrukowa/definition-or-references.nvim" },
 }

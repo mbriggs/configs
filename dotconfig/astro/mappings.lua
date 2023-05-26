@@ -17,8 +17,12 @@ return {
 		["<leader>-"] = { [[<cmd>only<cr>]], desc = "Close other splits" },
 		["<leader>'"] = { [[<cmd>vs<cr>]], desc = "Split" },
 		['<leader>"'] = { [[<cmd>sp<cr>]], desc = "Horizontal Split" },
-		["<leader>."] = { [[<cmd>Telescope lsp_definitions<cr>]], desc = "Go to Definition" },
-		["<leader>>"] = { [[<cmd>Telescope lsp_references<cr>]], desc = "Go to other references" },
+		["<leader>."] = {
+			function()
+				require("definition-or-references").definition_or_references()
+			end,
+			desc = "Go to Definition or References",
+		},
 		["<leader>/"] = {
 			toggleLines,
 			desc = "Toggle Diagnostics",
