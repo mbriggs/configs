@@ -12,6 +12,7 @@ return {
 	n = {
 		---- CORE ----
 		["<leader>:"] = { [[<cmd>lua require("user.lsp_fixcurrent")()<cr>]], desc = "QuickFix" },
+		["<leader>>"] = { [[<cmd>Navbuddy<cr>]], desc = "Navbuddy" },
 		["<leader>;"] = { "<cmd>Telescope find_files<cr>", desc = "Files" },
 		["<leader><cr>"] = { [[<cmd>q<cr>]], desc = "Close Window" },
 		["<leader>-"] = { [[<cmd>only<cr>]], desc = "Close other splits" },
