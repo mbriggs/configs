@@ -31,4 +31,15 @@ return {
 	},
 	-- provide a single command for both references and definition
 	{ "KostkaBrukowa/definition-or-references.nvim" },
+
+	{
+		"SmiteshP/nvim-navbuddy",
+		after = "neovim/nvim-lspconfig",
+		event = "LspAttach",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"MunifTanjim/nui.nvim",
+		},
+		opts = { lsp = { auto_attach = true } },
+	},
 }
