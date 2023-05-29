@@ -8,12 +8,18 @@ local function toggleLines()
 	return new_value
 end
 
+-- spider movement
+vim.keymap.set({ "n", "o", "x" }, ",w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
+vim.keymap.set({ "n", "o", "x" }, ",e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })
+vim.keymap.set({ "n", "o", "x" }, ",b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-b" })
+vim.keymap.set({ "n", "o", "x" }, ",ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-ge" })
+
 return {
 	n = {
 		---- CORE ----
 		["<leader>:"] = { [[<cmd>lua require("user.lsp_fixcurrent")()<cr>]], desc = "QuickFix" },
 		["<leader>>"] = { [[<cmd>Navbuddy<cr>]], desc = "Navbuddy" },
-		["<leader>;"] = { "<cmd>Telescope find_files<cr>", desc = "Files" },
+		["<leader>;"] = { "<cmd>lua require('telescope').extensions.togglescope.find_files()<cr>", desc = "Files" },
 		["<leader><cr>"] = { [[<cmd>q<cr>]], desc = "Close Window" },
 		["<leader>-"] = { [[<cmd>only<cr>]], desc = "Close other splits" },
 		["<leader>'"] = { [[<cmd>vs<cr>]], desc = "Split" },
@@ -166,6 +172,7 @@ return {
 			F = { "<c-r>=strftime('%H:%M:%S')<cr>", desc = "H:M:S" },
 			d = { "<c-r>=strftime('%Y/%m/%d %H:%M:%S -')<cr>", desc = "Y/m/d H:M:S -" },
 		},
+		["<c-p>"] = { [[<cmd>lua vim.lsp.buf.signature_help()<cr>]], desc = "Parameter Info" },
 	},
 
 	c = {
