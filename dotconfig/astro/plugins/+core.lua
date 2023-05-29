@@ -37,7 +37,7 @@ return {
 	-- editorconfig
 	{
 		"gpanders/editorconfig.nvim",
-		event = "BufReadPost",
+		lazy = false,
 		config = function()
 			vim.g.editorconfig = false
 		end,
