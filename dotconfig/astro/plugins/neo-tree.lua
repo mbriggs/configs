@@ -14,12 +14,9 @@ return {
 			},
 		},
 		window = {
-			position = "float",
-			width = 40,
-
 			mappings = {
 				["/"] = "none",
 			},
 		},
-	}
+	},
 }
