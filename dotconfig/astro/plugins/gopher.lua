@@ -1,6 +1,7 @@
 -- go tooling
 return {
 	"olexsmir/gopher.nvim",
+	ft = "go",
 	name = "gopher",
 	requires = { -- dependencies
 		"nvim-lua/plenary.nvim",
@@ -14,5 +15,5 @@ return {
 			impl = "impl",
 			iferr = "iferr",
 		},
-	}
+	},
 }
