@@ -5,28 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-### path
-
-export BREW_PREFIX="/opt/homebrew"
-export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
-export ZSH_THEME="powerlevel10k/powerlevel10k"
-export EDITOR=nvim
-
-export path=(
-  $BREW_PREFIX/opt/openssl@3/bin
-  $BREW_PREFIX/opt/ruby/bin
-	$BREW_PREFIX/bin
-	$BREW_PREFIX/opt/curl/bin
-	$BREW_PREFIX/opt/ruby/bin
-	$BREW_PREFIX/coreutils/libexec/gnubin
-	$HOME/.yarn/bin
-	$HOME/.cargo/bin
-	$HOME/.config/yarn/global/node_modules/.bin
-	$path
-	$HOME/go/bin
-	$HOME/.local/bin
-	$HOME/.config/emacs/bin
-)
 
 ### aliases
 
@@ -51,6 +29,30 @@ if [ -f $BREW_PREFIX/bin/brew ]
 then
 	eval "$($BREW_PREFIX/bin/brew shellenv)"
 fi
+
+### path
+
+export BREW_PREFIX="/opt/homebrew"
+export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+export ZSH_THEME="powerlevel10k/powerlevel10k"
+export EDITOR=nvim
+
+export path=(
+	/usr/local/go/bin
+	$BREW_PREFIX/bin
+	$BREW_PREFIX/opt/openssl@3/bin
+	$BREW_PREFIX/opt/ruby/bin
+	$BREW_PREFIX/opt/curl/bin
+	$BREW_PREFIX/opt/ruby/bin
+	$BREW_PREFIX/coreutils/libexec/gnubin
+	$HOME/.yarn/bin
+	$HOME/.cargo/bin
+	$HOME/.config/yarn/global/node_modules/.bin
+	$path
+	$HOME/go/bin
+	$HOME/.local/bin
+	$HOME/.config/emacs/bin
+)
 
 ### direnv
 
@@ -86,7 +88,7 @@ p10k_conf="$HOME/.config/p10k/p10k.zsh"
 
 ## chruby
 
-# if [[ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh ]] 
+# if [[ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh ]]
 # then
 #  source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
 #  source $HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh
@@ -98,7 +100,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# pnpm
-export PNPM_HOME="/Users/mbriggs/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end
