@@ -1,5 +1,5 @@
 return {
-	virtual_text = true,
+	virtual_text = false,
 	virtual_lines = false,
 	underline = true,
 }
