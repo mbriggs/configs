@@ -2,7 +2,7 @@ local function toggleLines()
 	local new_value = not vim.diagnostic.config().virtual_lines
 	vim.diagnostic.config({
 		virtual_lines = new_value,
-		virtual_text = not new_value,
+		-- virtual_text = not new_value,
 	})
 
 	return new_value
@@ -16,6 +16,31 @@ vim.keymap.set({ "n", "o", "x" }, ",ge", "<cmd>lua require('spider').motion('ge'
 
 return {
 	n = {
+		---- REMOVE ----
+		--- buffers
+		["<leader>b"] = false,
+		["<leader>bs"] = false,
+		["<leader>b\\"] = false,
+		["<leader>b|"] = false,
+		["<leader>bb"] = false,
+		["<leader>bC"] = false,
+		["<leader>bc"] = false,
+		["<leader>bd"] = false,
+		["<leader>bl"] = false,
+		["<leader>br"] = false,
+		["<leader>bse"] = false,
+		["<leader>bsi"] = false,
+		["<leader>bsm"] = false,
+		["<leader>bsp"] = false,
+		["<leader>bsr"] = false,
+
+		-- term
+		["<leader>th"] = false,
+		["<leader>tl"] = false,
+		["<leader>tn"] = false,
+		["<leader>tp"] = false,
+		["<leader>tu"] = false,
+		["<leader>tv"] = false,
 		---- CORE ----
 		["<leader>:"] = { [[<cmd>lua require("user.lsp_fixcurrent")()<cr>]], desc = "QuickFix" },
 		["<leader>>"] = { [[<cmd>Navbuddy<cr>]], desc = "Navbuddy" },
