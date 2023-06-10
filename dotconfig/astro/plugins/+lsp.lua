@@ -42,4 +42,23 @@ return {
 		},
 		opts = { lsp = { auto_attach = true } },
 	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "BufRead",
+		config = function()
+			require("lsp_signature").setup()
+			vim.api.nvim_create_augroup("LspAttach_signature", {})
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = "LspAttach_signature",
+				callback = function(args)
+					if not (args.data and args.data.client_id) then
+						return
+					end
+
+					local bufnr = args.buf
+					require("lsp_signature").on_attach({}, bufnr)
+				end,
+			})
+		end,
+	},
 }
