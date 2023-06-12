@@ -26,6 +26,7 @@ dependencies:
 	brew install stylua || exit 1
 	brew install hadolint || exit 1
 	pip3 install cmakelang || exit 1
+	pip3 install tiktoken || exit 1
 	CARGO_NET_GIT_FETCH_WITH_CLI=true cargo install tree-sitter-cli || exit 1
 	brew install -f gdu || brew link --overwrite gdu
 	brew install bottom || exit 1
