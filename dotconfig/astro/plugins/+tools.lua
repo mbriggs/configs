@@ -4,6 +4,19 @@ return {
 	-- diff stuff
 	{ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" },
 
+	-- AI
+	{
+		"dpayne/CodeGPT.nvim",
+		cmd = { "Chat" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+		},
+		config = function()
+			require("codegpt.config")
+		end,
+	},
+
 	-- run tests
 	{
 		"janko/vim-test",
