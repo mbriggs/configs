@@ -30,7 +30,4 @@ return function()
 		pattern = "*.go",
 		command = "setlocal noet ts=4 sw=4 sts=4",
 	})
-
-	local load_all = require("user.load_all")
-	load_all(os.getenv("HOME") .. "/.config/nvim/lua/user/ft")
 end
