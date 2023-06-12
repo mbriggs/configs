@@ -18,13 +18,13 @@ return {
 			end
 		end, { "i", "s", "c" })
 		-- opts.mapping["<S-Tab>"] = cmp.config.disable
-		opts.mapping["<ESC>"] = function(fallback)
-			if cmp.visible() then
-				cmp.abort()
-			else
-				fallback()
-			end
-		end
+		-- opts.mapping["<ESC>"] = function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.abort()
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end
 
 		-- cmp.event:on("menu_opened", function()
 		-- 	vim.b.copilot_suggestion_hidden = true
