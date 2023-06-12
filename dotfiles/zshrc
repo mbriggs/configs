@@ -54,6 +54,13 @@ export path=(
 	$HOME/.config/emacs/bin
 )
 
+### secrets
+
+if [ -f $HOME/.secrets.sh ]
+then
+	source $HOME/.secrets.sh
+fi
+
 ### direnv
 
 #if command -v direnv &>/dev/null; then
