@@ -8,6 +8,12 @@ local function toggleLines()
 	return new_value
 end
 
+function copyRelativePath()
+	local path = vim.fn.expand("%")
+	vim.fn.setreg("", path)
+	vim.notify('Copied "' .. path .. '" to the default register')
+end
+
 -- spider movement
 vim.keymap.set({ "n", "o", "x" }, ",w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
 vim.keymap.set({ "n", "o", "x" }, ",e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })
@@ -102,6 +108,7 @@ return {
 		["<leader>Eur"] = { "<cmd>SudaRead<cr>", desc = "Read file with sudo" },
 		["<leader>Euw"] = { "<cmd>SudaWrite<cr>", desc = "Write file with sudo" },
 		["<leader>Es"] = { "<cmd>Sort<cr>", desc = "Sort" },
+		["<leader>Ey"] = { copyRelativePath, desc = "Copy Relative Path" },
 
 		-- test
 		["<leader>t"] = { desc = "󰙨 Test" },
