@@ -2,21 +2,21 @@
 
 return {
 	-- move splits around
-	{ "sindrets/winshift.nvim", cmd = "WinShift", name = "winshift" },
+	{ "sindrets/winshift.nvim", cmd = "WinShift",     name = "winshift" },
 	-- open file
-	{ "justinmk/vim-gtfo", event = "BufReadPost" },
+	{ "justinmk/vim-gtfo",      event = "BufReadPost" },
 	-- correct typos on file open from cli
-	{ "mong8se/actually.nvim", event = "BufReadPost" },
+	{ "mong8se/actually.nvim",  event = "BufReadPost" },
 	-- casing aware search and replace
 	{ "lambdalisue/reword.vim", cmd = "Reword" },
 	-- reload file with sudo
-	{ "lambdalisue/suda.vim", event = "BufReadPost" },
+	{ "lambdalisue/suda.vim",   event = "BufReadPost" },
 	-- utility mappings
-	{ "tpope/vim-unimpaired", event = "BufReadPost" },
+	{ "tpope/vim-unimpaired",   event = "BufReadPost" },
 	-- zoom pane with <C-w>m
-	{ "dhruvasagar/vim-zoom", event = "BufReadPost" },
+	{ "dhruvasagar/vim-zoom",   event = "BufReadPost" },
 	-- shadowenv integration
-	{ "Shopify/shadowenv.vim", event = "BufReadPost" },
+	{ "Shopify/shadowenv.vim",  event = "BufReadPost" },
 	{
 		"chrisgrieser/nvim-spider",
 		name = "spider",
@@ -31,5 +31,20 @@ return {
 		config = function()
 			vim.g.editorconfig = false
 		end,
+	},
+	-- highlight sections impacted by undo
+	{
+		"tzachar/highlight-undo.nvim",
+		event = "BufEnter",
+		main = "highlight-undo",
+		opts = {
+			-- hlgroup = "HighlightUndo",
+			hlgroup = "HighlightedyankRegion",
+			duration = 100,
+			keymaps = {
+				{ "n", "u",     "undo", {} },
+				{ "n", "<C-r>", "redo", {} },
+			},
+		},
 	},
 }
