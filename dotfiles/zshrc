@@ -36,6 +36,7 @@ export BREW_PREFIX="/opt/homebrew"
 export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
 export EDITOR=nvim
+export GIT_PAGER="delta -s"
 
 export path=(
 	/usr/local/go/bin
