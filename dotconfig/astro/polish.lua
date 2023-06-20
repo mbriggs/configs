@@ -30,4 +30,10 @@ return function()
 		pattern = "*.go",
 		command = "setlocal noet ts=4 sw=4 sts=4",
 	})
+	vim.api.nvim_create_autocmd("BufRead", {
+		desc = "markdown should wrap",
+		group = "userft",
+		pattern = "*.md",
+		command = "set wrap",
+	})
 end
