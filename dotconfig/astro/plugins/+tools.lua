@@ -40,4 +40,26 @@ return {
 		name = "spectre",
 		requires = "nvim-lua/plenary.nvim",
 	},
+	-- file explorer
+	{
+		"stevearc/oil.nvim",
+		cmd = "Oil",
+		opts = {
+			number = false,
+			keymaps = {
+				["g?"] = "actions.show_help",
+				["<CR>"] = "actions.select",
+				["<leader>'"] = "actions.select_vsplit",
+				['<leader>"'] = "actions.select_split",
+				["<C-p>"] = "actions.preview",
+				["`"] = "actions.close",
+				["<C-l>"] = "actions.refresh",
+				["-"] = "actions.parent",
+				["_"] = "actions.open_cwd",
+				["g."] = "actions.toggle_hidden",
+			},
+		},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 }
