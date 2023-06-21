@@ -41,8 +41,8 @@ return {
 		["<leader>bsr"] = false,
 
 		-- explore
-		["<leader>e"] = { [[<cmd>Oil<cr>]], desc = "explore current dir" },
-		["<leader>o"] = { [[<cmd>Oil --float<cr>]], desc = "open explore float" },
+		-- ["<leader>e"] = { [[<cmd>Oil<cr>]], desc = "explore current dir" },
+		-- ["<leader>o"] = { [[<cmd>Oil --float<cr>]], desc = "open explore float" },
 
 		-- term
 		["<leader>th"] = false,
