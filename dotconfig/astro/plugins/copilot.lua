@@ -5,11 +5,12 @@
 -- cmd-[ - prev
 return {
 	"zbirenbaum/copilot.lua",
-	event = "InsertEnter",
+	main = "copilot",
+	event = "VeryLazy",
 	config = function()
 		require("copilot").setup({
 			suggestion = {
-				auto_trigger = false,
+				auto_trigger = true,
 			},
 			file_types = {
 				["*"] = true,
