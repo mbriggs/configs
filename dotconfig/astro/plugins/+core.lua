@@ -1,10 +1,6 @@
 -- core plugins
 
 return {
-	-- disable dashboard
-	{ "goolord/alpha-nvim", enabled = false },
-	-- disable neo-tree
-	{ "goolord/alpha-nvim", enabled = false },
 	-- move splits around
 	{ "sindrets/winshift.nvim", cmd = "WinShift", name = "winshift" },
 	-- open file
