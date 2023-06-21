@@ -9,11 +9,6 @@ return {
 			{ "nvim-treesitter/nvim-treesitter" },
 		},
 	},
-	-- generate debug statements
-	{
-		"andrewferrier/debugprint.nvim",
-		name = "debugprint",
-	},
 	-- diagnostic window
 	{
 		"folke/lsp-trouble.nvim",
