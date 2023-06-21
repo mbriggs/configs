@@ -65,14 +65,8 @@ return {
 			end,
 			desc = "Go to Definition or References",
 		},
-		["<leader>/"] = {
-			toggleLines,
-			desc = "Toggle Diagnostics",
-		},
-		["<CR>"] = {
-			":nohlsearch<cr>:w<cr>",
-			desc = "clear highlights and save",
-		},
+		["<leader>/"] = { toggleLines, desc = "Toggle Diagnostics" },
+		["<CR>"] = { ":w<cr>", desc = "clear highlights and save" },
 
 		["<leader>c"] = { [["0]], desc = "Last Yank Register" },
 		["<leader>y"] = {
