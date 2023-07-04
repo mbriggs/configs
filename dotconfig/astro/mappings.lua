@@ -48,7 +48,7 @@ return {
 		["<leader>th"] = false,
 		["<leader>tl"] = false,
 		["<leader>tn"] = false,
-		["<leader>tp"] = false,
+		-- ["<leader>tp"] = false,
 		["<leader>tu"] = false,
 		["<leader>tv"] = false,
 		---- CORE ----
@@ -109,12 +109,43 @@ return {
 		["<leader>Ey"] = { copyRelativePath, desc = "Copy Relative Path" },
 
 		-- test
+		-- vimtest
+		-- ["<leader>t"] = { desc = "󰙨 Test" },
+		-- ["<leader>tt"] = { "<cmd>TestNearest<cr>", desc = "Test Nearest" },
+		-- ["<leader>tf"] = { "<cmd>TestFile<cr>", desc = "Test File" },
+		-- ["<leader>ta"] = { "<cmd>TestSuite<cr>", desc = "Test Suite" },
+		-- ["<leader>t;"] = { "<cmd>TestLast<cr>", desc = "Rerun Last Test" },
+		-- ["<leader>t."] = { "<cmd>TestVisit<cr>", desc = "Visit Test" },
+
 		["<leader>t"] = { desc = "󰙨 Test" },
-		["<leader>tt"] = { "<cmd>TestNearest<cr>", desc = "Test Nearest" },
-		["<leader>tf"] = { "<cmd>TestFile<cr>", desc = "Test File" },
-		["<leader>ta"] = { "<cmd>TestSuite<cr>", desc = "Test Suite" },
-		["<leader>t;"] = { "<cmd>TestLast<cr>", desc = "Rerun Last Test" },
-		["<leader>t."] = { "<cmd>TestVisit<cr>", desc = "Visit Test" },
+		["<leader>ts"] = { [[<cmd>lua require("neotest").summary.toggle()<cr>]], desc = "Toggle Summary" },
+		["<leader>tp"] = { [[<cmd>lua require("neotest").output_panel.toggle()<cr>]], desc = "Toggle Output Panel" },
+		["<leader>to"] = {
+			[[<cmd>lua require("neotest").output.open({ enter = true, auto_close = true, quiet = true })<cr>]],
+			desc = "Open Output",
+		},
+		["<leader>tO"] = {
+			[[<cmd>lua require("neotest").output.open({ enter = true, auto_close = true, quiet = true, last_run = true })<cr>]],
+			desc = "Open Last Output",
+		},
+
+		-- running
+		["<leader>tt"] = { [[<cmd>lua require("neotest").run.run()<cr>]], desc = "Test Nearest" },
+		["<leader>tf"] = { [[<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<cr>]], desc = "Test File" },
+		["<leader>ta"] = { [[<cmd>lua require("neotest").run.run({ suite = true })<cr>]], desc = "Test Suite" },
+		["<leader>t;"] = { [[<cmd>lua require("neotest").run.run_last()<cr>]], desc = "Rerun Last Test" },
+		["<leader>tw"] = { desc = "Watch" },
+		["<leader>twt"] = { [[<cmd>lua require("neotest").watch.watch()<cr>]], desc = "Watch Test Nearest" },
+		["<leader>twf"] = {
+			[[<cmd>lua require("neotest").watch.watch(vim.fn.expand("%"))<cr>]],
+			desc = "Watch Test File",
+		},
+		["<leader>twa"] = {
+			[[<cmd>lua require("neotest").watch.watch({ suite = true })<cr>]],
+			desc = "Watch Test Suite",
+		},
+		["<leader>tw;"] = { [[<cmd>lua require("neotest").watch.watch_last()<cr>]], desc = "Rewatch Last Test" },
+		["<leader>tws"] = { [[<cmd>lua require("neotest").watch.stop()<cr>]], desc = "Stop Watching" },
 
 		-- trouble
 		["<leader>x"] = { desc = " Trouble" },
