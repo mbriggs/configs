@@ -14,6 +14,20 @@ function copyRelativePath()
 	vim.notify('Copied "' .. path .. '" to the default register')
 end
 
+vim.api.nvim_create_augroup("mappingfix", {})
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "quickfix mappings",
+	group = "mappingfix",
+	pattern = "qf",
+	command = "nnoremap <buffer> <cr> <cr>",
+})
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "telescope mappings",
+	group = "mappingfix",
+	pattern = "TelescopePrompt",
+	command = "nnoremap <buffer> <cr> <cr>",
+})
+
 -- spider movement
 vim.keymap.set({ "n", "o", "x" }, ",w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
 vim.keymap.set({ "n", "o", "x" }, ",e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })
@@ -31,6 +45,7 @@ return {
 		["<leader>bb"] = false,
 		["<leader>bC"] = false,
 		["<leader>bc"] = false,
+		["<leader>bp"] = false,
 		["<leader>bd"] = false,
 		["<leader>bl"] = false,
 		["<leader>br"] = false,
@@ -66,7 +81,6 @@ return {
 			desc = "Go to Definition or References",
 		},
 		["<leader>/"] = { toggleLines, desc = "Toggle Diagnostics" },
-		["<CR>"] = { ":w<cr>", desc = "clear highlights and save" },
 
 		["<leader>c"] = { [["0]], desc = "Last Yank Register" },
 		["<leader>y"] = {
@@ -158,6 +172,11 @@ return {
 		["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", desc = "Location List" },
 		["<leader>xt"] = { "<cmd>TodoTrouble<cr>", desc = "TODOs" },
 
+		-- save
+		["<cr>"] = {
+			"<cmd>write<cr>",
+			desc = "save",
+		},
 		-- start / end of line
 		["<S-h>"] = {
 			"^",
