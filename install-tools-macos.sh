@@ -33,6 +33,9 @@ clojure -Ttools install io.github.seancorfield/deps-new '{:git/tag "v0.4.13"}' :
 echo "-- installing python"
 brew install python || exit 1
 
+echo "-- installing gh"
+brew install gh || exit 1
+
 echo "-- installing ruby"
 brew install chruby || exit 1
 brew install ruby-install || exit 1
