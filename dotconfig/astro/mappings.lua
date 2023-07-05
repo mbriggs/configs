@@ -279,5 +279,7 @@ return {
 		["<leader>ab"] = { [[<cmd>ChatGPTRun fix_bugs<cr>]], desc = "Fix Bugs" },
 		["<leader>ae"] = { [[<cmd>ChatGPTRun explain_code<cr>]], desc = "Explain Code" },
 		["<leader>ar"] = { [[<cmd>ChatGPTRun code_readability_analysis<cr>]], desc = "Code Readability Analyisis" },
+
+		["//"] = { [[y/<C-R>"<CR>]], desc = "Search within selected text" },
 	},
 }
