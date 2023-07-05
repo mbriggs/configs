@@ -107,6 +107,11 @@ return {
 		["<leader>gC"] = { [[<cmd>DiffviewFileHistory<cr>]], desc = "Branch Commits" },
 		["<leader>gd"] = { [[<cmd>DiffviewOpen<cr>]], desc = "View git diff" },
 
+		-- ai
+		["<leader>a"] = { desc = "󱚥 AI" },
+		["<leader>aa"] = { [[<cmd>ChatGPT<cr>]], desc = "Open ChatGPT Session" },
+		["<leader>aA"] = { [[<cmd>ChatGPTActAs<cr>]], desc = "Open ChatGPT Session as a Persona" },
+
 		-- editor
 		["<leader>E"] = { desc = " Editor" },
 		["<leader>Em"] = { [[<cmd>Telescope marks<cr>]], desc = "Marks" },
@@ -260,5 +265,19 @@ return {
 			"<C-R>=expand('%:h').'/'<cr>",
 			desc = "insert dir of current buffer into ex line",
 		},
+	},
+
+	v = {
+		["<leader>a"] = { desc = "󱚥 AI" },
+		["<leader>ag"] = { [[<cmd>ChatGPTRun correct_grammar<cr>]], desc = "Correct Grammar" },
+		["<leader>aT"] = { [[<cmd>ChatGPTRun translate<cr>]], desc = "Translate" },
+		["<leader>ak"] = { [[<cmd>ChatGPTRun keywords<cr>]], desc = "Main Keywords" },
+		["<leader>ad"] = { [[<cmd>ChatGPTRun docstring<cr>]], desc = "Docstring for function" },
+		["<leader>at"] = { [[<cmd>ChatGPTRun add_tests<cr>]], desc = "Generate Tests" },
+		["<leader>ao"] = { [[<cmd>ChatGPTRun optimize_code<cr>]], desc = "Optimize Code" },
+		["<leader>as"] = { [[<cmd>ChatGPTRun summerize<cr>]], desc = "Summerize Text" },
+		["<leader>ab"] = { [[<cmd>ChatGPTRun fix_bugs<cr>]], desc = "Fix Bugs" },
+		["<leader>ae"] = { [[<cmd>ChatGPTRun explain_code<cr>]], desc = "Explain Code" },
+		["<leader>ar"] = { [[<cmd>ChatGPTRun code_readability_analysis<cr>]], desc = "Code Readability Analyisis" },
 	},
 }
