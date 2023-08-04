@@ -72,3 +72,13 @@ Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 Style/WordArray:
   EnforcedStyle: brackets
+Style/GlobalStdStream:
+  Enabled: false
+Style/HashSyntax:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Lint/BooleanSymbol:
+  Enabled: false
+Lint/UnusedMethodArgument:
+  Enabled: false
