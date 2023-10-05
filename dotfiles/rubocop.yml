@@ -1,9 +1,13 @@
 ---
+Layout/ArgumentAlignment:
+  Enabled: false
 Layout/CaseIndentation:
   EnforcedStyle: end
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 Layout/FirstArrayElementIndentation:
+  Enabled: false
+Layout/HashAlignment:
   Enabled: false
 Layout/IndentationStyle:
   EnforcedStyle: tabs
@@ -11,11 +15,19 @@ Layout/IndentationWidth:
   Width: 1
 Layout/LineLength:
   Enabled: false
+
+Lint/BooleanSymbol:
+  Enabled: false
 Lint/MissingSuper:
   Enabled: false
+Lint/UnusedMethodArgument:
+  Enabled: false
+
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
   Enabled: false
 Metrics/CyclomaticComplexity:
   Enabled: false
@@ -27,21 +39,35 @@ Metrics/ParameterLists:
   Enabled: false
 Metrics/PerceivedComplexity:
   Enabled: false
+
 Naming/MethodParameterName:
   Enabled: false
+
+Style/AccessorGrouping:
+  EnforcedStyle: separated
 Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ConditionalAssignment:
   Enabled: false
 Style/Documentation:
   Enabled: false
-Style/For:
-  EnforcedStyle: for
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+Style/ExplicitBlockArgument:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
+Style/GlobalStdStream:
+  Enabled: false
 Style/GuardClause:
+  Enabled: false
+Style/HashSyntax:
   Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
 Style/InverseMethods:
+  Enabled: false
+Style/MixinGrouping:
   Enabled: false
 Style/ModuleFunction:
   Enabled: false
@@ -54,6 +80,8 @@ Style/NegatedIfElseCondition:
 Style/NegatedUnless:
   Enabled: false
 Style/NegatedWhile:
+  Enabled: false
+Style/RedundantAssignment:
   Enabled: false
 Style/RedundantReturn:
   Enabled: false
@@ -72,13 +100,3 @@ Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 Style/WordArray:
   EnforcedStyle: brackets
-Style/GlobalStdStream:
-  Enabled: false
-Style/HashSyntax:
-  Enabled: false
-Metrics/ClassLength:
-  Enabled: false
-Lint/BooleanSymbol:
-  Enabled: false
-Lint/UnusedMethodArgument:
-  Enabled: false
