@@ -42,8 +42,8 @@ brew install ruby-install || exit 1
 source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
 source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 ruby-install -L || exit 1
-ruby-install 2.7 || exit 1
-ruby-install 3 || exit 1
+ruby-install 3 -- --with-openssl-dir=/opt/homebrew/opt/openssl@1.1 || exit 1
+ruby-install 2.7 -- --with-openssl-dir=/opt/homebrew/opt/openssl@1.1 || exit 1
 
 echo "-- installing js"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash || exit 1
