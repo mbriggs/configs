@@ -1,31 +1,31 @@
 [user]
 	name = Matt Briggs
 	email = matt@mattbriggs.net
-	signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCeMG03DC+4dKPLQkUuNAgguNHb3WGKtsutB1MuXYpLHo0mBG7DWDxUM00lmGwCqFGA+PwJIcGvUALDxvnqCW1z/knPSCDF2V0EjEQ7L6zHCBygTAPiBffg3lhVEQDyuL5i7HDMwY42GYeX2CmDOhyu0249qFpg/NgaZIU8QTyJZ0RdFa2nk0jhgv9ebGqKlzyua/+m6ZhwF2jXyMEuMIHQw3IwXyK2qf1QHWPjNX1Ir+jpcavLn+ctnryl+mdobeHz3mTzYFexZkKqaGFmfpKXTiWKexpHSajaRHeG/XJSL4djtnq3B9kY5czVb82m+KQVuE7h6u/hmu3B1EljOKOt
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBsWuyaFPxRx4z9G1Bs2dcbvpJal12HkdsQXfJoBKXFc
 [color]
-  ui = true
+	ui = true
 [core]
-  editor = nvim
-  pager = delta -s
-  quotepath = false
+	editor = nvim
+	pager = delta -s
+	quotepath = false
 	excludesFile = /Users/mbriggs/.gitignore
-  autocrlf = input
+	autocrlf = input
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 [delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false
+	navigate = true    # use n and N to move between diff sections
+	light = false
 [diff]
-    colorMoved = default
+	colorMoved = default
 [url "ssh://git@github.com/"]
-  insteadOf = https://github.com/
+	insteadOf = https://github.com/
 [url "ssh://git@gitlab.com/"]
-  insteadOf = https://gitlab.com/
+	insteadOf = https://gitlab.com/
 [url "ssh://git@bitbucket.org/"]
-  insteadOf = https://bitbucket.org/
+	insteadOf = https://bitbucket.org/
 [rerere]
-  enabled = 1
-  autoupdate = true
+	enabled = 1
+	autoupdate = true
 [commit]
 	verbose = true
 	gpgsign = true
