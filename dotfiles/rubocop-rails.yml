@@ -1,0 +1,50 @@
+inherit_from: "https://raw.githubusercontent.com/mbriggs/configs/main/dotfiles/rubocop.yml"
+require:
+  - rubocop-rails
+  - rubocop-capybara
+  - rubocop-performance
+  - rubocop-minitest
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - .irbrc
+    - db/schema.rb
+    - bin/*
+    - node_modules/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - .git/**/*
+
+Rails/NotNullColumn:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+Rails/ThreeStateBooleanColumn:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Capybara/ClickLinkOrButtonStyle:
+  Enabled: false
+
+Minitest/MultipleAssertions:
+  Enabled: false
+
+Minitest/AssertPredicate:
+  Enabled: false
+
+Minitest/RefutePredicate:
+  Enabled: false
+
+Minitest/AssertOperator:
+  Enabled: false
