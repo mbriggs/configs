@@ -15,12 +15,16 @@ Layout/IndentationWidth:
   Width: 1
 Layout/LineLength:
   Enabled: false
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
 
 Lint/BooleanSymbol:
   Enabled: false
 Lint/MissingSuper:
   Enabled: false
 Lint/UnusedMethodArgument:
+  Enabled: false
+Lint/Loop:
   Enabled: false
 
 Metrics/AbcSize:
@@ -41,6 +45,8 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Naming/MethodParameterName:
+  Enabled: false
+Naming/VariableNumber:
   Enabled: false
 
 Style/AccessorGrouping:
@@ -100,3 +106,7 @@ Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 Style/WordArray:
   EnforcedStyle: brackets
+Style/GlobalVars:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma

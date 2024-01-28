@@ -8,7 +8,7 @@
 	editor = nvim
 	pager = delta -s
 	quotepath = false
-	excludesFile = /Users/mbriggs/.gitignore
+	excludesfile = ~/.gitignore
 	autocrlf = input
 [interactive]
 	diffFilter = delta --color-only
