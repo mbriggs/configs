@@ -5,18 +5,9 @@
 [color]
 	ui = true
 [core]
-	editor = nvim
-	pager = delta -s
 	quotepath = false
 	excludesfile = ~/.gitignore
 	autocrlf = input
-[interactive]
-	diffFilter = delta --color-only
-[delta]
-	navigate = true    # use n and N to move between diff sections
-	light = false
-[diff]
-	colorMoved = default
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 [url "ssh://git@gitlab.com/"]
