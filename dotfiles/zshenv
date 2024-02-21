@@ -1,0 +1,32 @@
+### libpq
+export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/libpq/lib/pkgconfig"
+
+
+### path
+
+export BREW_PREFIX="/opt/homebrew"
+export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+export ZSH_THEME="powerlevel10k/powerlevel10k"
+export EDITOR="code --wait"
+export GIT_PAGER="delta -s"
+
+export path=(
+	/usr/local/go/bin
+	$BREW_PREFIX/bin
+	$BREW_PREFIX/opt/libpq/bin
+	$BREW_PREFIX/opt/openssl@3/bin
+	$BREW_PREFIX/opt/ruby/bin
+	$BREW_PREFIX/opt/curl/bin
+	$BREW_PREFIX/opt/ruby/bin
+	$BREW_PREFIX/coreutils/libexec/gnubin
+	$HOME/.yarn/bin
+	$HOME/.cargo/bin
+	$HOME/.config/yarn/global/node_modules/.bin
+	$path
+	$HOME/go/bin
+	$HOME/.local/bin
+	$HOME/.config/emacs/bin
+        $BREW_PREFIX/opt/libpq/bin
+)

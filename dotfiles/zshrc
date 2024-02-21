@@ -12,53 +12,17 @@ alias rlog="tail -f log/development.log"
 
 ### brew
 
-if [ -f /opt/homebrew/etc/profile.d/z.sh ]
-then
+if [ -f /opt/homebrew/etc/profile.d/z.sh ]; then
 	source /opt/homebrew/etc/profile.d/z.sh
 fi
 
-if [ -f $BREW_PREFIX/bin/brew ]
-then
+if [ -f $BREW_PREFIX/bin/brew ]; then
 	eval "$($BREW_PREFIX/bin/brew shellenv)"
 fi
 
-### libpq
-export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/libpq/lib/pkgconfig"
-
-
-### path
-
-export BREW_PREFIX="/opt/homebrew"
-export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
-export ZSH_THEME="powerlevel10k/powerlevel10k"
-export EDITOR="code --wait"
-export GIT_PAGER="delta -s"
-
-export path=(
-	/usr/local/go/bin
-	$BREW_PREFIX/bin
-	$BREW_PREFIX/opt/libpq/bin
-	$BREW_PREFIX/opt/openssl@3/bin
-	$BREW_PREFIX/opt/ruby/bin
-	$BREW_PREFIX/opt/curl/bin
-	$BREW_PREFIX/opt/ruby/bin
-	$BREW_PREFIX/coreutils/libexec/gnubin
-	$HOME/.yarn/bin
-	$HOME/.cargo/bin
-	$HOME/.config/yarn/global/node_modules/.bin
-	$path
-	$HOME/go/bin
-	$HOME/.local/bin
-	$HOME/.config/emacs/bin
-        $BREW_PREFIX/opt/libpq/bin
-)
-
 ### secrets
 
-if [ -f $HOME/.secrets.sh ]
-then
+if [ -f $HOME/.secrets.sh ]; then
 	source $HOME/.secrets.sh
 fi
 
@@ -74,19 +38,17 @@ eval "$(shadowenv init zsh)"
 
 ### fzf
 
-if [ -f ~/.fzf.zsh ]
-then
+if [ -f ~/.fzf.zsh ]; then
 	source ~/.fzf.zsh
 fi
 
 ### p10k prompt
 
 p10k="$HOME/.local/share/powerlevel10k/powerlevel10k.zsh-theme"
-if [ -f "$p10k" ]
-then
+if [ -f "$p10k" ]; then
 	source "$p10k"
 else
-  echo "installing p10k..."
+	echo "installing p10k..."
 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $(dirname "$p10k")
 	source "$p10k"
 fi
@@ -94,20 +56,18 @@ fi
 p10k_conf="$HOME/.config/p10k/p10k.zsh"
 [[ ! -f "$p10k_conf" ]] || source "$p10k_conf"
 
-
 ## rbenv
 
 if which rbenv >/dev/null 2>&1; then
 	eval "$(rbenv init - zsh)"
 fi
 
-
 ### nvm
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 if [ -f "$HOME/.config/op/plugins.sh" ]; then
-	source "$HOME/.config/op/plugins.sh" 
+	source "$HOME/.config/op/plugins.sh"
 fi
