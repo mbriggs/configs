@@ -9,10 +9,6 @@ Layout/FirstArrayElementIndentation:
   Enabled: false
 Layout/HashAlignment:
   Enabled: false
-Layout/IndentationStyle:
-  EnforcedStyle: tabs
-Layout/IndentationWidth:
-  Width: 1
 Layout/LineLength:
   Enabled: false
 Layout/FirstHashElementIndentation:
