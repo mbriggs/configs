@@ -1,0 +1,375 @@
+live_config_reload = true
+
+[font]
+size = 14
+
+[font.bold]
+family = "VictorMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "VictorMono Nerd Font"
+style = "Oblique"
+
+[font.normal]
+family = "VictorMono Nerd Font"
+style = "Regular"
+
+[scrolling]
+history = 100000
+multiplier = 3
+
+[shell]
+args = ["new-session", "-A", "-D", "-s", "main"]
+program = "/opt/homebrew/bin/tmux"
+
+[window]
+decorations = "buttonless"
+dynamic_padding = true
+dynamic_title = true
+option_as_alt = "Both"
+startup_mode = "Maximized"
+title = "Alacritty"
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 0
+y = 0
+
+## Key Bindings
+
+
+### Basic Application
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "Quit"
+key = "Q"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Command"
+
+### TMUX
+## Reload config
+[[keyboard.bindings]]
+chars = "\u0001r"
+key = "R"
+mods = "Command"
+
+### Rename Session
+[[keyboard.bindings]]
+chars = "\u0001,"
+key = "Comma"
+mods = "Command"
+
+### Zoom Pane
+[[keyboard.bindings]]
+chars = "\u0001z"
+key = "Period"
+mods = "Command"
+
+### Run Command (todo: FIX)
+[[keyboard.bindings]]
+chars = "\u0001:"
+key = "Semicolon"
+mods = "Command|Shift"
+
+### Kill Current Pane
+[[keyboard.bindings]]
+chars = "\u0001x"
+key = "W"
+mods = "Command"
+
+### Toggle Status
+[[keyboard.bindings]]
+chars = "\u0001\\"
+key = "Return"
+mods = "Command"
+
+### Create Tab
+[[keyboard.bindings]]
+chars = "\u0001c"
+key = "T"
+mods = "Command"
+
+### Switch Sessions
+[[keyboard.bindings]]
+chars = "\u0001s"
+key = "Slash"
+mods = "Command"
+
+### New Session
+[[keyboard.bindings]]
+chars = "\u0001n"
+key = "N"
+mods = "Command"
+
+### Kill Session (todo: FIX)
+[[keyboard.bindings]]
+chars = "\u0001K"
+key = "K"
+mods = "Command|Shift"
+
+### Split
+[[keyboard.bindings]]
+chars = "\u0001d"
+key = "D"
+mods = "Command"
+
+### VSplit
+[[keyboard.bindings]]
+chars = "\u0001D"
+key = "D"
+mods = "Command|Shift"
+
+### Move Window Left (todo: FIX)
+[[keyboard.bindings]]
+chars = "\u0001\u001B[D"
+key = "Left"
+mods = "Command"
+
+### Move Window Right (todo: FIX)
+[[keyboard.bindings]]
+chars = "\u0001\u001B[C"
+key = "Right"
+mods = "Command"
+
+### Focus Pane Left
+[[keyboard.bindings]]
+chars = "\u0001h"
+key = "H"
+mods = "Command"
+
+### Focus Pane Down
+[[keyboard.bindings]]
+chars = "\u0001j"
+key = "J"
+mods = "Command"
+
+### Focus Pane Up
+[[keyboard.bindings]]
+chars = "\u0001k"
+key = "K"
+mods = "Command"
+
+### Focus Pane Right
+[[keyboard.bindings]]
+chars = "\u0001l"
+key = "L"
+mods = "Command"
+
+### Window Left
+[[keyboard.bindings]]
+chars = "\u0001\b"
+key = "H"
+mods = "Command|Shift"
+
+### Window Right
+[[keyboard.bindings]]
+chars = "\u0001\f"
+key = "L"
+mods = "Command|Shift"
+
+### Jump to window 1
+[[keyboard.bindings]]
+chars = "\u00011"
+key = "Key1"
+mods = "Command"
+
+### Jump to window 2
+[[keyboard.bindings]]
+chars = "\u00012"
+key = "Key2"
+mods = "Command"
+
+### Jump to window 3
+[[keyboard.bindings]]
+chars = "\u00013"
+key = "Key3"
+mods = "Command"
+
+### Jump to window 4
+[[keyboard.bindings]]
+chars = "\u00014"
+key = "Key4"
+mods = "Command"
+
+### Jump to window 5
+[[keyboard.bindings]]
+chars = "\u00015"
+key = "Key5"
+mods = "Command"
+
+### Jump to window 6
+[[keyboard.bindings]]
+chars = "\u00016"
+key = "Key6"
+mods = "Command"
+
+### Jump to window 7
+[[keyboard.bindings]]
+chars = "\u00017"
+key = "Key7"
+mods = "Command"
+
+### Jump to window 8
+[[keyboard.bindings]]
+chars = "\u00018"
+key = "Key8"
+mods = "Command"
+
+### Jump to window 9
+[[keyboard.bindings]]
+chars = "\u00019"
+key = "Key9"
+mods = "Command"
+
+### VIM ###
+
+### Copilot Accept
+[[keyboard.bindings]]
+chars = "\u001Bl"
+key = "Semicolon"
+mods = "Command"
+
+### Copilot Next
+[[keyboard.bindings]]
+chars = "\u001B]"
+key = "RBracket"
+mods = "Command"
+
+### Copilot Previous
+[[keyboard.bindings]]
+chars = "\u001B["
+key = "LBracket"
+mods = "Command"
+
+### File Token (%)
+[[keyboard.bindings]]
+chars = "%"
+key = "F"
+mods = "Command"
+
+### Config Editor ###
+
+### Edit Alacritty Config
+[[keyboard.bindings]]
+chars = "\u0001A"
+key = "A"
+mods = "Command|Shift"
+
+### Edit Tmux Config
+[[keyboard.bindings]]
+chars = "\u0001T"
+key = "T"
+mods = "Command|Shift"
+
+### Edit Vim Config
+[[keyboard.bindings]]
+chars = "\u0001V"
+key = "V"
+mods = "Command|Shift"
+
+
+## Catppuccin Frappe Theme
+# https://github.com/catppuccin/alacritty/blob/main/catppuccin-frappe.toml
+
+[colors.primary]
+background = "#303446"
+foreground = "#C6D0F5"
+dim_foreground = "#C6D0F5"
+bright_foreground = "#C6D0F5"
+
+[colors.cursor]
+text = "#303446"
+cursor = "#F2D5CF"
+
+[colors.vi_mode_cursor]
+text = "#303446"
+cursor = "#BABBF1"
+
+[colors.search.matches]
+foreground = "#303446"
+background = "#A5ADCE"
+
+[colors.search.focused_match]
+foreground = "#303446"
+background = "#A6D189"
+
+[colors.footer_bar]
+foreground = "#303446"
+background = "#A5ADCE"
+
+[colors.hints.start]
+foreground = "#303446"
+background = "#E5C890"
+
+[colors.hints.end]
+foreground = "#303446"
+background = "#A5ADCE"
+
+[colors.selection]
+text = "#303446"
+background = "#F2D5CF"
+
+[colors.normal]
+black = "#51576D"
+red = "#E78284"
+green = "#A6D189"
+yellow = "#E5C890"
+blue = "#8CAAEE"
+magenta = "#F4B8E4"
+cyan = "#81C8BE"
+white = "#B5BFE2"
+
+[colors.bright]
+black = "#626880"
+red = "#E78284"
+green = "#A6D189"
+yellow = "#E5C890"
+blue = "#8CAAEE"
+magenta = "#F4B8E4"
+cyan = "#81C8BE"
+white = "#A5ADCE"
+
+[colors.dim]
+black = "#51576D"
+red = "#E78284"
+green = "#A6D189"
+yellow = "#E5C890"
+blue = "#8CAAEE"
+magenta = "#F4B8E4"
+cyan = "#81C8BE"
+white = "#B5BFE2"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#EF9F76"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#F2D5CF"
