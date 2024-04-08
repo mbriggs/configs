@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+while char = STDIN.getc
+  # Prints the Unicode code point in U+XXXX format
+  puts "U+#{char.ord.to_s(16).upcase.rjust(4, '0')}"
+end
