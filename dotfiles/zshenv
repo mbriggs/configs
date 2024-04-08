@@ -1,7 +1,11 @@
 ### libpq
-export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/libpq/lib/pkgconfig"
+export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/libpq/lib"
+export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/libpq/include"
+export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/ruby/include"
+
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/libpq/lib/pkgconfig"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/ruby/lib/pkgconfig"
 
 ### path
 
@@ -19,6 +23,7 @@ export path=(
 	$BREW_PREFIX/opt/ruby/bin
 	$BREW_PREFIX/opt/curl/bin
 	$BREW_PREFIX/opt/ruby/bin
+  $BREW_PREFIX/lib/ruby/gems/3.3.0/bin
 	$BREW_PREFIX/coreutils/libexec/gnubin
 	$HOME/.yarn/bin
 	$HOME/.cargo/bin
