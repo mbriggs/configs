@@ -10,6 +10,8 @@ alias dke='docker compose exec $DKC_MAIN'
 #alias rails='docker compose exec $DKC_MAIN ./bin/rails'
 alias rlog="tail -f log/development.log"
 
+printf "\e[?1042l"
+
 ### brew
 
 if [ -f /opt/homebrew/etc/profile.d/z.sh ]; then
@@ -31,10 +33,6 @@ fi
 if command -v direnv &>/dev/null; then
 	eval "$(direnv hook zsh)"
 fi
-
-### shadowenv
-
-eval "$(shadowenv init zsh)"
 
 ### fzf
 
