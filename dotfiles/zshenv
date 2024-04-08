@@ -30,3 +30,4 @@ export path=(
 	$HOME/.config/emacs/bin
         $BREW_PREFIX/opt/libpq/bin
 )
+. "$HOME/.cargo/env"
