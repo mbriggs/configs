@@ -69,3 +69,11 @@ export NVM_DIR="$HOME/.nvm"
 #if [ -f "$HOME/.config/op/plugins.sh" ]; then
 #	source "$HOME/.config/op/plugins.sh"
 #fi
+
+# tmux if not already tmux-ing
+# Check if we're not currently in a tmux session, and if tmux is available
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  # Attempt to attach to an existing session named "main", create it if it doesn't exist
+  tmux attach -t main || tmux new-session -A -D -s main
+fi
+
