@@ -3,7 +3,6 @@ export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/libpq/lib/pkgconfig"
 
-
 ### path
 
 export BREW_PREFIX="/opt/homebrew"
@@ -28,6 +27,6 @@ export path=(
 	$HOME/go/bin
 	$HOME/.local/bin
 	$HOME/.config/emacs/bin
-        $BREW_PREFIX/opt/libpq/bin
+	$BREW_PREFIX/opt/libpq/bin
 )
 . "$HOME/.cargo/env"
