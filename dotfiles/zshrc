@@ -36,9 +36,9 @@ fi
 
 ### fzf
 
-if [ -f ~/.fzf.zsh ]; then
-	source ~/.fzf.zsh
-fi
+#if [ -f ~/.fzf.zsh ]; then
+#	source ~/.fzf.zsh
+#fi
 
 ### p10k prompt
 
@@ -57,7 +57,7 @@ p10k_conf="$HOME/.config/p10k/p10k.zsh"
 ## rbenv
 
 if which rbenv >/dev/null 2>&1; then
-	eval "$(rbenv init - zsh)"
+#	eval "$(rbenv init - zsh)"
 fi
 
 ### nvm
@@ -66,6 +66,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-if [ -f "$HOME/.config/op/plugins.sh" ]; then
-	source "$HOME/.config/op/plugins.sh"
-fi
+#if [ -f "$HOME/.config/op/plugins.sh" ]; then
+#	source "$HOME/.config/op/plugins.sh"
+#fi
