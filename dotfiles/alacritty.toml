@@ -19,10 +19,6 @@ style = "Regular"
 history = 100000
 multiplier = 3
 
-[shell]
-args = ["new-session", "-A", "-D", "-s", "main"]
-program = "/opt/homebrew/bin/tmux"
-
 [window]
 decorations = "buttonless"
 dynamic_padding = true
@@ -74,7 +70,22 @@ action = "DecreaseFontSize"
 key = "Minus"
 mods = "Command"
 
+### TPM (tmux plugin manager)
+
+# TPM Install
+[[keyboard.bindings]]
+chars = "\u0001I"
+key = "I"
+mods = "Command|Shift"
+
+# TPM Update
+[[keyboard.bindings]]
+chars = "\u0001U"
+key = "U"
+mods = "Command|Shift"
+
 ### TMUX
+
 ## Reload config
 [[keyboard.bindings]]
 chars = "\u0001r"
