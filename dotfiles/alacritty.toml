@@ -104,12 +104,6 @@ chars = "\u0001z"
 key = "Period"
 mods = "Command"
 
-### Run Command (todo: FIX)
-[[keyboard.bindings]]
-chars = "\u0001:"
-key = "Semicolon"
-mods = "Command|Shift"
-
 ### Kill Current Pane
 [[keyboard.bindings]]
 chars = "\u0001x"
@@ -140,12 +134,6 @@ chars = "\u0001n"
 key = "N"
 mods = "Command"
 
-### Kill Session (todo: FIX)
-[[keyboard.bindings]]
-chars = "\u0001K"
-key = "K"
-mods = "Command|Shift"
-
 ### Split
 [[keyboard.bindings]]
 chars = "\u0001d"
@@ -157,18 +145,6 @@ mods = "Command"
 chars = "\u0001D"
 key = "D"
 mods = "Command|Shift"
-
-### Move Window Left (todo: FIX)
-[[keyboard.bindings]]
-chars = "\u0001\u001B[D"
-key = "Left"
-mods = "Command"
-
-### Move Window Right (todo: FIX)
-[[keyboard.bindings]]
-chars = "\u0001\u001B[C"
-key = "Right"
-mods = "Command"
 
 ### Focus Pane Left
 [[keyboard.bindings]]
@@ -193,18 +169,6 @@ mods = "Command"
 chars = "\u0001l"
 key = "L"
 mods = "Command"
-
-### Window Left
-[[keyboard.bindings]]
-chars = "\u0001\b"
-key = "H"
-mods = "Command|Shift"
-
-### Window Right
-[[keyboard.bindings]]
-chars = "\u0001\f"
-key = "L"
-mods = "Command|Shift"
 
 ### Jump to window 1
 [[keyboard.bindings]]
