@@ -2,18 +2,12 @@ live_config_reload = true
 
 [font]
 size = 14
-
-[font.bold]
-family = "VictorMono Nerd Font"
-style = "Bold"
-
-[font.italic]
-family = "VictorMono Nerd Font"
-style = "Oblique"
-
-[font.normal]
-family = "VictorMono Nerd Font"
-style = "Regular"
+bold.family = "VictorMono Nerd Font"
+bold.style = "Bold"
+italic.family = "VictorMono Nerd Font"
+italic.style = "Oblique"
+normal.family = "VictorMono Nerd Font"
+normal.style = "Regular"
 
 [scrolling]
 history = 100000
@@ -27,17 +21,10 @@ option_as_alt = "Both"
 startup_mode = "Maximized"
 title = "Alacritty"
 resize_increments = true
-
-[window.dimensions]
-columns = 0
-lines = 0
-
-[window.padding]
-x = 0
-y = 0
-
-## Key Bindings
-
+dimensions.columns = 0
+dimensions.lines = 0
+padding.x = 0
+padding.y = 0
 
 ### Basic Application
 [[keyboard.bindings]]
@@ -113,7 +100,7 @@ mods = "Command"
 ### Toggle Status
 [[keyboard.bindings]]
 chars = "\u0001\\"
-key = "Return"
+key = "Backslash"
 mods = "Command"
 
 ### Create Tab
@@ -249,6 +236,7 @@ mods = "Command"
 chars = "%"
 key = "F"
 mods = "Command"
+
 
 ### Config Editor ###
 
