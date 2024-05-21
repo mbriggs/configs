@@ -12,7 +12,7 @@ export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/ruby/lib/pkgconfig"
 export BREW_PREFIX="/opt/homebrew"
 export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
-export EDITOR="code --wait"
+export EDITOR="nvim"
 export GIT_PAGER="delta -s"
 
 export path=(
