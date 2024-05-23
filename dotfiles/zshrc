@@ -13,11 +13,13 @@ if [ -f /opt/homebrew/etc/profile.d/z.sh ]; then
 fi
 
 ### direnv
+
 if command -v direnv &>/dev/null; then
 	eval "$(direnv hook zsh)"
 fi
 
 ### p10k prompt
+
 export ZSH_THEME="powerlevel10k/powerlevel10k"
 p10k="$HOME/.local/share/powerlevel10k/powerlevel10k.zsh-theme"
 if [ -f "$p10k" ]; then
@@ -33,6 +35,7 @@ p10k_conf="$HOME/.config/p10k/p10k.zsh"
 
 export EDITOR="nvim"
 export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+# export KITTY_LISTEN_ON=unix:/tmp/mykitty
 
 ### Path
 path=(
@@ -76,25 +79,5 @@ if command -v /opt/homebrew/bin/brew &> /dev/null; then
         $path
         $HOMEBREW_PREFIX/opt/libpq/bin
     )
-fi
-
-
-### Always TMUX
-
-# already in tmux
-if [ -n "$TMUX" ]; then
-  return
-fi
-
-# no tmux
-if ! command -v tmux >/dev/null 2>&1; then
-  return
-fi
-
-# Attempt to attach to the main session, or create it if it doesn't exist
-if ! tmux has-session -t main 2>/dev/null; then
-  tmux new-session -A -s main
-else
-  tmux attach -t main
 fi
 
