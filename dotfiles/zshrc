@@ -33,15 +33,18 @@ fi
 p10k_conf="$HOME/.config/p10k/p10k.zsh"
 [[ ! -f "$p10k_conf" ]] || source "$p10k_conf"
 
+
+### ENV
 export EDITOR="nvim"
 export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
-# export KITTY_LISTEN_ON=unix:/tmp/mykitty
+
 
 ### Path
 path=(
     $HOME/.yarn/bin
     $HOME/.cargo/bin
     $HOME/.config/yarn/global/node_modules/.bin
+    $HOME/.gem/ruby/3.3.0/bin # needs to come before path because of macos stub for rails bin
     $path
     $HOME/go/bin
     $HOME/.local/bin
@@ -81,3 +84,6 @@ if command -v /opt/homebrew/bin/brew &> /dev/null; then
     )
 fi
 
+### Ruby
+# export GEM_HOME="$HOME/.gem/ruby/$(ruby -e 'puts RUBY_VERSION[/\d+\.\d+/]')"
+# export PATH="$GEM_HOME/bin:$PATH"
