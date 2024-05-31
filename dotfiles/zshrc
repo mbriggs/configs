@@ -37,6 +37,7 @@ path=(
     $HOME/.config/yarn/global/node_modules/.bin
     $HOME/.gem/ruby/3.3.0/bin # needs to come before path because of macos stub for rails bin
     $path
+    $HOME/configs/bin
     $HOME/go/bin
     $HOME/.local/bin
     $HOME/.config/emacs/bin
