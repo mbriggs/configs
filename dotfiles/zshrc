@@ -8,15 +8,6 @@ alias dkc="docker compose"
 alias dke='docker compose exec $DKC_MAIN'
 alias rlog="tail -f log/development.log"
 
-if [ -f /opt/homebrew/etc/profile.d/z.sh ]; then
-	source /opt/homebrew/etc/profile.d/z.sh
-fi
-
-### direnv
-
-if command -v direnv &>/dev/null; then
-	eval "$(direnv hook zsh)"
-fi
 
 ### p10k prompt
 
@@ -69,6 +60,10 @@ if command -v /opt/homebrew/bin/brew &> /dev/null; then
     export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/ruby/lib"
     export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/ruby/include"
     export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/ruby/lib/pkgconfig"
+    ### node
+    export NODE_LTS_PATH="$HOMEBREW_PREFIX/opt/node@20"
+    export LDFLAGS="-L$NODE_LTS_PATH/lib"
+    export CPPFLAGS="-I$NODE_LTS_PATH/include"
 
     path=(
         $HOMEBREW_PREFIX/bin
@@ -84,6 +79,14 @@ if command -v /opt/homebrew/bin/brew &> /dev/null; then
     )
 fi
 
-### Ruby
-# export GEM_HOME="$HOME/.gem/ruby/$(ruby -e 'puts RUBY_VERSION[/\d+\.\d+/]')"
-# export PATH="$GEM_HOME/bin:$PATH"
+### z
+
+if [ -f /opt/homebrew/etc/profile.d/z.sh ]; then
+	source /opt/homebrew/etc/profile.d/z.sh
+fi
+
+### direnv
+
+if command -v direnv &>/dev/null; then
+	eval "$(direnv hook zsh)"
+fi
