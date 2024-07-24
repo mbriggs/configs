@@ -28,6 +28,7 @@ p10k_conf="$HOME/.config/p10k/p10k.zsh"
 ### ENV
 export EDITOR="nvim"
 export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 
 ### Path
