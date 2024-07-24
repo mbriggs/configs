@@ -18,6 +18,7 @@ brew install --cask 1password/tap/1password-cli
 brew install ripgrep || exit 1
 brew install git || exit 1
 brew install make || exit 1
+brew install git-delta || exit 1
 
 echo "-- installing rust"
 brew install rust || exit 1

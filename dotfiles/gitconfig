@@ -1,36 +1,62 @@
+# vim: set filetype=gitconfig:
+
+[include]
+  path = ~/.config/delta/delta.config
+
 [user]
-	name = Matt Briggs
-	email = matt@mattbriggs.net
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBsWuyaFPxRx4z9G1Bs2dcbvpJal12HkdsQXfJoBKXFc
+  name = Matt Briggs
+  email = matt@mattbriggs.net
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBsWuyaFPxRx4z9G1Bs2dcbvpJal12HkdsQXfJoBKXFc
+
 [color]
-	ui = true
+  ui = true
+
 [core]
-	quotepath = false
-	excludesfile = ~/.gitignore
-	autocrlf = input
+  quotepath = false
+  excludesfile = ~/.gitignore
+  autocrlf = input
+  pager = delta
+
+; [interactive]
+; diffFilter = delta --color-only
+;
+; [diff]
+; colorMoved = default
+
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
+
 [url "ssh://git@gitlab.com/"]
-	insteadOf = https://gitlab.com/
+  insteadOf = https://gitlab.com/
+
 [url "ssh://git@bitbucket.org/"]
-	insteadOf = https://bitbucket.org/
+  insteadOf = https://bitbucket.org/
+
 [rerere]
-	enabled = 1
-	autoupdate = true
+  enabled = 1
+  autoupdate = true
+
 [commit]
-	verbose = true
-	gpgsign = true
+  verbose = true
+  gpgsign = true
+
 [github]
-	user = mbriggs
+  user = mbriggs
+
 [merge]
-	conflictStyle = diff3
+  conflictStyle = diff3
+
 [credential]
-	helper = store
+  helper = store
+
 [pull]
-	rebase = true
+  rebase = true
+
 [init]
-	defaultBranch = main
+  defaultBranch = main
+
 [gpg]
-	format = ssh
+  format = ssh
+
 [gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign

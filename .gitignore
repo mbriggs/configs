@@ -8,3 +8,4 @@
 !/dotconfig/op/plugins.sh
 
 /dotconfig/tmux/plugins/*
+dotfiles/aws/credentials
