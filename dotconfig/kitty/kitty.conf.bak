@@ -1276,6 +1276,14 @@ tab_title_template "{'#' if layout_name == 'stack' else ' '}{fmt.fg.red}{bell_sy
 
 #: }}}
 
+#: Color scheme {{{
+tab_bar_min_tabs            1
+tab_bar_edge                bottom
+tab_bar_style               powerline
+tab_powerline_style         slanted
+kitten themes --reload-in=all Catppuccin-Latte
+#: }}}
+
 #: Advanced {{{
 
 # shell .
@@ -1756,16 +1764,8 @@ macos_option_as_alt left
 
 #: }}}
 
-#: Color scheme {{{
-tab_bar_min_tabs            1
-tab_bar_edge                bottom
-tab_bar_style               powerline
-tab_powerline_style         slanted
-
-#kitten themes --reload-in=all Catppuccin-Latte
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Latte
+# Dimmed Monokai
 include current-theme.conf
 # END_KITTY_THEME
-#: }}}
