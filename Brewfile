@@ -28,6 +28,7 @@ brew 'ripgrep'
 brew 'ruby'
 brew 'rust'
 brew 'sox'
+brew 'httpie'
 
 brew 'clojure/tools/clojure'
 brew 'borkdude/brew/babashka'
