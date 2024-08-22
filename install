@@ -1,21 +1,37 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "running from $script_dir"
 
+mkdir -p "$HOME/.config"
+
 echo "-> Linking Configs"
 . ./link.sh
 
-if [[ $OSTYPE == "darwin"* ]]
+if [[ "$OSTYPE" == "darwin"* ]]
 then
-  echo "-> Installing macOS tooling..."
-  . ./install-macos.sh
   echo "-> Installing ulimit increase..."
-  pushd "$script_dir/ulimit" || exit 1
+  pushd "$script_dir/ulimit"
   . ./install-ulimit-plist
-  popd || exit 1
+  popd
+
+  echo "-- installing xcode toolchain"
+  xcode-select --install
+
+  echo "-- installing brew"
+  curl -fsSL -o install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+
+  echo "-- installing tools"
+  brew bundle
 else
   echo "$OSTYPE is not a supported os"
   exit 1
 fi
 
+echo "-> Configuring Tools"
+# expecting all this stuff to be setup already
+bat cache --build
+luarocks install --lua-version 5.1 tiktoken_core # for copilotchat
+go install github.com/a-h/templ/cmd/templ@latest
