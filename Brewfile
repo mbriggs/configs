@@ -1,7 +1,5 @@
 cask_args appdir: '/Applications'
 
-tap 'homebrew/cask-fonts'
-
 brew 'bat'
 brew 'cmake'
 brew 'coreutils'
@@ -11,7 +9,7 @@ brew 'dust'
 brew 'eza'
 brew 'fd'
 brew 'fzf'
-brew 'gcc-14'
+brew 'gcc@14'
 brew 'gh'
 brew 'git'
 brew 'git-delta'
