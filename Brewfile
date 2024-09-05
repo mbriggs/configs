@@ -36,6 +36,7 @@ brew 'borkdude/brew/babashka'
 
 cask "1password"
 cask "1password-cli"
+cask "firefox@developer-edition"
 cask "adobe-creative-cloud"
 cask "adobe-creative-cloud-cleaner-tool"
 cask "jetbrains-toolbox"
