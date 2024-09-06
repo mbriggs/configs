@@ -22,6 +22,10 @@ Lint/UnusedMethodArgument:
   Enabled: false
 Lint/Loop:
   Enabled: false
+Lint/DuplicateBranch:
+  Enabled: false
+Lint/EmptyClass:
+  Enabled: false
 
 Metrics/AbcSize:
   Enabled: false
@@ -106,3 +110,5 @@ Style/GlobalVars:
   Enabled: false
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
+Style/StringConcatenation:
+  Mode: Conservative
