@@ -34,6 +34,21 @@ Rails/HelperInstanceVariable:
 Rails/SkipsModelValidations:
   Enabled: false
 
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/SquishedSQLHeredocs:
+  Enabled: false
+
+Rails/NegateInclude:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false
+
 Capybara/ClickLinkOrButtonStyle:
   Enabled: false
 
