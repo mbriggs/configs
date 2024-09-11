@@ -38,6 +38,7 @@
   "playground": { "branch": "master", "commit": "ba48c6a62a280eefb7c85725b0915e021a1a0749" },
   "plenary.nvim": { "branch": "master", "commit": "ec289423a1693aeae6cd0d503bac2856af74edaa" },
   "starlite-nvim": { "branch": "main", "commit": "bc204069859e4e85a057b92ac61700f3f46c3e41" },
+  "supermaven-nvim": { "branch": "main", "commit": "338e1597b5575f3728865ddd5834fdba3d66b05f" },
   "taskwarrior.nvim": { "branch": "master", "commit": "5383427b88912ff3c37653d76e48b1fc197844dc" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "cf48d4dfce44e0b9a2e19a008d6ec6ea6f01a83b" },
   "telescope-live-grep-args.nvim": { "branch": "master", "commit": "649b662a8f476fd2c0289570764459e95ebaa3f3" },
