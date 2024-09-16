@@ -18,7 +18,8 @@ vim.opt.concealcursor = "nc"
 -- soft wrapping long lines
 vim.opt.wrap = true
 
-vim.opt.number = true -- show line numbers
+-- dont show line numbers by default
+vim.opt.number = false
 
 -- make extra files less irritating
 vim.opt.swapfile = false

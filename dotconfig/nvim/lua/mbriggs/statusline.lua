@@ -44,7 +44,7 @@ function StatusLine.active()
 		"%=%#StatusLineFT#", -- Align right
 		vim.bo.filetype, -- File type
 		" ",
-		"%l:%c", -- Line and column
+		"%l:%c / %L", -- Line and column
 	}
 
 	-- Combine components with no additional space between filename and path

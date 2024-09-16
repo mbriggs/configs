@@ -9,14 +9,14 @@ return {
 		local map = vim.keymap.set
 		local modes = { "n", "v" }
 
-		map(modes, "<D-h>", ":KittyNavigateLeft<cr>", { desc = "kitty navigate left" })
-		map(modes, "<D-j>", ":KittyNavigateDown<cr>", { desc = "kitty navigate down" })
-		map(modes, "<D-k>", ":KittyNavigateUp<cr>", { desc = "kitty navigate up" })
-		map(modes, "<D-l>", ":KittyNavigateRight<cr>", { desc = "kitty navigate right" })
+		map(modes, "<D-h>", ":KittyNavigateLeft<cr>", { desc = "kitty navigate left", silent = true })
+		map(modes, "<D-j>", ":KittyNavigateDown<cr>", { desc = "kitty navigate down", silent = true })
+		map(modes, "<D-k>", ":KittyNavigateUp<cr>", { desc = "kitty navigate up", silent = true })
+		map(modes, "<D-l>", ":KittyNavigateRight<cr>", { desc = "kitty navigate right", silent = true })
 
-		map("i", "<D-h>", "<c-o>:KittyNavigateLeft<cr>", { desc = "kitty navigate left" })
-		map("i", "<D-j>", "<c-o>:KittyNavigateDown<cr>", { desc = "kitty navigate down" })
-		map("i", "<D-k>", "<c-o>:KittyNavigateUp<cr>", { desc = "kitty navigate up" })
-		map("i", "<D-l>", "<c-o>:KittyNavigateRight<cr>", { desc = "kitty navigate right" })
+		map("i", "<D-h>", "<c-o>:KittyNavigateLeft<cr>", { desc = "kitty navigate left", silent = true })
+		map("i", "<D-j>", "<c-o>:KittyNavigateDown<cr>", { desc = "kitty navigate down", silent = true })
+		map("i", "<D-k>", "<c-o>:KittyNavigateUp<cr>", { desc = "kitty navigate up", silent = true })
+		map("i", "<D-l>", "<c-o>:KittyNavigateRight<cr>", { desc = "kitty navigate right", silent = true })
 	end,
 }

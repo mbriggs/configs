@@ -2,8 +2,15 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local map = vim.keymap.set
 
+map("n", "<leader>#", "<cmd>set nu!<cr>", { desc = "Toggle Line Numbers" })
+map("n", "<leader>w", ":nohlsearch<CR>:w<CR>", { desc = "save and clear highlights" })
+
 -- nuke buffer
 map("n", "<leader>bk", "<cmd>bd!<cr>", { desc = "nuke buffer" })
+
+-- cmdwin
+map("n", "<leader>:", "q:", { desc = "cmdwin", noremap = true, silent = true })
+map("n", "q:", "<nop>")
 
 -- go to alternate file
 map("n", "<leader>-", "<C-^>", { desc = "go to alternate file" })
@@ -12,7 +19,7 @@ map("n", "<leader>-", "<C-^>", { desc = "go to alternate file" })
 map("n", "<leader>bx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "make file executable" })
 
 -- make it super easy to quit
-map("n", "<leader><space>", ":q<cr>", { desc = "quit" })
+map("n", "<leader><CR>", ":q<cr>", { desc = "quit" })
 
 -- make it super easy to split
 map("n", "<leader>'", ":vsp<cr>", { desc = "vertical split" })
@@ -66,17 +73,3 @@ map({ "n", "v" }, "<s-l>", "$", { desc = "end of line" })
 
 -- put current dir into command
 map("c", "%%", "<C-R>=expand('%:h').'/'<cr>", { desc = "put current dir into command" })
-
---tmux
-map("n", "<c-w>h", function()
-  require("tmux").move_left()
-end, { desc = "move left" })
-map("n", "<c-w>j", function()
-  require("tmux").move_bottom()
-end, { desc = "move bottom" })
-map("n", "<c-w>k", function()
-  require("tmux").move_top()
-end, { desc = "move top" })
-map("n", "<c-w>l", function()
-  require("tmux").move_right()
-end, { desc = "move right" })
