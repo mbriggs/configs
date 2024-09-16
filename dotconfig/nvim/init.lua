@@ -7,9 +7,6 @@ require("mbriggs.set")
 -- set up filetypes for certain extensions
 require("mbriggs.ft.extmaps")
 
--- set up cr mapping based on filetypes
-require("mbriggs.ft.crmap")
-
 -- set up merge maps
 require("mbriggs.ft.mergemaps")
 

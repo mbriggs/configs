@@ -4,10 +4,6 @@ local inappropriate_filetypes = { "qf", "undotree", "help", "gitcommit", "netrw"
 
 -- Function to check if the current buffer type or file type is inappropriate
 local function is_inappropriate_context()
-	if vim.fn.getcmdwintype() ~= "" then
-		return true
-	end
-
 	local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
 	local filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
 
@@ -30,6 +26,10 @@ end
 local function update_keymap()
 	if is_inappropriate_context() then
 		-- pcall(vim.api.nvim_buf_del_keymap, 0, "n", "<CR>")
+		return
+	end
+
+	if vim.fn.getcmdwintype() ~= "" then
 		return
 	end
 
