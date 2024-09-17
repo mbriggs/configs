@@ -52,7 +52,7 @@
   "vim-kitty-navigator": { "branch": "master", "commit": "20abf8613aa228a5def1ae02cd9da0f2d210352a" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
-  "vim-test": { "branch": "master", "commit": "2c9cef3f7605fc1b272b23765c5872607c1b6183" },
+  "vim-test": { "branch": "master", "commit": "c090bfd93919888bb0b86e1ab707bc6a3095097f" },
   "vim-unimpaired": { "branch": "master", "commit": "6d44a6dc2ec34607c41ec78acf81657248580bf1" },
   "which-key.nvim": { "branch": "main", "commit": "bfec3d6bc0a9b0b2cb11644642f78c2c3915eef0" },
   "winshift.nvim": { "branch": "main", "commit": "37468ed6f385dfb50402368669766504c0e15583" }
