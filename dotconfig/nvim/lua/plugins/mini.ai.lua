@@ -67,6 +67,7 @@ local function register_which_key(opts)
 		{ "a", desc = "argument" },
 		{ "b", desc = ")]} block" },
 		{ "c", desc = "class" },
+		{ "k", desc = "block param" },
 		{ "d", desc = "digit(s)" },
 		{ "e", desc = "CamelCase / snake_case" },
 		{ "f", desc = "function" },
@@ -129,6 +130,7 @@ return {
 				},
 				i = indent,
 				g = buffer,
+				k = { "%b||", "^|().-()|$" },
 				u = ai.gen_spec.function_call(), -- u for "Usage"
 				U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
 			},
