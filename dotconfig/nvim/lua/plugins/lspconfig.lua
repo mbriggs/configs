@@ -119,14 +119,26 @@ return {
 		})
 
 		vim.diagnostic.config({
-			-- update_in_insert = true,
+			underline = true,
+			update_in_insert = false,
 			float = {
 				focusable = false,
 				style = "minimal",
 				border = "rounded",
-				source = "always",
+				source = "if_many",
 				header = "",
 				prefix = "",
+			},
+			signs = {
+				[vim.diagnostic.severity.ERROR] = " ",
+				[vim.diagnostic.severity.WARN] = " ",
+				[vim.diagnostic.severity.HINT] = " ",
+				[vim.diagnostic.severity.INFO] = " ",
+			},
+			virtual_text = {
+				spacing = 4,
+				source = "if_many",
+				prefix = "●",
 			},
 		})
 
