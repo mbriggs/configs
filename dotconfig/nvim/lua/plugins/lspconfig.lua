@@ -164,9 +164,9 @@ return {
 				vim.keymap.set("n", "<leader>cn", vim.lsp.buf.rename, desc("Rename symbol"))
 				-- vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, desc("Code action"))
 				vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, desc("Go to references"))
-				vim.keymap.set("n", "<leader>cm", function()
-					vim.lsp.buf.format({ async = true })
-				end, desc("Format document"))
+				-- vim.keymap.set("n", "<leader>cm", function()
+				-- 	vim.lsp.buf.format({ async = true })
+				-- end, desc("Format document"))
 			end,
 		})
 	end,
