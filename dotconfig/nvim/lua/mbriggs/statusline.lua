@@ -58,19 +58,19 @@ end
 StatusLine.short = function()
 	return "%#StatusLine#%f %m %r%h %w %y"
 end
---- Define highlight groups using static colors from Catppuccin Frappe palette
--- vim.cmd("highlight StatusLineIcon guifg=#a6d189 guibg=#292c3c")       -- Use a static greenish color for icons
--- vim.cmd("highlight StatusLinePath guifg=#9ca0a4 guibg=#292c3c")       -- Dimmed color for the file path (Grayish)
--- vim.cmd("highlight StatusLineFile guifg=#ffffff guibg=#292c3c")       -- White color for the filename, bold
--- vim.cmd("highlight StatusLineFT guifg=#f2d5cf guibg=#292c3c")         -- Peach (text) on dark background
--- vim.cmd("highlight StatusLineModified guifg=#f4b8e4 guibg=#292c3c")   -- Pink/purple for modified indicator
+--- Frappe
+vim.cmd("highlight StatusLineIcon guifg=#a6d189 guibg=#292c3c") -- Use a static greenish color for icons
+vim.cmd("highlight StatusLinePath guifg=#9ca0a4 guibg=#292c3c") -- Dimmed color for the file path (Grayish)
+vim.cmd("highlight StatusLineFile guifg=#ffffff guibg=#292c3c") -- White color for the filename, bold
+vim.cmd("highlight StatusLineFT guifg=#f2d5cf guibg=#292c3c") -- Peach (text) on dark background
+vim.cmd("highlight StatusLineModified guifg=#f4b8e4 guibg=#292c3c") -- Pink/purple for modified indicator
 
 -- Latte
-vim.cmd("highlight StatusLineIcon guifg=#40a02b guibg=#e6e9ef") -- Greenish color for icons (from Latte)
-vim.cmd("highlight StatusLinePath guifg=#4c4f69 guibg=#e6e9ef") -- Dimmed color for the file path (Grayish from Latte)
-vim.cmd("highlight StatusLineFile guifg=#1e1e2e guibg=#e6e9ef") -- Darker color for the filename, bold (from Latte)
-vim.cmd("highlight StatusLineFT guifg=#dc8a78 guibg=#e6e9ef") -- Peach (text) on light background (from Latte)
-vim.cmd("highlight StatusLineModified guifg=#ea76cb guibg=#e6e9ef") -- Pink/purple for modified indicator (from Latte)
+-- vim.cmd("highlight StatusLineIcon guifg=#40a02b guibg=#e6e9ef") -- Greenish color for icons (from Latte)
+-- vim.cmd("highlight StatusLinePath guifg=#4c4f69 guibg=#e6e9ef") -- Dimmed color for the file path (Grayish from Latte)
+-- vim.cmd("highlight StatusLineFile guifg=#1e1e2e guibg=#e6e9ef") -- Darker color for the filename, bold (from Latte)
+-- vim.cmd("highlight StatusLineFT guifg=#dc8a78 guibg=#e6e9ef") -- Peach (text) on light background (from Latte)
+-- vim.cmd("highlight StatusLineModified guifg=#ea76cb guibg=#e6e9ef") -- Pink/purple for modified indicator (from Latte)
 
 vim.api.nvim_exec(
 	[[
