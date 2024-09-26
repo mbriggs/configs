@@ -62,13 +62,11 @@ end
 -- TokyoNight Moon
 vim.cmd("highlight StatusLineIcon guifg=#9ece6a guibg=#222436") -- Light green for icons
 vim.cmd("highlight StatusLinePath guifg=#7a88cf guibg=#222436") -- Muted blue for the file path
-vim.cmd("highlight StatusLineFile guifg=#c8d3f5 guibg=#222436") -- Bright blue-white for the filename
+vim.cmd("highlight StatusLineFile guifg=#e0af68 guibg=#222436 gui=bold") -- Yellow for the filename
 vim.cmd("highlight StatusLineFT guifg=#ff9e64 guibg=#222436") -- Orange for filetype
 vim.cmd("highlight StatusLineModified guifg=#bb9af7 guibg=#222436") -- Purple for modified indicator
 vim.cmd("highlight StatusLine guifg=#c8d3f5 guibg=#222436") -- Default statusline color
 vim.cmd("highlight StatusLineNC guifg=#7a88cf guibg=#1e2030") -- Non-current window statusline
-
--- You can uncomment these lines if you want to set the background explicitly
 vim.cmd("highlight StatusLine guibg=#222436") -- Active statusline background
 vim.cmd("highlight StatusLineNC guibg=#1e2030") -- Inactive statusline background
 
@@ -86,14 +84,26 @@ vim.cmd("highlight StatusLineNC guibg=#1e2030") -- Inactive statusline backgroun
 -- vim.cmd("highlight StatusLineFT guifg=#dc8a78 guibg=#e6e9ef") -- Peach (text) on light background (from Latte)
 -- vim.cmd("highlight StatusLineModified guifg=#ea76cb guibg=#e6e9ef") -- Pink/purple for modified indicator (from Latte)
 
-vim.api.nvim_exec(
-	[[
-  augroup StatusLine
-  au!
-  au WinEnter,BufEnter * setlocal statusline=%!v:lua.StatusLine.active()
-  au WinLeave,BufLeave * setlocal statusline=%!v:lua.StatusLine.inactive()
-  au WinEnter,BufEnter,FileType NvimTree setlocal statusline=%!v:lua.StatusLine.short()
-  augroup END
-]],
-	false
-)
+local statusline_group = vim.api.nvim_create_augroup("StatusLine", { clear = true })
+
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+	group = statusline_group,
+	callback = function()
+		vim.wo.statusline = "%!v:lua.StatusLine.active()"
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
+	group = statusline_group,
+	callback = function()
+		vim.wo.statusline = "%!v:lua.StatusLine.inactive()"
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter", "FileType" }, {
+	group = statusline_group,
+	pattern = "NvimTree",
+	callback = function()
+		vim.wo.statusline = "%!v:lua.StatusLine.short()"
+	end,
+})
