@@ -22,7 +22,7 @@ return {
 		{ "Bilal2453/luvit-meta", lazy = true },
 	},
 	event = { "BufReadPost", "BufNewFile" },
-	cmd = { "LspInfo", "LspInstall", "LspUninstall" },
+	cmd = { "LspInfo", "LspInstall", "LspUninstall", "Mason" },
 
 	config = function()
 		local cmp = require("cmp")
