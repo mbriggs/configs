@@ -3,26 +3,18 @@ StatusLine = _G.StatusLine
 
 -- Define the status line function
 function StatusLine.active()
-	-- Check if the current buffer is a Telescope buffer
-	local is_telescope = vim.bo.filetype == "TelescopePrompt"
-	local is_neogit = vim.bo.filetype == "NeogitStatus"
-
 	-- Get the file path relative to the project root (cwd), without the filename
 	local filepath = vim.fn.fnamemodify(vim.fn.expand("%:~:."), ":h")
 	-- Get just the filename
 	local filename = vim.fn.expand("%:t")
 	-- If no file, show "[No Name]"
 	local is_no_name = false
-	if is_telescope then
-		filename = "[Telescope]"
-	elseif is_neogit then
-		filename = "[Neogit]"
-	elseif filename == "" then
+	if filename == "" then
 		filename = "[No Name]"
 		is_no_name = true
 	end
 
-	local is_file_buffer = (not is_no_name and not is_neogit and not is_telescope and filepath ~= "")
+	local is_file_buffer = (not is_no_name and filepath ~= "")
 
 	-- Get the file icon and color using nvim-web-devicons
 	local icon, _ = require("nvim-web-devicons").get_icon(filename, vim.fn.expand("%:e"), { default = true })
@@ -33,7 +25,7 @@ function StatusLine.active()
 	-- Assemble the status line components
 	local components = {
 		"%#StatusLine#", -- Highlight group
-		(is_telescope and " ") or (is_neogit and "") or (icon and ("%#StatusLineIcon#" .. icon .. " ")) or "", -- Telescope or file type icon
+		(icon and ("%#StatusLineIcon#" .. icon .. " ")) or "", -- Telescope or file type icon
 		" ",
 		is_file_buffer and ("%#StatusLinePath#" .. filepath .. "/") or "", -- File path with its own highlight
 		is_file_buffer and ("%#StatusLineFile#" .. filename) or ("%#StatusLinePath#" .. filename), -- File name with white bold highlight
