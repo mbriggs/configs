@@ -58,12 +58,26 @@ end
 StatusLine.short = function()
 	return "%#StatusLine#%f %m %r%h %w %y"
 end
+
+-- TokyoNight Moon
+vim.cmd("highlight StatusLineIcon guifg=#9ece6a guibg=#222436") -- Light green for icons
+vim.cmd("highlight StatusLinePath guifg=#7a88cf guibg=#222436") -- Muted blue for the file path
+vim.cmd("highlight StatusLineFile guifg=#c8d3f5 guibg=#222436") -- Bright blue-white for the filename
+vim.cmd("highlight StatusLineFT guifg=#ff9e64 guibg=#222436") -- Orange for filetype
+vim.cmd("highlight StatusLineModified guifg=#bb9af7 guibg=#222436") -- Purple for modified indicator
+vim.cmd("highlight StatusLine guifg=#c8d3f5 guibg=#222436") -- Default statusline color
+vim.cmd("highlight StatusLineNC guifg=#7a88cf guibg=#1e2030") -- Non-current window statusline
+
+-- You can uncomment these lines if you want to set the background explicitly
+vim.cmd("highlight StatusLine guibg=#222436") -- Active statusline background
+vim.cmd("highlight StatusLineNC guibg=#1e2030") -- Inactive statusline background
+
 --- Frappe
-vim.cmd("highlight StatusLineIcon guifg=#a6d189 guibg=#292c3c") -- Use a static greenish color for icons
-vim.cmd("highlight StatusLinePath guifg=#9ca0a4 guibg=#292c3c") -- Dimmed color for the file path (Grayish)
-vim.cmd("highlight StatusLineFile guifg=#ffffff guibg=#292c3c") -- White color for the filename, bold
-vim.cmd("highlight StatusLineFT guifg=#f2d5cf guibg=#292c3c") -- Peach (text) on dark background
-vim.cmd("highlight StatusLineModified guifg=#f4b8e4 guibg=#292c3c") -- Pink/purple for modified indicator
+-- vim.cmd("highlight StatusLineIcon guifg=#a6d189 guibg=#292c3c") -- Use a static greenish color for icons
+-- vim.cmd("highlight StatusLinePath guifg=#9ca0a4 guibg=#292c3c") -- Dimmed color for the file path (Grayish)
+-- vim.cmd("highlight StatusLineFile guifg=#ffffff guibg=#292c3c") -- White color for the filename, bold
+-- vim.cmd("highlight StatusLineFT guifg=#f2d5cf guibg=#292c3c") -- Peach (text) on dark background
+-- vim.cmd("highlight StatusLineModified guifg=#f4b8e4 guibg=#292c3c") -- Pink/purple for modified indicator
 
 -- Latte
 -- vim.cmd("highlight StatusLineIcon guifg=#40a02b guibg=#e6e9ef") -- Greenish color for icons (from Latte)
