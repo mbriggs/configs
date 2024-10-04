@@ -3,7 +3,12 @@ vim.g.maplocalleader = " "
 local map = vim.keymap.set
 
 map("n", "<leader>#", "<cmd>set nu!<cr>", { desc = "Toggle Line Numbers" })
-map("n", "<leader>w", ":nohlsearch<CR>:lua require('conform').format()<CR>:w<CR>", { desc = "save and clear highlights" })
+map(
+	"n",
+	"<leader>w",
+	":nohlsearch<CR>:lua require('conform').format()<CR>:w<CR>",
+	{ desc = "save->fmt->clear highlights" }
+)
 
 -- nuke buffer
 map("n", "<leader>bk", "<cmd>bd!<cr>", { desc = "nuke buffer" })
