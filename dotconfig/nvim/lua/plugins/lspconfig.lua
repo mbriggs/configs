@@ -8,8 +8,12 @@ return {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
-		"hrsh7th/nvim-cmp",
-		"j-hui/fidget.nvim",
+		-- "hrsh7th/nvim-cmp",
+		{ -- fork with a bunch of bugs fixed and better perf
+			"iguanacucumber/magazine.nvim",
+			name = "nvim-cmp",
+			"j-hui/fidget.nvim",
+		},
 		{
 			"folke/lazydev.nvim",
 			ft = "lua",

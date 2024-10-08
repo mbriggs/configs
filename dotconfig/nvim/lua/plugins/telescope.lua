@@ -1,13 +1,11 @@
-local finders = require("telescope.finders")
-local pickers = require("telescope.pickers")
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-local previewers = require("telescope.previewers")
-
 -- Function to open netrw in the selected directory
 local function open_netrw(prompt_bufnr)
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+
 	local selected_entry = action_state.get_selected_entry()
 	local dir = selected_entry.value
+
 	actions.close(prompt_bufnr)
 	-- vim.cmd("Explore " .. dir)
 	require("neo-tree.command").execute({ position = "current", dir = vim.fn.getcwd() .. "/" .. dir })
@@ -15,6 +13,10 @@ end
 
 -- Custom picker to list all directories in the project
 local search_directories = function(opts)
+	local finders = require("telescope.finders")
+	local pickers = require("telescope.pickers")
+	local previewers = require("telescope.previewers")
+
 	opts = opts or {}
 
 	local cmd = { "fd", "--type", "d", "--hidden", "--exclude", ".git" }
@@ -46,11 +48,13 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"joaomsa/telescope-orgmode.nvim",
-		"mbriggs/dir-telescope.nvim",
-		"nvim-telescope/telescope-live-grep-args.nvim",
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+		},
+		{
+			"fdschmidt93/telescope-egrepify.nvim",
+			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 		},
 		{
 			"stevearc/aerial.nvim",
@@ -65,11 +69,11 @@ return {
 	cmd = { "Telescope" },
 	config = function()
 		local telescope = require("telescope")
-		local lga_actions = require("telescope-live-grep-args.actions")
+		local actions = require("telescope.actions")
+		local egrep_actions = require("telescope._extensions.egrepify.actions")
 
 		telescope.setup({
 			defaults = {
-				preview = false,
 				mappings = {
 					i = {
 						["<esc>"] = actions.close,
@@ -77,32 +81,47 @@ return {
 				},
 			},
 			extensions = {
-				live_grep_args = {
-					auto_quoting = true, -- enable/disable auto-quoting
-					-- define mappings, e.g.
-					mappings = { -- extend mappings
-						i = {
-							["<C-k>"] = lga_actions.quote_prompt(),
-							["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
-							-- freeze the current list and start a fuzzy search in the frozen list
-							["<C-space>"] = actions.to_fuzzy_refine,
+				egrepify = {
+					-- intersect tokens in prompt ala "str1.*str2" that ONLY matches
+					-- if str1 and str2 are consecutively in line with anything in between (wildcard)
+					AND = true, -- default
+					permutations = false, -- opt-in to imply AND & match all permutations of prompt tokens
+					lnum = true, -- default, not required
+					lnum_hl = "EgrepifyLnum", -- default, not required, links to `Constant`
+					col = false, -- default, not required
+					col_hl = "EgrepifyCol", -- default, not required, links to `Constant`
+					title = true, -- default, not required, show filename as title rather than inline
+					filename_hl = "EgrepifyFile", -- default, not required, links to `Title`
+					results_ts_hl = true, -- set to false if you experience latency issues!
+					-- suffix = long line, see screenshot
+					-- EXAMPLE ON HOW TO ADD PREFIX!
+					prefixes = {
+						-- ADDED ! to invert matches
+						-- example prompt: ! sorter
+						-- matches all lines that do not comprise sorter
+						-- rg --invert-match -- sorter
+						["!"] = {
+							flag = "invert-match",
 						},
 					},
-					-- ... also accepts theme settings, for example:
-					-- theme = "dropdown", -- use dropdown theme
-					-- theme = { }, -- use own theme spec
-					-- layout_config = { mirror=true }, -- mirror preview pane
+					-- default mappings
+					mappings = {
+						i = {
+							-- toggle prefixes, prefixes is default
+							["<C-z>"] = egrep_actions.toggle_prefixes,
+							-- toggle AND, AND is default, AND matches tokens and any chars in between
+							["<C-a>"] = egrep_actions.toggle_and,
+							-- toggle permutations, permutations of tokens is opt-in
+							["<C-r>"] = egrep_actions.toggle_permutations,
+						},
+					},
 				},
 			},
 		})
 
 		telescope.load_extension("fzf")
-		telescope.load_extension("live_grep_args")
 		telescope.load_extension("aerial")
-
-		-- dir-telescope allows narrowing telescope to a specific directory
-		require("dir-telescope").setup()
-		telescope.load_extension("dir")
+		telescope.load_extension("egrepify")
 
 		-- telescope.load_extension("orgmode")
 
@@ -157,62 +176,14 @@ return {
 			silent = true,
 			desc = "Find files",
 		},
-		{
-			"<leader>f<leader>f",
-			":Telescope dir find_files<CR>",
-			noremap = true,
-			silent = true,
-			desc = "Find files in subdir",
-		},
-
-		-- find current word
-		{
-			"<leader>fw",
-			":lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor()<CR>",
-			noremap = true,
-			silent = true,
-			desc = "Find current word in project",
-		},
-		{
-			"<leader>fW",
-			":lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor_current_buffer()<CR>",
-			noremap = true,
-			silent = true,
-			desc = "Find current word in the current buffer",
-		},
-
-		-- find visual selection
-		{
-			"<leader>fv",
-			":lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<CR>",
-			noremap = true,
-			silent = true,
-			desc = "Find visual selection in project",
-			mode = "v",
-		},
-		{
-			"<leader>fV",
-			":lua require('telescope-live-grep-args.shortcuts').grep_visual_selection_current_buffer()<CR>",
-			noremap = true,
-			silent = true,
-			desc = "Find visual selection in the current buffer",
-			mode = "v",
-		},
 
 		-- grep
 		{
 			"<leader>fg",
-			":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
+			"<cmd>Telescope egrepify<cr>",
 			noremap = true,
 			silent = true,
 			desc = "Grep",
-		},
-		{
-			"<leader>f<leader>g",
-			"<cmd>Telescope dir live_grep<CR>",
-			noremap = true,
-			silent = true,
-			desc = "Grep in subdir",
 		},
 
 		-- vim
