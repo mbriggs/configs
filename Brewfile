@@ -29,6 +29,7 @@ brew 'ruby'
 brew 'rust'
 brew 'shellcheck'
 brew 'sox'
+brew 'universal-ctags'
 brew 'wget'
 
 brew 'clojure/tools/clojure'
