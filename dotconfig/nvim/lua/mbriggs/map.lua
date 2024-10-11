@@ -46,7 +46,7 @@ map("n", "n", "nzzzv", { desc = "next search result" })
 map("n", "N", "Nzzzv", { desc = "previous search result" })
 
 -- emacs style
-map("n", "<leader>.", "<C-]>", { desc = "jump to definition" })
+-- map("n", "<leader>.", "<C-]>", { desc = "jump to definition" })
 map("i", "<C-a>", "<Home>", { desc = "start of line" })
 map("i", "<C-e>", "<esc>A", { desc = "end of line" })
 map("i", "<C-n>", "<down>", { desc = "next line" })
