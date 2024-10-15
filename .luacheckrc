@@ -1,6 +1,1 @@
-std = {
-	read_globals = {
-		"vim",
-		"require",
-	},
-}
+table.insert(std.read_globals, "vim")
