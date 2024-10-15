@@ -2,7 +2,6 @@ local prettierconf = { "prettierd", "prettier", stop_after_first = true }
 
 return {
 	"stevearc/conform.nvim",
-	dependencies = { "mason.nvim" },
 	lazy = true,
 	cmd = "ConformInfo",
 	keys = {
