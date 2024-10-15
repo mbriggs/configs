@@ -26,14 +26,10 @@ brew 'python'
 brew 'python3'
 brew 'ripgrep'
 brew 'ruby'
-brew 'rust'
 brew 'shellcheck'
 brew 'sox'
 brew 'universal-ctags'
 brew 'wget'
-
-brew 'clojure/tools/clojure'
-brew 'borkdude/brew/babashka'
 
 cask "1password"
 cask "1password-cli"
@@ -41,9 +37,7 @@ cask "adobe-creative-cloud"
 cask "adobe-creative-cloud-cleaner-tool"
 cask "jetbrains-toolbox"
 cask "alfred"
-cask "brave-browser"
 cask "caffeine"
-cask "cleanshot"
 cask "daisydisk"
 cask "font-space-mono"
 cask "font-geist-mono"
@@ -51,7 +45,6 @@ cask "font-jetbrains-mono"
 cask "font-symbols-only-nerd-font"
 cask "istat-menus"
 cask "kitty"
-cask "rectangle-pro"
 cask "slack"
 cask "vanilla"
 cask "vlc"
