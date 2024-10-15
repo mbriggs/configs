@@ -43,6 +43,7 @@ return {
 				css = prettierconf,
 				templ = { "templ" },
 				sql = { "sql-formatter" },
+				ruby = { "rubocop" },
 			},
 
 			formatters = {
