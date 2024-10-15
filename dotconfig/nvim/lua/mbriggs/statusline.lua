@@ -21,7 +21,7 @@ end
 
 local function get_icon(filename)
 	local icon, _ = devicons.get_icon(filename, vim.fn.expand("%:e"), { default = true })
-	return icon and ("%#StatusLineIcon#" .. icon .. " ") or ""
+	return icon and ("%#StatusLineIcon# " .. icon .. "  ") or ""
 end
 
 local function get_modified_indicator(is_modified, is_file_buffer)
