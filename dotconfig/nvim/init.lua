@@ -5,22 +5,13 @@ require("mbriggs.keymaps")
 require("mbriggs.set")
 
 -- set up filetypes for certain extensions
-require("mbriggs.ft.extmaps")
-
--- set up merge maps
-require("mbriggs.ft.mergemaps")
+require("mbriggs.ft")
 
 -- set up qf maps
-require("mbriggs.ft.qf")
-
--- set up completion / snippets
-require("mbriggs.completion")
+require("mbriggs.quickfix")
 
 -- load and configure third party plugins
 require("mbriggs.plugins")
 
--- configure netrw
-require("mbriggs.netrw")
-
 -- statusline
-require("mbriggs.statusline")
+require("mbriggs.statusline").setup()
