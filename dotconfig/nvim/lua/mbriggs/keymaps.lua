@@ -10,29 +10,24 @@ map(
 	{ desc = "save->fmt->clear highlights" }
 )
 
-local function toggle_qf()
-	local qf_open = false
-	for _, win in pairs(vim.fn.getwininfo()) do
-		if win.quickfix == 1 then
-			qf_open = true
-			break
-		end
-	end
+-- dabbrev style completion
+map("i", "<D-/>", "<C-n>", { desc = "next completion", noremap = "true" })
+map("i", "<D-S-/>", "<C-x><C-n>", { desc = "next completion in current file", noremap = "true" })
 
-	if qf_open then
-		vim.cmd("cclose")
-	else
-		if not vim.tbl_isempty(vim.fn.getqflist()) then
-			vim.cmd("copen")
-		else
-			print("Quickfix list is empty")
-		end
+-- built in snippets
+map({ "s", "i" }, "<Tab>", function()
+	if vim.snippet.active({ direction = 1 }) then
+		vim.snippet.jump(1)
+	elseif next(vim.lsp.get_clients({ bufnr = 0 })) and vim.lsp.completion then
+		vim.lsp.completion.trigger()
 	end
-end
+end)
 
-map("n", "<leader>q", function()
-	toggle_qf()
-end, { desc = "toggle quickfix" })
+map("s", "<S-Tab>", function()
+	if vim.snippet.active({ direction = -1 }) then
+		vim.snippet.jump(-1)
+	end
+end)
 
 -- nuke buffer
 map("n", "<leader>bk", "<cmd>bd!<cr>", { desc = "nuke buffer" })
@@ -102,3 +97,16 @@ map({ "n", "v" }, "<s-l>", "$", { desc = "end of line" })
 
 -- put current dir into command
 map("c", "%%", "<C-R>=expand('%:h').'/'<cr>", { desc = "put current dir into command" })
+
+-- maps for diffs
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+	pattern = "*",
+	callback = function()
+		local map = vim.keymap.set
+		if vim.wo.diff then
+			local opts = { buffer = true, noremap = true, silent = true }
+			map("n", "gf", "diffget //2", opts)
+			map("n", "gj", "diffget //3", opts)
+		end
+	end,
+})
