@@ -1,5 +1,5 @@
 -- set up custom keymaps
-require("mbriggs.map")
+require("mbriggs.keymaps")
 
 -- load vim settings
 require("mbriggs.set")

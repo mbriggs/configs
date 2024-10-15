@@ -10,6 +10,30 @@ map(
 	{ desc = "save->fmt->clear highlights" }
 )
 
+local function toggle_qf()
+	local qf_open = false
+	for _, win in pairs(vim.fn.getwininfo()) do
+		if win.quickfix == 1 then
+			qf_open = true
+			break
+		end
+	end
+
+	if qf_open then
+		vim.cmd("cclose")
+	else
+		if not vim.tbl_isempty(vim.fn.getqflist()) then
+			vim.cmd("copen")
+		else
+			print("Quickfix list is empty")
+		end
+	end
+end
+
+map("n", "<leader>q", function()
+	toggle_qf()
+end, { desc = "toggle quickfix" })
+
 -- nuke buffer
 map("n", "<leader>bk", "<cmd>bd!<cr>", { desc = "nuke buffer" })
 
