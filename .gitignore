@@ -9,3 +9,4 @@
 
 /dotconfig/tmux/plugins/*
 dotfiles/aws/credentials
+tags*
