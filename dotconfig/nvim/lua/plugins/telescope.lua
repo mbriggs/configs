@@ -226,6 +226,67 @@ return {
 			silent = true,
 			desc = "Jump to definition",
 		},
+		-- rails
+		{
+			"<leader>rm",
+			[[<cmd>lua require("mbriggs.rails").find_models()<cr>]],
+			silent = true,
+			desc = "Find Model",
+		},
+		{
+			"<leader>rc",
+			[[<cmd>lua require("mbriggs.rails").find_controllers()<cr>]],
+			silent = true,
+			desc = "Find Controller",
+		},
+		{
+			"<leader>rv",
+			[[<cmd>lua require("mbriggs.rails").find_views()<cr>]],
+			silent = true,
+			desc = "Find View",
+		},
+		{
+			"<leader>rh",
+			[[<cmd>lua require("mbriggs.rails").find_helpers()<cr>]],
+			silent = true,
+			desc = "Find Helper",
+		},
+		{
+			"<leader>rM",
+			[[<cmd>lua require("mbriggs.rails").find_mailers()<cr>]],
+			silent = true,
+			desc = "Find Mailer",
+		},
+		{
+			"<leader>rj",
+			[[<cmd>lua require("mbriggs.rails").find_jobs()<cr>]],
+			silent = true,
+			desc = "Find Job",
+		},
+		{
+			"<leader>rl",
+			[[<cmd>lua require("mbriggs.rails").find_lib()<cr>]],
+			silent = true,
+			desc = "Find Lib",
+		},
+		{
+			"<leader>rt",
+			[[<cmd>lua require("mbriggs.rails").find_tests()<cr>]],
+			silent = true,
+			desc = "Find Test",
+		},
+		{
+			"<leader>rs",
+			[[<cmd>lua require("mbriggs.rails").find_specs()<cr>]],
+			silent = true,
+			desc = "Find Model",
+		},
+		{
+			"<leader>rr",
+			[[<cmd>lua require("mbriggs.rails").find_related()<cr>]],
+			silent = true,
+			desc = "Find Related",
+		},
 		-- -- lsp
 		-- {
 		-- 	"<leader>=",

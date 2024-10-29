@@ -21,6 +21,7 @@ return {
 				{ "<leader>g", group = "git" },
 				{ "<leader>gb", group = "blame" },
 				{ "<leader>k", group = "task" },
+				{ "<leader>r", group = "rails" },
 				{ "<leader>o", group = "org" },
 				{ "<leader>ob", group = "babel" },
 				{ "<leader>oi", group = "insert" },
@@ -45,7 +46,6 @@ return {
 					{ "oi", group = "insert" },
 					{ "om", group = "mode" },
 				}, opts)
-			elseif fileTy == "sh" then
 			end
 		end
 		vim.api.nvim_create_autocmd("FileType", {
