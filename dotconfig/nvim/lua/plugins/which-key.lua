@@ -19,6 +19,7 @@ return {
 				{ "<leader>f", group = "find", mode = "vn" },
 				{ "<leader>f<leader>", group = "subdir" },
 				{ "<leader>g", group = "git" },
+				{ "<leader>u", group = "pull requests" },
 				{ "<leader>gb", group = "blame" },
 				{ "<leader>k", group = "task" },
 				{ "<leader>r", group = "rails" },
