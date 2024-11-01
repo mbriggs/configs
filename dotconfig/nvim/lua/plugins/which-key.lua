@@ -16,7 +16,7 @@ return {
 				{ "<leader>b", group = "buffer" },
 				{ "<leader>c", group = "code" },
 				{ "<leader>d", group = "debug" },
-				{ "<leader>f", group = "find", mode = "vn" },
+				{ "<leader>f", group = "find", mode = { "v", "n" } },
 				{ "<leader>f<leader>", group = "subdir" },
 				{ "<leader>g", group = "git" },
 				{ "<leader>u", group = "pull requests" },
@@ -31,6 +31,7 @@ return {
 				{ "<leader>p", group = "project" },
 				{ "<leader>t", group = "test" },
 				{ "<leader>x", group = "trouble" },
+				{ "<leader>S", group = "snippets", mode = { "v", "n" } },
 			},
 		})
 
