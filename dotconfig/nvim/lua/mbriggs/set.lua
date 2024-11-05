@@ -29,6 +29,7 @@ vim.opt.undofile = true
 
 -- folding
 vim.opt.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
 
 -- more gui colors

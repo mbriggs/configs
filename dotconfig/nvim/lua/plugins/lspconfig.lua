@@ -123,4 +123,7 @@ return {
 			end,
 		})
 	end,
+	keys = {
+		{ "<leader>m", "<cmd>Mason<cr>", desc = "Mason" },
+	},
 }
