@@ -5,7 +5,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 -- more sophisticated indentation
-vim.opt.smartindent = true
+vim.opt.smartindent = false
 
 -- search settings
 vim.opt.smartcase = true
