@@ -39,7 +39,7 @@ return {
 				auto_install = true,
 
 				indent = {
-					enable = false,
+					enable = true,
 				},
 
 				highlight = {
