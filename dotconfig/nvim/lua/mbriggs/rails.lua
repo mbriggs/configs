@@ -71,6 +71,10 @@ local function singularize(word)
 	return word:gsub("s$", "")
 end
 
+local function is_view_file(file_parts)
+	return file_parts[2] == "views"
+end
+
 -- context-aware finder
 function M.find_related()
 	local rails_root = find_rails_root()
@@ -87,9 +91,26 @@ function M.find_related()
 	-- Extract module name and base name
 	local module_parts = {}
 	local base_name = file_name
-	if #file_parts > 3 then -- Changed from 2 to 3 to skip "app" directory
-		module_parts = vim.list_slice(file_parts, 3, #file_parts - 1)
-		base_name = file_name:gsub("_controller$", ""):gsub("_helper$", ""):gsub("_mailer$", "")
+
+	if is_view_file(file_parts) then
+		-- For views, use all directories after "views" except the last one
+		if #file_parts > 3 then
+			local view_parts = vim.list_slice(file_parts, 3, #file_parts - 1)
+			if #view_parts > 1 then
+				-- Namespaced view
+				module_parts = vim.list_slice(view_parts, 1, #view_parts - 1)
+				base_name = view_parts[#view_parts]
+			else
+				-- Root-level view
+				base_name = view_parts[1]
+			end
+		end
+	else
+		-- not a view
+		if #file_parts > 3 then
+			module_parts = vim.list_slice(file_parts, 3, #file_parts - 1)
+			base_name = file_name:gsub("_controller$", ""):gsub("_helper$", ""):gsub("_mailer$", "")
+		end
 	end
 
 	local module_name = table.concat(module_parts, "::")
