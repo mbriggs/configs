@@ -38,8 +38,6 @@ return {
 		{ "<leader>cC", "<cmd>GpChatNew<cr>", desc = "New Chat" },
 		{ "<leader>cp", ":<C-u>'<,'>GpChatPaste<cr>", desc = "Paste into Chat", mode = { "v" } },
 		{ "<leader>c<cr>", "<cmd>GpChatRespond<cr>", desc = "Code chat respond" },
-		{ "<leader>cX", "<cmd>GpChatDelete<cr>", desc = "Kill code chat" },
-		{ "<leader>cx", "<cmd>GpChatStop<cr>", desc = "Stop generating" },
-		{ "<leader>c/", "<cmd>GpChatFinder<cr>", desc = "Find a stored chat" },
+		{ "<leader>c?", "<cmd>GpChatFinder<cr>", desc = "Find a stored chat" },
 	},
 }
