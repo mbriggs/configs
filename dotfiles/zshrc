@@ -3,6 +3,7 @@ alias ls="eza"
 alias vi="nvim"
 alias nx="npx nx"
 alias lg="lazygit"
+alias ld="lazydocker"
 alias dk="docker"
 alias dkc="docker compose"
 alias dke='docker compose exec $DKC_MAIN'
