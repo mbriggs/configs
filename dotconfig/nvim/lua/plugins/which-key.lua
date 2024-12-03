@@ -15,6 +15,7 @@ return {
 			spec = {
 				{ "<leader>b", group = "buffer" },
 				{ "<leader>c", group = "code" },
+				{ "<leader>d", group = "doing" },
 				{ "<leader>f", group = "find", mode = { "v", "n" } },
 				{ "<leader>f<leader>", group = "subdir" },
 				{ "<leader>g", group = "git" },

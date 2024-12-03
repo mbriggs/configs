@@ -28,7 +28,7 @@ return {
 
 	opts = {
 		-- experimental signature help support
-		trigger = { signature_help = { enabled = true } },
+		trigger = { signature_help = { enabled = false } },
 		highlight = { use_nvim_cmp_as_default = true },
 		keymap = {
 			["<D-space>"] = { "show" },
