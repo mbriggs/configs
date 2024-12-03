@@ -4,6 +4,9 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
+-- 80 chars for hard wrapping
+vim.opt.textwidth = 80
+
 -- more sophisticated indentation
 vim.opt.smartindent = false
 

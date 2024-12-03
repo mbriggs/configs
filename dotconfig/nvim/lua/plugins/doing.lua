@@ -17,6 +17,9 @@ return {
 	},
 
 	keys = {
-		{ "<leader>d", [[<cmd>DoEdit<cr>]], desc = "Doing", silent = true },
+		{ "<leader>dd", [[<cmd>Do<cr>]], desc = "Do something", silent = true },
+		{ "<leader>dD", [[<cmd>Do!<cr>]], desc = "Do something later", silent = true },
+		{ "<leader>dn", [[<cmd>Done<cr>]], desc = "Done", silent = true },
+		{ "<leader>de", [[<cmd>DoEdit<cr>]], desc = "Doing", silent = true },
 	},
 }
