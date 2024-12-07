@@ -106,6 +106,8 @@ Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 Style/WordArray:
   EnforcedStyle: brackets
+Style/WhileUntilModifier:
+  Enabled: false
 Style/GlobalVars:
   Enabled: false
 Style/TrailingCommaInHashLiteral:
