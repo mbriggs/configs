@@ -1,15 +1,5 @@
 #!/bin/zsh
 
-# echo -n  "=> Set Tab Title: "
-# read new_tab_title
-#
-# kitty @ set-tab-title "$new_tab_title"
-#
-#!/bin/zsh
-#!/bin/zsh
-#!/bin/zsh
-#!/bin/zsh
-
 # Check if tput is available
 if ! command -v tput >/dev/null 2>&1; then
     echo "Error: tput is required but not installed."
