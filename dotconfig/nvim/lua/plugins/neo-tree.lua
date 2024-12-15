@@ -22,20 +22,6 @@ return {
 			end,
 			desc = "Explorer NeoTree (cwd)",
 		},
-		{
-			"<leader>ge",
-			function()
-				require("neo-tree.command").execute({ source = "git_status", position = "current" })
-			end,
-			desc = "Git Explorer",
-		},
-		{
-			"<leader>be",
-			function()
-				require("neo-tree.command").execute({ source = "buffers", position = "current" })
-			end,
-			desc = "Buffer Explorer",
-		},
 	},
 	deactivate = function()
 		vim.cmd([[Neotree close]])
