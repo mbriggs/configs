@@ -84,3 +84,8 @@ fi
 if command -v rbenv &>/dev/null;  then
   eval "$(rbenv init - --no-rehash zsh)"
 fi
+
+### fzf
+if command -v fzf &>/dev/null;  then
+  source <(fzf --zsh)
+fi
