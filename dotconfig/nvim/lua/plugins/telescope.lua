@@ -42,20 +42,7 @@ local search_directories = function(opts)
 		:find()
 end
 
-function smart_tag_jump()
-	local builtin = require("telescope.builtin")
-	local word = vim.fn.expand("<cword>")
-	local results = vim.fn.taglist(word)
-	if #results == 0 then
-		vim.notify("No tags found for: " .. word, vim.log.levels.WARN)
-	elseif #results == 1 then
-		vim.cmd("tag " .. word)
-	else
-		builtin.tags({ default_text = word })
-	end
-end
-
-return {
+local opts = {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
 	dependencies = {
@@ -297,3 +284,5 @@ return {
 		-- },
 	},
 }
+
+return {}

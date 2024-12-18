@@ -20,10 +20,10 @@ local function create_finder(prompt_title, directory)
 		return
 	end
 
-	require("telescope.builtin").find_files({
-		prompt_title = prompt_title,
+	require("fzf-lua").files({
+		prompt = prompt_title .. "❯ ",
 		cwd = rails_root .. directory,
-		hidden = false,
+		cmd = "fd --type f --hidden --follow --exclude .git",
 	})
 end
 
@@ -56,7 +56,7 @@ function M.find_specs()
 	create_finder("Rails Specs", "/spec")
 end
 
--- Helper function to get both singular and plural forms
+-- Helper functions
 local function get_singular_and_plural(word)
 	local singular = word:gsub("s$", "")
 	local plural = singular .. "s"
@@ -93,20 +93,16 @@ function M.find_related()
 	local base_name = file_name
 
 	if is_view_file(file_parts) then
-		-- For views, use all directories after "views" except the last one
 		if #file_parts > 3 then
 			local view_parts = vim.list_slice(file_parts, 3, #file_parts - 1)
 			if #view_parts > 1 then
-				-- Namespaced view
 				module_parts = vim.list_slice(view_parts, 1, #view_parts - 1)
 				base_name = view_parts[#view_parts]
 			else
-				-- Root-level view
 				base_name = view_parts[1]
 			end
 		end
 	else
-		-- not a view
 		if #file_parts > 3 then
 			module_parts = vim.list_slice(file_parts, 3, #file_parts - 1)
 			base_name = file_name:gsub("_controller$", ""):gsub("_helper$", ""):gsub("_mailer$", "")
@@ -115,17 +111,10 @@ function M.find_related()
 
 	local module_name = table.concat(module_parts, "::")
 	local full_name = module_name ~= "" and (module_name .. "::" .. base_name) or base_name
-
-	-- Capitalize for display
 	local display_full_name = capitalize(singularize(full_name))
-
-	print("Debug: module_name = " .. module_name)
-	print("Debug: base_name = " .. base_name)
-	print("Debug: full_name = " .. full_name)
-
-	local search_patterns = {}
 	local normalized_name = full_name:lower():gsub("::", "/")
 
+	local search_patterns = {}
 	for _, name in ipairs(get_singular_and_plural(normalized_name)) do
 		table.insert(search_patterns, "app/models/" .. name .. ".rb")
 		table.insert(search_patterns, "app/controllers/" .. name .. "_controller.rb")
@@ -145,47 +134,28 @@ function M.find_related()
 		table.insert(search_patterns, "spec/jobs/" .. name .. "_job_spec.rb")
 	end
 
-	print("Debug: search_patterns = " .. vim.inspect(search_patterns))
+	-- Build rg command for fzf
+	local rg_command = table.concat({
+		"rg --files",
+		table.concat(
+			vim.tbl_map(function(pattern)
+				return "--glob '" .. pattern .. "'"
+			end, search_patterns),
+			" "
+		),
+	}, " ")
 
-	local find_command = { "rg", "--files" }
-	for _, pattern in ipairs(search_patterns) do
-		table.insert(find_command, "--glob")
-		table.insert(find_command, pattern)
-	end
-
-	print("Debug: find_command = " .. vim.inspect(find_command))
-
-	require("telescope.builtin").find_files({
-		prompt_title = "Related Files for " .. display_full_name,
+	require("fzf-lua").files({
+		prompt = "Related Files for " .. display_full_name .. "❯ ",
 		cwd = rails_root,
-		hidden = false,
-		find_command = find_command,
-		entry_maker = function(entry)
-			print("Debug: entry = " .. vim.inspect(entry))
-			if entry then
-				local filename = entry
-				if filename ~= current_file then
-					return {
-						value = filename,
-						display = filename:gsub("^" .. vim.fn.escape(rails_root .. "/", "/"), ""),
-						ordinal = filename,
-					}
+		cmd = rg_command,
+		actions = {
+			["default"] = function(selected, opts)
+				if selected[1] ~= current_file then
+					vim.cmd("edit " .. selected[1])
 				end
-			end
-			return nil
-		end,
-		attach_mappings = function(prompt_bufnr, map)
-			local actions = require("telescope.actions")
-			local action_state = require("telescope.actions.state")
-			map("i", "<CR>", function()
-				actions.close(prompt_bufnr)
-				local selection = action_state.get_selected_entry()
-				if selection then
-					vim.cmd("edit " .. selection.value)
-				end
-			end)
-			return true
-		end,
+			end,
+		},
 	})
 end
 
