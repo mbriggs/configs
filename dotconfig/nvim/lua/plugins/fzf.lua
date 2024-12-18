@@ -61,6 +61,7 @@ return {
 			defaults = {
 				formatter = "path.dirname_first",
 				previewer = false,
+				headers = false,
 			},
 			keymap = {
 				fzf = {
