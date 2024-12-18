@@ -2,7 +2,7 @@ local snippets_dir = vim.fn.stdpath("config") .. "/snippets"
 
 return {
   "saghen/blink.cmp",
-  lazy = false,
+  lazy = "VeryLazy",
   version = "v0.*",
 
   dependencies = {
