@@ -4,10 +4,10 @@ local map = vim.keymap.set
 
 map("n", "<leader>#", "<cmd>set nu!<cr>", { desc = "Toggle Line Numbers" })
 map(
-	"n",
-	"<leader>w",
-	":nohlsearch<CR>:lua require('conform').format()<CR>:w<CR>",
-	{ desc = "save->fmt->clear highlights" }
+  "n",
+  "<leader>w",
+  ":nohlsearch<CR>:lua require('conform').format()<CR>:w<CR>",
+  { desc = "save->fmt->clear highlights" }
 )
 
 -- dabbrev style completion
@@ -16,17 +16,17 @@ map("i", "<D-S-/>", "<C-x><C-n>", { desc = "next completion in current file", no
 
 -- built in snippets
 map({ "s", "i" }, "<Tab>", function()
-	if vim.snippet.active({ direction = 1 }) then
-		vim.snippet.jump(1)
-	elseif next(vim.lsp.get_clients({ bufnr = 0 })) and vim.lsp.completion then
-		vim.lsp.completion.trigger()
-	end
+  if vim.snippet.active({ direction = 1 }) then
+    vim.snippet.jump(1)
+  elseif next(vim.lsp.get_clients({ bufnr = 0 })) and vim.lsp.completion then
+    vim.lsp.completion.trigger()
+  end
 end)
 
 map("s", "<S-Tab>", function()
-	if vim.snippet.active({ direction = -1 }) then
-		vim.snippet.jump(-1)
-	end
+  if vim.snippet.active({ direction = -1 }) then
+    vim.snippet.jump(-1)
+  end
 end)
 
 -- nuke buffer
@@ -89,7 +89,7 @@ map("n", "<C-S-n>", "<cmd>cnext<CR>zz", { desc = "next quickfix" })
 map("n", "<C-S-p>", "<cmd>cprev<CR>zz", { desc = "previous quickfix" })
 
 -- substitute current word
-map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "substitute current word" })
+map("n", "<leader>cs", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "substitute current word" })
 
 -- H / L for start / end of line
 map({ "n", "v" }, "<s-h>", "^", { desc = "start of line" })
@@ -100,13 +100,13 @@ map("c", "%%", "<C-R>=expand('%:h').'/'<cr>", { desc = "put current dir into com
 
 -- maps for diffs
 vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
-	pattern = "*",
-	callback = function()
-		local map = vim.keymap.set
-		if vim.wo.diff then
-			local opts = { buffer = true, noremap = true, silent = true }
-			map("n", "gf", "diffget //2", opts)
-			map("n", "gj", "diffget //3", opts)
-		end
-	end,
+  pattern = "*",
+  callback = function()
+    local map = vim.keymap.set
+    if vim.wo.diff then
+      local opts = { buffer = true, noremap = true, silent = true }
+      map("n", "gf", "diffget //2", opts)
+      map("n", "gj", "diffget //3", opts)
+    end
+  end,
 })
