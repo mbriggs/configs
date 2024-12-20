@@ -17,6 +17,7 @@ return {
       ensure_installed = {
         "lua_ls",
         "ts_ls",
+        "ruby_lsp",
         "gopls",
         "golangci_lint_ls",
         "templ",
@@ -123,7 +124,7 @@ return {
       callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         local value = ev.data.params
-        .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+            .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
         if not client or type(value) ~= "table" then
           return
         end
