@@ -48,24 +48,23 @@ return {
 					additional_vim_regex_highlighting = { "markdown" },
 				},
 
+				autotag = {
+					enable = true,
+				},
+
 				textobjects = {
 					enable = true,
 					lookahead = true,
 				},
 			})
 
-			-- local treesitter_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-			-- treesitter_parser_config.templ = {
-			-- 	install_info = {
-			-- 		url = "https://github.com/vrischmann/tree-sitter-templ.git",
-			-- 		files = { "src/parser.c", "src/scanner.c" },
-			-- 		branch = "master",
-			-- 	},
-			-- }
-			--
-			require("nvim-treesitter.install").compilers = { "gcc-14" }
+			vim.g.ruby_indent_assignment_style = "hanging"
+			vim.g.ruby_indent_block_style = "do"
+			vim.g.ruby_indent_access_modifier_style = "indent" -- Properly indents private/protected
+			vim.g.ruby_indent_hanging_elements = 1 -- Better handling of hanging elements
+			vim.g.ruby_operators = 1 -- Better operator highlighting
 
-			-- vim.treesitter.language.register("templ", "templ")
+			require("nvim-treesitter.install").compilers = { "gcc-14" }
 		end,
 	},
 }
