@@ -8,7 +8,7 @@ vim.opt.expandtab = true
 vim.opt.textwidth = 80
 
 -- more sophisticated indentation
-vim.opt.smartindent = false
+vim.opt.smartindent = true
 
 -- search settings
 vim.opt.smartcase = true
