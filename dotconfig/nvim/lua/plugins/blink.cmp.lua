@@ -2,7 +2,7 @@ local snippets_dir = vim.fn.stdpath("config") .. "/snippets"
 
 return {
 	"saghen/blink.cmp",
-	lazy = "VeryLazy",
+	lazy = false,
 	version = "v0.*",
 
 	dependencies = {
@@ -30,9 +30,6 @@ return {
 	},
 
 	opts = {
-		-- experimental signature help support
-		trigger = { signature_help = { enabled = false } },
-		highlight = { nerd_font_variant = "mono" },
 		keymap = {
 			["<D-space>"] = { "show" },
 			["<S-CR>"] = { "hide" },
@@ -42,7 +39,6 @@ return {
 			["<PageDown>"] = { "scroll_documentation_down" },
 			["<PageUp>"] = { "scroll_documentation_up" },
 		},
-		nerd_font_variant = "mono",
 		sources = {
 			providers = {
 				snippets = {
