@@ -26,15 +26,18 @@ return {
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
-				"lua_ls",
-				"ts_ls",
-				"ruby_lsp",
-				"gopls",
+				"bashls",
 				"golangci_lint_ls",
-				"templ",
+				"gopls",
 				"html",
 				"htmx",
+				"lua_ls",
+				"ruby_lsp",
+				"shellcheck",
+				"sql-formatter",
 				"tailwindcss",
+				"templ",
+				"ts_ls",
 			},
 			handlers = {
 				function(server_name) -- default handler (optional)
@@ -54,7 +57,6 @@ return {
 					})
 				end,
 
-				-- required for templ
 				["html"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.html.setup({
