@@ -8,7 +8,7 @@ return {
 		{ "Bilal2453/luvit-meta", lazy = true },
 		{
 			"dgagn/diagflow.nvim",
-			lazy = false,
+			event = { "BufReadPost", "BufNewFile" },
 			opts = {
 				text_align = "left",
 				padding_right = 4,
