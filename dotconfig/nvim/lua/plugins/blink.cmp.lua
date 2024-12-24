@@ -15,11 +15,12 @@ return {
 			["<PageUp>"] = { "scroll_documentation_up" },
 		},
 		sources = {
+			default = { "codecompanion" },
 			providers = {
-				snippets = {
-					opts = {
-						search_paths = { snippets_dir },
-					},
+				codecompanion = {
+					name = "CodeCompanion",
+					module = "codecompanion.providers.completion.blink",
+					enabled = true,
 				},
 			},
 		},
