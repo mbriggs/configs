@@ -4,31 +4,6 @@ return {
 	"saghen/blink.cmp",
 	lazy = false,
 	version = "v0.*",
-
-	dependencies = {
-		{
-			"chrisgrieser/nvim-scissors",
-			lazy = false,
-			dependencies = {
-				"ibhagwan/fzf-lua",
-				"stevearc/dressing.nvim",
-			},
-			opts = {
-				snippetDir = snippets_dir,
-			},
-			keys = {
-				{
-					"<leader>Sa",
-					[[<cmd>ScissorsAddNewSnippet<cr>]],
-					mode = { "v", "n" },
-					silent = true,
-					desc = "Add Snippet",
-				},
-				{ "<leader>Se", [[<cmd>ScissorsEditSnippet<cr>]], silent = true, desc = "Add Snippet" },
-			},
-		},
-	},
-
 	opts = {
 		keymap = {
 			["<D-space>"] = { "show" },

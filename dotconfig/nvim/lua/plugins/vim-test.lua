@@ -1,5 +1,6 @@
 return {
 	"vim-test/vim-test",
+	lazy = true,
 
 	init = function()
 		vim.g["test#strategy"] = "kitty"
