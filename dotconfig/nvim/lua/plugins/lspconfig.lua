@@ -33,8 +33,6 @@ return {
 				"htmx",
 				"lua_ls",
 				"ruby_lsp",
-				"shellcheck",
-				"sql-formatter",
 				"tailwindcss",
 				"templ",
 				"ts_ls",
