@@ -32,7 +32,7 @@ return {
 			"<cmd>CodeCompanionActions<cr>",
 			silent = true,
 			desc = "Code Companion Actions",
-			mode = { "v", "n" },
+			mode = { "v", "n", "i" },
 		},
 		{ "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add to chat", noremap = true, silent = true },
 	},
