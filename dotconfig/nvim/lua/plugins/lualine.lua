@@ -46,6 +46,13 @@ return {
             unnamed = '[No Name]',
           },
           color = function()
+            if vim.fn.bufname() == "" then
+              return {
+                fg = '#7a88cf',
+                bg = '#222436',
+              }
+            end
+
             return {
               fg = '#e0af68',
               bg = '#222436',
