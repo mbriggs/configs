@@ -21,8 +21,8 @@ vim.opt.concealcursor = "nc"
 -- soft wrapping long lines
 vim.opt.wrap = true
 
--- dont show line numbers by default
-vim.opt.number = false
+-- show line numbers by default
+vim.opt.number = true
 
 -- make extra files less irritating
 vim.opt.swapfile = false
@@ -38,12 +38,12 @@ vim.opt.foldlevel = 99
 -- more gui colors
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 8 -- lines to keep above / below the cursor
-vim.opt.signcolumn = "yes" -- show signs
+vim.opt.scrolloff = 8         -- lines to keep above / below the cursor
+vim.opt.signcolumn = "yes"    -- show signs
 
 vim.opt.isfname:append("@-@") -- allow @ in file names
 
-vim.opt.updatetime = 50 -- speed up ui
+vim.opt.updatetime = 50       -- speed up ui
 
 vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
 
