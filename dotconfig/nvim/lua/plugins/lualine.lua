@@ -4,7 +4,7 @@ return {
   opts = {
     options = {
       theme = "auto",
-      globalstatus = true,
+      globalstatus = false,
       component_separators = { left = ' ', right = ' ' },
       section_separators = { left = '', right = '' },
       disabled_filetypes = { statusline = { "dashboard", "alpha" } },
@@ -53,9 +53,6 @@ return {
             }
           end
         },
-
-        { "filesize", padding = { left = 2 } },
-        { "branch" },
       },
       lualine_x = {
         {
@@ -67,15 +64,6 @@ return {
             hint = " ",
           },
         },
-        {
-          "diff",
-          symbols = {
-            added = " ",
-            modified = " ",
-            removed = " ",
-          },
-        },
-
         { "filetype", icon_only = true, separator = "", padding = { left = 2, right = 0 } },
         {
           -- Lsp server name .
