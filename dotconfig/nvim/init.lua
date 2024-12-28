@@ -6,10 +6,10 @@ require("mbriggs.plugins")
 
 -- set up debugging tools
 _G.dd = function(...)
-	Snacks.debug.inspect(...)
+  Snacks.debug.inspect(...)
 end
 _G.bt = function()
-	Snacks.debug.backtrace()
+  Snacks.debug.backtrace()
 end
 vim.print = _G.dd
 
@@ -23,4 +23,4 @@ require("mbriggs.ft")
 require("mbriggs.quickfix")
 
 -- statusline
-require("mbriggs.statusline").setup()
+-- require("mbriggs.statusline").setup()

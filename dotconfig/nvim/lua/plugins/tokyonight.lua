@@ -1,13 +1,14 @@
 return {
-	"folke/tokyonight.nvim",
-	lazy = false,
-	priority = 1000,
-	opts = {
-		style = "moon",
-	},
-	config = function(opts)
-		require("tokyonight").setup(opts)
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  config = function()
+    require("tokyonight").setup({
+      style = "moon",
+      dim_inactive = true,
+      hide_inactive_statusline = true
+    })
 
-		vim.cmd.colorscheme("tokyonight")
-	end,
+    vim.cmd.colorscheme("tokyonight")
+  end,
 }
