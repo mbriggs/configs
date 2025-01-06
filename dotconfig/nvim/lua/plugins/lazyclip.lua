@@ -1,9 +1,7 @@
 return {
 	{
 		"atiladefreitas/lazyclip",
-		config = function()
-			require("lazyclip").setup()
-		end,
+		config = true,
 		keys = {
 			{
 				"<leader>P",
