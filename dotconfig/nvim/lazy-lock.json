@@ -11,6 +11,7 @@
   "kitty-scrollback.nvim": { "branch": "main", "commit": "9f4e0684255efdc15f419e6aeba20289f49367ba" },
   "lazy.nvim": { "branch": "main", "commit": "72aa3a2624be5dc240646084f7b6a38eb99eb2ce" },
   "lazyclip": { "branch": "main", "commit": "ffa09ff2f028120e285dfa60f909dda681e600ea" },
+  "live-rename.nvim": { "branch": "main", "commit": "c3187918c8a9a461ffeedf214814f228f2ee8bad" },
   "lualine.nvim": { "branch": "master", "commit": "2a5bae925481f999263d6f5ed8361baef8df4f83" },
   "luvit-meta": { "branch": "main", "commit": "55709f183b0742a7e4f47688c284f81148ad4dc0" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "97d9f1d3ad205dece6bcafd1d71cf1507608f3c7" },
