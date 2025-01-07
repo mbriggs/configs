@@ -5,7 +5,7 @@ return {
     "folke/snacks.nvim",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    { "Bilal2453/luvit-meta", lazy = true },
+    { "Bilal2453/luvit-meta",    lazy = true },
     {
       "dgagn/diagflow.nvim",
       event = { "BufReadPost", "BufNewFile" },
@@ -22,7 +22,8 @@ return {
       name = "output_panel",
       event = "VeryLazy",
       config = true
-    }
+    },
+    { "saecki/live-rename.nvim", config = true }
   },
   event = { "BufReadPost", "BufNewFile" },
   cmd = { "LspInfo", "LspInstall", "LspUninstall", "Mason" },
@@ -121,6 +122,8 @@ return {
         local opts = { buffer = ev.buf }
         local desc = map.desc(opts)
 
+        local live_rename = require("live-rename")
+
         vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, desc("Go to type definition"))
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, desc("Go to definition"))
         vim.keymap.set("n", "<leader>.", vim.lsp.buf.definition, desc("Go to definition"))
@@ -130,7 +133,9 @@ return {
         vim.keymap.set("n", "<leader>cD", vim.lsp.buf.type_definition, desc("Go to type definition"))
         vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, desc("Go to definition"))
         vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, desc("Go to implementation"))
-        vim.keymap.set("n", "<leader>cn", vim.lsp.buf.rename, desc("Rename symbol"))
+        -- vim.keymap.set("n", "<leader>cn", vim.lsp.buf.rename, desc("Rename symbol"))
+        vim.keymap.set("n", "<leader>cn", live_rename.map(), desc("Rename symbol"))
+        vim.keymap.set("n", "<leader>cN", live_rename.map({ text = "", insert = true }), desc("Rename symbol"))
         vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, desc("Go to references"))
       end,
     })
