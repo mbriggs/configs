@@ -17,7 +17,8 @@ return {
       picker = {
         ui_select = true,
         sources = {
-          aerial = require("mbriggs.aerial-picker")
+          aerial = require("mbriggs.picker-aerial"),
+          directory = require("mbriggs.picker-directory")
         },
         win = {
           input = {
@@ -41,6 +42,7 @@ return {
     -- find
     { "<leader>fn",    function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,                desc = "Find Config File" },
     { "<leader>fj",    function() Snacks.picker.jumps() end,                                                  desc = "Jumps" },
+    { "<leader>fd",    function() Snacks.picker.pick("directory") end,                                        desc = "Directory" },
     { "<leader>fc",    function() Snacks.picker.command_history() end,                                        desc = "Command History" },
     { "<leader>fC",    function() Snacks.picker.commands() end,                                               desc = "Commands" },
     { '<leader>f"',    function() Snacks.picker.registers() end,                                              desc = "Registers" },
