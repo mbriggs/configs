@@ -76,10 +76,11 @@ return {
   auto_confirm = true,
   layout = {
     preset = "vertical",
+    title = "Symbols",
     height = 0.5,
     width = 0.7,
   },
-  prompt = "Symbols❯ ",
+  prompt = "❯ ",
   actions = {
     ["<c-x>"] = { "edit_split", mode = { "i", "n" } },
     ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" } },

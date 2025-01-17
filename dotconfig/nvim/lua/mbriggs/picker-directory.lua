@@ -48,7 +48,7 @@ return {
     width = 0.6,
   },
 
-  prompt = "Directories❯ ",
+  prompt = "❯ ",
   actions = {
     ["<c-x>"] = { "edit_split", mode = { "i", "n" } },
     ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" } },
