@@ -1,11 +1,11 @@
 return {
-	"ironhouzi/starlite-nvim",
-	keys = {
-		{ "*", "<Cmd>lua require'starlite'.star()<CR>", desc = "Star this code" },
-		{ "g*", "<Cmd>lua require'starlite'.g_star()<CR>", desc = "Star this code" },
-		{ "#", "<Cmd>lua require'starlite'.hash()<CR>", desc = "Star this code" },
-		{ "g#", "<Cmd>lua require'starlite'.g_hash()<CR>", desc = "Star this code" },
-	},
+  "ironhouzi/starlite-nvim",
+  keys = {
+    { "*",  "<Cmd>lua require'starlite'.star()<CR>",   desc = "Star this code", mode = { "v", "n" } },
+    { "g*", "<Cmd>lua require'starlite'.g_star()<CR>", desc = "Star this code", mode = { "v", "n" } },
+    { "#",  "<Cmd>lua require'starlite'.hash()<CR>",   desc = "Star this code", mode = { "v", "n" } },
+    { "g#", "<Cmd>lua require'starlite'.g_hash()<CR>", desc = "Star this code", mode = { "v", "n" } },
+  },
 }
 
 -- nnoremap <silent> * :lua require'starlite'.star()<cr>
