@@ -1,5 +1,6 @@
 return {
   finder = function(opts, filter)
+    -- load aerial + data
     local ok_aerial, aerial = pcall(require, "aerial")
     if not ok_aerial then
       vim.notify("aerial not found", vim.log.levels.ERROR)
@@ -19,6 +20,7 @@ return {
       backend.fetch_symbols_sync(0)
     end
 
+    -- build picker items
     local items = {}
     local bufnr = vim.api.nvim_get_current_buf()
     local bufdata = data.get_or_create(bufnr)
@@ -34,26 +36,22 @@ return {
 
       local text = string.format("%s%s %s%s", indent, icon, symbol.name, kind)
 
-      -- Create item with all required fields
       local item = {
         idx = i,
         text = text,
         symbol = symbol,
         buf = bufnr,
-        -- Ensure pos and end_pos have both line and column
         pos = { symbol.lnum or 1, symbol.col or 0 },
         end_pos = symbol.end_lnum and { symbol.end_lnum, symbol.end_col or 0 },
         kind = symbol.kind,
         level = symbol.level,
         name = symbol.name,
-        -- Add highlights for the formatted text
         highlights = {
           {
             { icon,        require("aerial.highlight").get_highlight(symbol, true, false) },
             { symbol.name, require("aerial.highlight").get_highlight(symbol, false, false) }
           }
         },
-        -- Add score field required by Snacks
         score = 1
       }
 
