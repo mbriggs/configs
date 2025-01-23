@@ -47,6 +47,15 @@ vim.opt.updatetime = 50       -- speed up ui
 
 vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
 
+-- Disable concealing in markdown files
+vim.g.markdown_syntax_conceal = 0
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.conceallevel = 0
+  end,
+})
+
 --- netrw
 
 -- hide header
