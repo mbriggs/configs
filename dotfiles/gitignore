@@ -18,5 +18,6 @@ Thumbs.db
 .vscode
 .direnv
 .tasks
+.aider*
 
 /dotfiles/ssh/1Password/config

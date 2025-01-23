@@ -8,6 +8,8 @@ alias dk="docker"
 alias dkc="docker compose"
 alias dke='docker compose exec $DKC_MAIN'
 alias rlog="tail -f log/development.log"
+alias aider='aider --model sonnet --anthropic-api-key "$(op read op://Private/Anthropic/credential --no-newline)"'
+
 
 
 ### p10k prompt

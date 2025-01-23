@@ -1,5 +1,6 @@
 cask_args appdir: "/Applications"
 
+brew "aider"
 brew "bat"
 brew "cmake"
 brew "coreutils"
