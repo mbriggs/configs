@@ -14,9 +14,9 @@ vim.opt.smartindent = true
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
 
--- conceal links in org mode
-vim.opt.conceallevel = 2
-vim.opt.concealcursor = "nc"
+-- do not conceal
+vim.opt.conceallevel = 0
+vim.opt.concealcursor = ""
 
 -- soft wrapping long lines
 vim.opt.wrap = true
@@ -46,15 +46,6 @@ vim.opt.isfname:append("@-@") -- allow @ in file names
 vim.opt.updatetime = 50       -- speed up ui
 
 vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
-
--- Disable concealing in markdown files
-vim.g.markdown_syntax_conceal = 0
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.opt_local.conceallevel = 0
-  end,
-})
 
 --- netrw
 
