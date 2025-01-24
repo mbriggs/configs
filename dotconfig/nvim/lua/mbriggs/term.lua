@@ -12,6 +12,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.opt_local.number = false
 		vim.opt_local.relativenumber = false
 		vim.cmd("startinsert") -- Start in insert mode
+
+		map("t", "<D-,>", function()
+			vim.cmd("stopinsert")
+			vim.cmd("TermRename")
+		end, { buffer = true })
 	end,
 })
 
@@ -26,3 +31,16 @@ vim.api.nvim_create_autocmd("TermLeave", {
 		vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20" -- Reset to normal cursor
 	end,
 })
+
+vim.api.nvim_create_user_command("TermRename", function()
+	vim.ui.input({
+		prompt = "Terminal name: ",
+	}, function(name)
+		if name then
+			-- Get current buffer number
+			local bufnr = vim.api.nvim_get_current_buf()
+			-- Set the buffer name
+			vim.api.nvim_buf_set_name(bufnr, name)
+		end
+	end)
+end, {})
