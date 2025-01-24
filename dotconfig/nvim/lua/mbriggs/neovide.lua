@@ -8,7 +8,7 @@ vim.keymap.set("v", "<D-v>", '"+p') -- Visual mode
 vim.keymap.set("i", "<D-v>", "<C-r>+") -- Insert mode
 
 -- Map Cmd+F to % (jump to matching bracket)
-vim.keymap.set({ "n", "v", "o" }, "<D-f>", "%")
+vim.keymap.set({ "n", "v", "o", "i" }, "<D-f>", "%")
 vim.keymap.set("c", "<D-f>", '<C-r>="%"<CR>') -- Command mode for :%s/foo etc.
 
 -- Text rendering
