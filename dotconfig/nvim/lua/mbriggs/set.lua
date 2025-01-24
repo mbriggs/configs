@@ -1,3 +1,10 @@
+vim.opt.formatoptions = "jqlnt"
+-- j: remove comment leader when joining
+-- -- q: allow formatting of comments with gq
+-- -- l: don't break long lines in insert mode
+-- -- n: recognize numbered lists
+-- -- t: auto-wrap text using textwidth
+
 -- 2 spaces by default
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -38,12 +45,12 @@ vim.opt.foldlevel = 99
 -- more gui colors
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 8 -- lines to keep above / below the cursor
-vim.opt.signcolumn = "yes" -- show signs
+vim.opt.scrolloff = 8         -- lines to keep above / below the cursor
+vim.opt.signcolumn = "yes"    -- show signs
 
 vim.opt.isfname:append("@-@") -- allow @ in file names
 
-vim.opt.updatetime = 50 -- speed up ui
+vim.opt.updatetime = 50       -- speed up ui
 
 vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
 
