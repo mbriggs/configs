@@ -1,6 +1,9 @@
 -- set up custom keymaps
 require("mbriggs.keymaps")
 
+-- configure term
+require("mbriggs.term")
+
 -- load and configure third party plugins
 require("mbriggs.plugins")
 
