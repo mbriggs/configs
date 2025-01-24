@@ -35,14 +35,21 @@ map("t", "<C-[>", "<C-\\><C-n>", { silent = true })
 -- Disable line numbers in terminal
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.cmd("startinsert") -- Start in insert mode
+    -- Get the command that opened the terminal
+    local cmd = vim.bo.channel and vim.fn.jobpid(vim.bo.channel) and
+        vim.split(vim.fn.system(string.format("ps -p %d -o comm=", vim.fn.jobpid(vim.bo.channel))), "\n")[1]
 
-    map({ "t", "n" }, "<D-,>", function()
-      vim.cmd("stopinsert")
-      vim.cmd("TermRename")
-    end, { buffer = true })
+    -- Only proceed if it's a regular shell
+    if cmd and (cmd:match("sh$") or cmd:match("bash$") or cmd:match("zsh$")) then
+      vim.opt_local.number = false
+      vim.opt_local.relativenumber = false
+      vim.cmd("startinsert") -- Start in insert mode
+
+      map({ "t", "n" }, "<D-,>", function()
+        vim.cmd("stopinsert")
+        vim.cmd("TermRename")
+      end, { buffer = true })
+    end
   end,
 })
 
