@@ -27,6 +27,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   echo "-- installing tools"
   brew bundle
+  tccutil reset SystemPolicyDocuments com.neovide.neovide
 else
   echo "$OSTYPE is not a supported os"
   exit 1
