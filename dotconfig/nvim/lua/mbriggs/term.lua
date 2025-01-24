@@ -17,10 +17,10 @@ map("n", "<leader>m", function()
     return
   end
 
+  pre_term_buf = vim.fn.bufnr("%")
   if term_buf ~= -1 then
     vim.cmd("buffer " .. term_buf)
   else
-    pre_term_buf = vim.fn.bufnr("%")
     vim.cmd("terminal")
     vim.cmd("file term")
   end
@@ -50,18 +50,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
         vim.cmd("TermRename")
       end, { buffer = true })
     end
-  end,
-})
-
-vim.api.nvim_create_autocmd("TermEnter", {
-  callback = function()
-    vim.opt.guicursor = "a:ver25" -- Vertical bar in terminal mode
-  end,
-})
-
-vim.api.nvim_create_autocmd("TermLeave", {
-  callback = function()
-    vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20" -- Reset to normal cursor
   end,
 })
 
