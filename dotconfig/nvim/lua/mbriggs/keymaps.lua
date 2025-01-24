@@ -4,10 +4,10 @@ local map = vim.keymap.set
 
 map("n", "<leader>#", "<cmd>set nu!<cr>", { desc = "Toggle Line Numbers" })
 map(
-  "n",
-  "<leader>w",
-  ":nohlsearch<CR>:lua require('conform').format()<CR>:w<CR>",
-  { desc = "save->fmt->clear highlights" }
+	"n",
+	"<leader>w",
+	":nohlsearch<CR>:lua require('conform').format()<CR>:w<CR>",
+	{ desc = "save->fmt->clear highlights" }
 )
 
 -- dabbrev style completion
@@ -16,17 +16,17 @@ map("i", "<D-S-/>", "<C-x><C-n>", { desc = "next completion in current file", no
 
 -- built in snippets
 map({ "s", "i" }, "<Tab>", function()
-  if vim.snippet.active({ direction = 1 }) then
-    vim.snippet.jump(1)
-  elseif next(vim.lsp.get_clients({ bufnr = 0 })) and vim.lsp.completion then
-    vim.lsp.completion.trigger()
-  end
+	if vim.snippet.active({ direction = 1 }) then
+		vim.snippet.jump(1)
+	elseif next(vim.lsp.get_clients({ bufnr = 0 })) and vim.lsp.completion then
+		vim.lsp.completion.trigger()
+	end
 end)
 
 map("s", "<S-Tab>", function()
-  if vim.snippet.active({ direction = -1 }) then
-    vim.snippet.jump(-1)
-  end
+	if vim.snippet.active({ direction = -1 }) then
+		vim.snippet.jump(-1)
+	end
 end)
 
 -- nuke buffer
@@ -68,8 +68,8 @@ map("n", "N", "Nzzzv", { desc = "previous search result" })
 -- map("n", "<leader>.", "<C-]>", { desc = "jump to definition" })
 map("i", "<C-a>", "<Home>", { desc = "start of line" })
 map("i", "<C-e>", "<esc>A", { desc = "end of line" })
-map("i", "<C-n>", "<down>", { desc = "next line" })
-map("i", "<C-p>", "<up>", { desc = "previous line" })
+map({ "i", "n", "c" }, "<C-n>", "<down>", { desc = "next line" })
+map({ "i", "n", "c" }, "<C-p>", "<up>", { desc = "previous line" })
 map("i", "<M-left>", "<C-left>", { desc = "previous word" })
 map("i", "<M-right>", "<C-right>", { desc = "next word" })
 map("i", "<M-backspace>", "<C-w>", { desc = "delete previous word" })
@@ -100,13 +100,13 @@ map("c", "%%", "<C-R>=expand('%:h').'/'<cr>", { desc = "put current dir into com
 
 -- maps for diffs
 vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
-  pattern = "*",
-  callback = function()
-    local map = vim.keymap.set
-    if vim.wo.diff then
-      local opts = { buffer = true, noremap = true, silent = true }
-      map("n", "gf", "diffget //2", opts)
-      map("n", "gj", "diffget //3", opts)
-    end
-  end,
+	pattern = "*",
+	callback = function()
+		local map = vim.keymap.set
+		if vim.wo.diff then
+			local opts = { buffer = true, noremap = true, silent = true }
+			map("n", "gf", "diffget //2", opts)
+			map("n", "gj", "diffget //3", opts)
+		end
+	end,
 })

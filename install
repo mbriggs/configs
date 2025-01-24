@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 echo "running from $script_dir"
 
 mkdir -p "$HOME/.config"
@@ -10,8 +10,7 @@ mkdir -p "$HOME/.config"
 echo "-> Linking Configs"
 . ./link.sh
 
-if [[ "$OSTYPE" == "darwin"* ]]
-then
+if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "-> Installing ulimit increase..."
   pushd "$script_dir/ulimit"
   . ./install-ulimit-plist
@@ -22,6 +21,9 @@ then
 
   echo "-- installing brew"
   curl -fsSL -o install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+
+  echo "-- add brew to system path"
+  sudo launchctl config user path "$(brew --prefix)/bin:${PATH}"
 
   echo "-- installing tools"
   brew bundle
