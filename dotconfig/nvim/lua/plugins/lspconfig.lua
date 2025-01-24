@@ -196,7 +196,7 @@ return {
     })
   end,
   keys = {
-    { "<leader>m",  "<cmd>Mason<cr>",       desc = "Mason" },
+    { "<leader>M",  "<cmd>Mason<cr>",       desc = "Mason" },
     { "<leader>co", "<cmd>OutputPanel<cr>", desc = "LSP Output" }
   },
 }

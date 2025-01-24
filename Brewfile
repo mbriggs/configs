@@ -39,3 +39,6 @@ brew "sox"
 brew "tidy"
 brew "universal-ctags"
 brew "wget"
+
+tap "homebrew/cask-fonts"
+cask "font-jetbrains-mono-nerd-font"
