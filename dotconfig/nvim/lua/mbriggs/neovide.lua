@@ -1,4 +1,4 @@
-vim.opt.linespace = 5
+vim.opt.linespace = 6
 
 -- emulate stuff i set in kitty
 
