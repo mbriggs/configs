@@ -6,10 +6,10 @@ require("mbriggs.plugins")
 
 -- set up debugging tools
 _G.dd = function(...)
-  Snacks.debug.inspect(...)
+	Snacks.debug.inspect(...)
 end
 _G.bt = function()
-  Snacks.debug.backtrace()
+	Snacks.debug.backtrace()
 end
 vim.print = _G.dd
 
@@ -21,6 +21,10 @@ require("mbriggs.ft")
 
 -- set up qf maps
 require("mbriggs.quickfix")
+
+if vim.g.neovide then
+	require("mbriggs.neovide")
+end
 
 -- statusline
 -- require("mbriggs.statusline").setup()
