@@ -26,14 +26,8 @@ return {
     },
   },
   keys = {
-    { "<leader>cc", "<cmd>CodeCompanionChat toggle<cr>", desc = "Code Chat", mode = { "v", "n" } },
-    {
-      "<C-a>",
-      "<cmd>CodeCompanionActions<cr>",
-      silent = true,
-      desc = "Code Companion Actions",
-      mode = { "v", "n" },
-    },
-    { "ga",         "<cmd>CodeCompanionChat Add<cr>",    mode = "v",         desc = "Add to chat", noremap = true, silent = true },
+    { "<leader>cc", "<cmd>CodeCompanionChat toggle<cr>", desc = "Code Chat",  mode = { "v", "n" } },
+    { "<C-a>",      "<cmd>CodeCompanionActions<cr>",     silent = true,       desc = "Code Companion Actions", mode = { "v", "n" }, },
+    { "ga",         "<cmd>CodeCompanionChat Add<cr>",    mode = { "v", "n" }, desc = "Add to chat",            noremap = true,      silent = true },
   },
 }
