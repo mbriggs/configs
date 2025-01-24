@@ -21,6 +21,7 @@ return {
           "lua",
           "templ",
           "rust",
+          "regex",
           "jsdoc",
           "bash",
           "sql",
