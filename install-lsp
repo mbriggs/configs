@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+brew install lua-language-server
+
+if command -v rbenv >/dev/null 2>&1; then
+  for version in $(rbenv versions --bare); do
+    echo "Installing ruby-lsp for Ruby $version..."
+    rbenv shell $version
+    gem install ruby-lsp || echo "Failed to install for $version"
+  done
+else
+  echo "rbenv not found in PATH"
+fi
+
+npm i -g bash-language-server
+npm i -g @tailwindcss/language-server
+npm i -g stimulus-language-server
+npm i -g vscode-langservers-extracted # css, html, json, eslint
+npm i -g typescript typescript-language-server
+npm i -g dockerfile-language-server-nodejs
+npm i -g sql-language-server
+
+go install github.com/nametake/golangci-lint-langserver@latest
+go install golang.org/x/tools/gopls@latest
+go install github.com/a-h/templ/cmd/templ@latest
+
+pipx install cmake-language-server
+pipx install nginx-language-server
