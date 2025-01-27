@@ -3,7 +3,7 @@ return {
 	lazy = true,
 
 	init = function()
-		vim.g["test#strategy"] = "kitty"
+		vim.g["test#strategy"] = "neovim_sticky"
 	end,
 
 	keys = {
