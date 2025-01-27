@@ -3,8 +3,6 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     "folke/snacks.nvim",
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
     { "Bilal2453/luvit-meta",    lazy = true },
     {
       "folke/lazydev.nvim",
@@ -28,74 +26,44 @@ return {
         scope = "line",
       },
     },
-    {
-      "mhanberg/output-panel.nvim",
-      name = "output_panel",
-      event = "VeryLazy",
-      config = true
-    },
     { "saecki/live-rename.nvim", config = true }
   },
   event = { "BufReadPost", "BufNewFile" },
-  cmd = { "LspInfo", "LspInstall", "LspUninstall", "Mason" },
+  cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 
   config = function()
     vim.filetype.add({ extension = { templ = "templ" } })
-    require("mason").setup()
-    require("mason-lspconfig").setup({
-      ensure_installed = {
-        "bashls",
-        "golangci_lint_ls",
-        "gopls",
-        "html",
-        "htmx",
-        "lua_ls",
-        "ruby_lsp",
-        "tailwindcss",
-        "templ",
-        "ts_ls",
-      },
-      handlers = {
-        function(server_name) -- default handler (optional)
-          require("lspconfig")[server_name].setup({})
-        end,
 
-        ["lua_ls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.lua_ls.setup({
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = { "vim", "it", "describe", "before_each", "after_each" },
-                },
-              },
-            },
-          })
-        end,
+    local config = require("lspconfig")
 
-        ["html"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.html.setup({
-            filetypes = { "html", "templ" },
-          })
-        end,
-
-        ["htmx"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.html.setup({
-            filetypes = { "html", "templ" },
-          })
-        end,
-
-        ["tailwindcss"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.html.setup({
-            filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-            init_options = { userLanguages = { templ = "html" } },
-          })
-        end,
+    config.bashls.setup({})
+    config.golangci_lint_ls.setup({})
+    config.gopls.setup({})
+    config.html.setup({})
+    config.cssls.setup({})
+    config.jsonls.setup({})
+    config.eslint.setup({})
+    config.cmake.setup({})
+    config.nginx_language_server.setup({})
+    config.sqlls.setup({})
+    config.dockerls.setup({})
+    config.lua_ls.setup({
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim", "it", "describe", "before_each", "after_each" },
+          },
+        },
       },
     })
+    config.ruby_lsp.setup({})
+    config.stimulus_ls.setup({})
+    config.tailwindcss.setup({
+      filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+      init_options = { userLanguages = { templ = "html" } },
+    })
+    config.templ.setup({})
+    config.ts_ls.setup({})
 
     vim.diagnostic.config({
       underline = true,
@@ -105,7 +73,7 @@ return {
         style = "minimal",
         close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
         border = "rounded",
-        source = "always",
+        source = true,
         header = "",
         prefix = "",
       },
@@ -195,8 +163,4 @@ return {
       end,
     })
   end,
-  keys = {
-    { "<leader>M",  "<cmd>Mason<cr>",       desc = "Mason" },
-    { "<leader>co", "<cmd>OutputPanel<cr>", desc = "LSP Output" }
-  },
 }
