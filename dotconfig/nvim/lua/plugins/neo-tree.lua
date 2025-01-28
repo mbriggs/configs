@@ -54,6 +54,7 @@ return {
 				},
 				["-"] = "navigate_up",
 				["%"] = "add",
+				["<D-f>"] = "add",
 				["#"] = "set_root",
 				["."] = "toggle_hidden",
 				["/"] = "noop", -- disable filtering
