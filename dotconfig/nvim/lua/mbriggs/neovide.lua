@@ -1,20 +1,16 @@
 vim.opt.linespace = 6
 
--- emulate stuff i set in kitty
+-- emulate stuff i set in terms
 
 -- System clipboard paste (Cmd+V)
-vim.keymap.set("n", "<D-v>", '"+p') -- Normal mode
-vim.keymap.set("v", "<D-v>", '"+p') -- Visual mode
-vim.keymap.set("i", "<D-v>", "<C-r>+") -- Insert mode
+vim.keymap.set("n", "<D-v>", '"+p')             -- Normal mode
+vim.keymap.set("v", "<D-v>", '"+p')             -- Visual mode
+vim.keymap.set("i", "<D-v>", "<C-r>+")          -- Insert mode
 vim.keymap.set("t", "<D-v>", '<C-\\><C-n>"+pi') -- Terminal mode
-
--- Map Cmd+F to % (jump to matching bracket)
-vim.keymap.set({ "n", "v", "o", "i" }, "<D-f>", "%")
-vim.keymap.set("c", "<D-f>", '<C-r>="%"<CR>') -- Command mode for :%s/foo etc.
 
 -- Text rendering
 vim.g.neovide_text_contrast = 0.8 -- Crisper text contrast
-vim.g.neovide_text_gamma = 0.8 -- Slightly darker text rendering
+vim.g.neovide_text_gamma = 0.8    -- Slightly darker text rendering
 vim.o.guifont = "JetBrainsMono Nerd Font:h15:#h-slight:#e-subpixelantialias"
 
 -- Animation feel
@@ -29,10 +25,10 @@ vim.g.neovide_cursor_antialiasing = true
 
 -- needed to be going off of the right ruby when project changes
 vim.api.nvim_create_autocmd("DirChanged", {
-	pattern = "*",
-	callback = function()
-		vim.fn.system('eval "$(rbenv init - zsh)"')
-	end,
+  pattern = "*",
+  callback = function()
+    vim.fn.system('eval "$(rbenv init - zsh)"')
+  end,
 })
 
 -- Start in home dir

@@ -23,6 +23,10 @@ map('n', '<C-Down>', ':resize -10<CR>')
 map('n', '<C-Left>', ':vertical resize -10<CR>')
 map('n', '<C-Right>', ':vertical resize +10<CR>')
 
+-- Map Cmd+F to % (jump to matching bracket)
+map({ "n", "v", "o", "i" }, "<D-f>", "%")
+map("c", "<D-f>", '<C-r>="%"<CR>') -- Command mode for :%s/foo etc.
+
 -- dabbrev style completion
 map("i", "<D-/>", "<C-n>", { desc = "next completion", noremap = "true" })
 map("i", "<D-S-/>", "<C-x><C-n>", { desc = "next completion in current file", noremap = "true" })
