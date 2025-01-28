@@ -40,5 +40,9 @@ brew "sox"
 brew "wget"
 brew "z"
 
+tap "nikitabobko/tap" # aerospace
+
 cask "font-jetbrains-mono-nerd-font"
 cask "neovide"
+cask "aerospace"
+cask "ghostty"
