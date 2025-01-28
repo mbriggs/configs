@@ -38,6 +38,7 @@ brew "ruby"
 brew "shellcheck"
 brew "sox"
 brew "wget"
+brew "z"
 
 cask "font-jetbrains-mono-nerd-font"
 cask "neovide"
