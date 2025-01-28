@@ -4,6 +4,9 @@ require("mbriggs.keymaps")
 -- configure term
 require("mbriggs.term")
 
+-- configure tabs
+require("mbriggs.tabs")
+
 -- load and configure third party plugins
 require("mbriggs.plugins")
 
