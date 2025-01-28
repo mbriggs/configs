@@ -37,8 +37,6 @@ brew "ripgrep"
 brew "ruby"
 brew "shellcheck"
 brew "sox"
-brew "tidy"
-brew "universal-ctags"
 brew "wget"
 
 cask "font-jetbrains-mono-nerd-font"
