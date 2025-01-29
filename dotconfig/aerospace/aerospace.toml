@@ -22,7 +22,7 @@ automatically-unhide-macos-hidden-apps = true
     run = 'move-node-to-workspace C'
 
 [[on-window-detected]] # Telegram
-    if.app-id = 'com.tdesktop.Telegram'
+    if.app-id = 'ru.keepcoder.Telegram'
     if.during-aerospace-startup = false
     run = 'move-node-to-workspace C'
 
