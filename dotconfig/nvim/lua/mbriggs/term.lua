@@ -5,10 +5,10 @@ vim.g.terminal_scrollback_buffer_size = 500000
 -- Toggle terminal buffer
 local pre_term_buf
 map("n", "<leader>m", function()
-  local term_buf = vim.fn.bufnr("^term$")
+  local term_buf = vim.fn.bufnr("^\\*term\\*$")
   local bufname = vim.fn.bufname("%")
 
-  if vim.bo.buftype == "terminal" and bufname == "term" then
+  if vim.bo.buftype == "terminal" and bufname == "*term*" then
     if pre_term_buf and vim.fn.bufexists(pre_term_buf) == 1 then
       vim.cmd("buffer " .. pre_term_buf)
     else
@@ -22,7 +22,7 @@ map("n", "<leader>m", function()
     vim.cmd("buffer " .. term_buf)
   else
     vim.cmd("terminal")
-    vim.cmd("file term")
+    vim.cmd("file *term*")
   end
 end, { desc = "Toggle terminal buffer" })
 
