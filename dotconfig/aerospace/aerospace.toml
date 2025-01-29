@@ -10,8 +10,20 @@ automatically-unhide-macos-hidden-apps = true
     run = 'layout tiling'           
 
 # Workspace U (Utility)
-[[on-window-detected]] # 1Password
+[[on-window-detected]] #1Password
     if.app-id = 'com.1password.1password'
+    if.window-title-regex-substring = '— 1Password$'  # Match windows ending with "— 1Password"
+    if.during-aerospace-startup = false
+    run = 'move-node-to-workspace U'
+
+[[on-window-detected]] # for 1Password Popups
+    if.app-id = 'com.1password.1password'
+    if.window-title-regex-substring = '^1Password$'
+    if.during-aerospace-startup = false
+    run = 'layout floating'
+
+[[on-window-detected]] # Zoom (starting point)
+    if.app-id = 'us.zoom.xos'
     if.during-aerospace-startup = false
     run = 'move-node-to-workspace U'
 
