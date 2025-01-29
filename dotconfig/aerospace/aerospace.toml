@@ -9,6 +9,12 @@ automatically-unhide-macos-hidden-apps = true
     check-further-callbacks = true
     run = 'layout tiling'           
 
+# Workspace U (Utility)
+[[on-window-detected]] # 1Password
+    if.app-id = 'com.1password.1password'
+    if.during-aerospace-startup = false
+    run = 'move-node-to-workspace U'
+
 # Workspace M (Music)
 [[on-window-detected]] # Music
     if.app-id = 'com.apple.Music'
@@ -113,6 +119,9 @@ alt-shift-8 = 'move-node-to-workspace 8'
 
 alt-9 = 'workspace 9'
 alt-shift-9 = 'move-node-to-workspace 9'
+
+alt-u = 'workspace U' # Utility
+alt-shift-u = 'move-node-to-workspace U'
 
 alt-b = 'workspace B' # browsing
 alt-shift-b = 'move-node-to-workspace B'
