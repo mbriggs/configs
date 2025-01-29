@@ -7,6 +7,6 @@ return {
       style = "moon",
     })
 
-    vim.cmd.colorscheme("tokyonight")
+    vim.cmd.colorscheme("tokyonight-moon")
   end,
 }
