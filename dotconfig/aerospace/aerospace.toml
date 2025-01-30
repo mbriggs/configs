@@ -152,7 +152,7 @@ alt-e = 'workspace E' # Email
 alt-ctrl-e = 'move-node-to-workspace E'
 alt-shift-e = 'move-node-to-workspace --focus-follows-window E'
 
-alt-z = 'workspace Zoom' # Zoom landing page
+alt-z = 'workspace Z' # Zoom landing page
 alt-ctrl-z = 'move-node-to-workspace Z'
 alt-shift-z = 'move-node-to-workspace --focus-follows-window Z'
 
