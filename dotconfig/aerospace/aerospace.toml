@@ -9,6 +9,18 @@ automatically-unhide-macos-hidden-apps = true
     check-further-callbacks = true
     run = 'layout tiling'           
 
+# Email
+[[on-window-detected]] # Spark
+    if.app-id = 'com.readdle.SparkDesktop'
+    if.during-aerospace-startup = false
+    run = 'move-node-to-workspace E'
+
+# Zoom (starting point)
+[[on-window-detected]]
+    if.app-id = 'us.zoom.xos'
+    if.during-aerospace-startup = false
+    run = 'move-node-to-workspace Z'
+
 # Workspace U (Utility)
 [[on-window-detected]] #1Password
     if.app-id = 'com.1password.1password'
@@ -21,11 +33,6 @@ automatically-unhide-macos-hidden-apps = true
     if.window-title-regex-substring = '^1Password$'
     if.during-aerospace-startup = false
     run = 'layout floating'
-
-[[on-window-detected]] # Zoom (starting point)
-    if.app-id = 'us.zoom.xos'
-    if.during-aerospace-startup = false
-    run = 'move-node-to-workspace U'
 
 # Workspace M (Music)
 [[on-window-detected]] # Music
@@ -60,10 +67,6 @@ automatically-unhide-macos-hidden-apps = true
     if.during-aerospace-startup = false
     run = 'move-node-to-workspace P'
 
-[[on-window-detected]] # Spark
-    if.app-id = 'com.readdle.SparkDesktop'
-    if.during-aerospace-startup = false
-    run = 'move-node-to-workspace P'
 
 [workspace-to-monitor-force-assignment]
 P = ['built-in', 'secondary']
@@ -106,46 +109,64 @@ alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
 alt-1 = 'workspace 1'
-alt-shift-1 = 'move-node-to-workspace 1'
+alt-ctrl-1 = 'move-node-to-workspace 1'
+alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
 
 alt-2 = 'workspace 2'
-alt-shift-2 = 'move-node-to-workspace 2'
+alt-ctrl-2 = 'move-node-to-workspace 2'
+alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
 
 alt-3 = 'workspace 3'
-alt-shift-3 = 'move-node-to-workspace 3'
+alt-ctrl-3 = 'move-node-to-workspace 3'
+alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
 
 alt-4 = 'workspace 4'
-alt-shift-4 = 'move-node-to-workspace 4'
+alt-ctrl-4 = 'move-node-to-workspace 4'
+alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
 
 alt-5 = 'workspace 5'
-alt-shift-5 = 'move-node-to-workspace 5'
+alt-ctrl-5 = 'move-node-to-workspace 5'
+alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
 
 alt-6 = 'workspace 6'
-alt-shift-6 = 'move-node-to-workspace 6'
+alt-ctrl-6 = 'move-node-to-workspace 6'
+alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
 
 alt-7 = 'workspace 7'
-alt-shift-7 = 'move-node-to-workspace 7'
+alt-ctrl-7 = 'move-node-to-workspace 7'
+alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
 
 alt-8 = 'workspace 8'
-alt-shift-8 = 'move-node-to-workspace 8'
+alt-ctrl-8 = 'move-node-to-workspace 8'
+alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
 
 alt-9 = 'workspace 9'
-alt-shift-9 = 'move-node-to-workspace 9'
+alt-ctrl-9 = 'move-node-to-workspace 9'
+alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
 
 alt-u = 'workspace U' # Utility
-alt-shift-u = 'move-node-to-workspace U'
+alt-ctrl-u = 'move-node-to-workspace U'
+alt-shift-u = 'move-node-to-workspace --focus-follows-window U'
 
-alt-b = 'workspace B' # browsing
-alt-shift-b = 'move-node-to-workspace B'
+alt-e = 'workspace E' # Email
+alt-ctrl-e = 'move-node-to-workspace E'
+alt-shift-e = 'move-node-to-workspace --focus-follows-window E'
 
-alt-c = 'workspace C' # chat
-alt-shift-c = 'move-node-to-workspace C'
+alt-z = 'workspace Zoom' # Zoom landing page
+alt-ctrl-z = 'move-node-to-workspace Z'
+alt-shift-z = 'move-node-to-workspace --focus-follows-window Z'
 
-alt-m = 'workspace M' # music
-alt-shift-m = 'move-node-to-workspace M'
+alt-c = 'workspace C' # Chat
+alt-ctrl-c = 'move-node-to-workspace C'
+alt-shift-c = 'move-node-to-workspace --focus-follows-window C'
 
-alt-p = 'workspace P' # planning
-alt-shift-p = 'move-node-to-workspace P'
+alt-m = 'workspace M' # Music
+alt-ctrl-m = 'move-node-to-workspace M'
+alt-shift-m = 'move-node-to-workspace --focus-follows-window M'
+
+alt-p = 'workspace P' # Planning
+alt-ctrl-p = 'move-node-to-workspace P'
+alt-shift-p = 'move-node-to-workspace --focus-follows-window P'
 
 
 # 'service' binding mode declaration.
@@ -154,6 +175,7 @@ alt-shift-p = 'move-node-to-workspace P'
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+b = ['balance-sizes', 'mode main']
 backspace = ['close-all-windows-but-current', 'mode main']
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
