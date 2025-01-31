@@ -26,9 +26,11 @@ return {
     input = { enabled = true },
     notifier = { enabled = true },
     quickfile = { enabled = true },
+    explorer = { replace_netrw = false },
     picker = {
       ui_select = true,
       sources = {
+        explorer = {},
         aerial = require("mbriggs.picker-aerial"),
         directory = require("mbriggs.picker-directory"),
       },
@@ -49,6 +51,44 @@ return {
         Snacks.picker.buffers()
       end,
       desc = "Buffers",
+    },
+    {
+      "<leader>e",
+      function()
+        Snacks.picker.explorer({
+          finder = "explorer",
+          sort = { fields = { "sort" } },
+          tree = true,
+          supports_live = true,
+          follow_file = true,
+          focus = "list",
+          auto_close = false,
+          jump = { close = false },
+          layout = { preset = "sidebar", preview = false },
+          formatters = { file = { filename_only = true } },
+          matcher = { sort_empty = true },
+          config = function(opts)
+            return require("snacks.picker.source.explorer").setup(opts)
+          end,
+          win = {
+            list = {
+              keys = {
+                ["-"] = "explorer_up",
+                ["%"] = "explorer_add",
+                ["d"] = "explorer_add",
+                ["D"] = "explorer_del",
+                ["R"] = "explorer_rename",
+                ["mc"] = "explorer_copy",
+                ["mm"] = "explorer_move",
+                ["y"] = "explorer_yank",
+                ["<c-c>"] = "explorer_cd",
+                ["."] = "explorer_focus",
+              },
+            },
+          },
+        })
+      end,
+      desc = "Explorer",
     },
     {
       "<leader>/",

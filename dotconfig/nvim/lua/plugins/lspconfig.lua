@@ -103,19 +103,22 @@ return {
 
         local live_rename = require("live-rename")
 
-        vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, desc("Go to type definition"))
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, desc("Go to definition"))
-        vim.keymap.set("n", "<leader>.", vim.lsp.buf.definition, desc("Go to definition"))
+        vim.keymap.set("n", "gD", Snacks.picker.lsp_type_definitions, desc("Go to type definition"))
+        vim.keymap.set("n", "gd", Snacks.picker.lsp_definitions, desc("Go to definition"))
+        -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, desc("Go to definition"))
+        vim.keymap.set("n", "<leader>.", Snacks.picker.lsp_definitions, desc("Go to definition"))
 
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-        vim.keymap.set("n", "<leader>cD", vim.lsp.buf.type_definition, desc("Go to type definition"))
-        vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, desc("Go to definition"))
-        vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, desc("Go to implementation"))
+        vim.keymap.set("n", "<leader>cD", Snacks.picker.lsp_type_definitions, desc("Go to type definition"))
+        vim.keymap.set("n", "<leader>cd", Snacks.picker.lsp_definitions, desc("Go to definition"))
+        vim.keymap.set("n", "<leader>ci", Snacks.picker.lsp_implementations, desc("Go to implementation"))
+        -- vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, desc("Go to implementation"))
         -- vim.keymap.set("n", "<leader>cn", vim.lsp.buf.rename, desc("Rename symbol"))
         vim.keymap.set("n", "<leader>cn", live_rename.map(), desc("Rename symbol"))
         vim.keymap.set("n", "<leader>cN", live_rename.map({ text = "", insert = true }), desc("Rename symbol"))
-        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, desc("Go to references"))
+        -- vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, desc("Go to references"))
+        vim.keymap.set("n", "<leader>cr", Snacks.picker.lsp_references, desc("Go to references"))
       end,
     })
 
