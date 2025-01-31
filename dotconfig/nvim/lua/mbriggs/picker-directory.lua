@@ -57,10 +57,8 @@ return {
   confirm = function(picker, item)
     picker:close()
     if item and item.dir then
-      require("neo-tree.command").execute({
-        position = "current",
-        dir = vim.fn.getcwd() .. "/" .. item.dir,
-      })
+      local path = vim.fn.getcwd() .. "/" .. item.dir
+      vim.cmd('Explore ' .. vim.fn.fnameescape(path))
     end
   end,
 }
