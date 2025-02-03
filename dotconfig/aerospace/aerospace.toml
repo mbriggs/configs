@@ -40,6 +40,11 @@ automatically-unhide-macos-hidden-apps = true
     if.during-aerospace-startup = false
     run = 'move-node-to-workspace M'
 
+[[on-window-detected]] # Logic
+    if.app-id = 'com.apple.logic10'
+    if.during-aerospace-startup = false
+    run = 'move-node-to-workspace M'
+
 # Workspace C (Chat)
 [[on-window-detected]] # Slack
     if.app-id = 'com.tinyspeck.slackmacgap'
