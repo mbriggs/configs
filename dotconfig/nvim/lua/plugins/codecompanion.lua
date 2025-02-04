@@ -37,6 +37,10 @@ return {
 			end,
 		},
 	},
+	config = function(_, opts)
+		require("mbriggs.notifier-codecompanion").setup()
+		require("codecompanion").setup(opts)
+	end,
 	keys = {
 		{ "<leader>cc", "<cmd>CodeCompanionChat toggle<cr>", desc = "Code Chat", mode = { "v", "n" } },
 		{
