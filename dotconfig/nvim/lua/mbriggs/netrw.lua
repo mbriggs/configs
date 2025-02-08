@@ -1,72 +1,105 @@
 local function create_file_or_dir()
-  vim.ui.input({ prompt = 'New File (or dir): ' }, function(name)
-    if name == '' then return end
+	vim.ui.input({ prompt = "New File (or dir): " }, function(name)
+		if name == "" then
+			return
+		end
 
-    -- Get current directory from netrw
-    local current_dir = vim.b.netrw_curdir
-    local full_path = vim.fn.fnamemodify(current_dir .. '/' .. name, ':p')
+		-- Get current directory from netrw
+		local current_dir = vim.b.netrw_curdir
+		local full_path = vim.fn.fnamemodify(current_dir .. "/" .. name, ":p")
 
-    if name:sub(-1) == '/' then
-      -- Remove trailing slash and create directory
-      full_path = full_path:sub(1, -2)
-      vim.fn.mkdir(full_path, 'p')
-    else
-      -- Create file
-      local file = io.open(full_path, 'w')
-      if file then file:close() end
-    end
+		if name:sub(-1) == "/" then
+			-- Remove trailing slash and create directory
+			full_path = full_path:sub(1, -2)
+			vim.fn.mkdir(full_path, "p")
+		else
+			-- Create parent directories if they don't exist
+			local parent_dir = vim.fn.fnamemodify(full_path, ":h")
+			vim.fn.mkdir(parent_dir, "p")
 
-    -- Refresh netrw
-    vim.cmd('edit ' .. vim.fn.fnameescape(current_dir))
-  end)
+			-- Create file
+			local file = io.open(full_path, "w")
+			if file then
+				file:close()
+			end
+		end
+
+		-- Refresh netrw
+		vim.cmd("edit " .. vim.fn.fnameescape(current_dir))
+	end)
 end
 
-local current_target_match = nil
+-- Store target highlight matches per buffer
+local target_matches = {}
+
 local function toggle_target()
-  -- Clear existing target highlight
-  if current_target_match then
-    vim.fn.matchdelete(current_target_match)
-    current_target_match = nil
-  end
+	local bufnr = vim.api.nvim_get_current_buf()
 
-  -- Get current line
-  local target = vim.fn.getline('.')
+	-- Clear existing target highlight for this buffer
+	if target_matches[bufnr] then
+		pcall(vim.fn.matchdelete, target_matches[bufnr])
+		target_matches[bufnr] = nil
+		vim.cmd("normal mT") -- Clear netrw target
+		return
+	end
 
-  -- Toggle if clicking same line, otherwise set new target
-  if not vim.b.last_target or vim.b.last_target ~= target then
-    vim.cmd('normal! mt') -- Set netrw target
-    vim.cmd([[highlight NetrwTarget guibg=#2d2a2e guifg=#e0af68]])
-    current_target_match = vim.fn.matchadd('NetrwTarget', target)
-    vim.b.last_target = target
-  else
-    vim.cmd('normal! mT') -- Clear netrw target (capital T clears the target)
-    vim.b.last_target = nil
-  end
+	-- Get current line content and number
+	local line = vim.fn.getline(".")
+	local linenr = vim.fn.line(".")
+
+	-- Only highlight the filename part, not the whole line
+	local filename = vim.fn.getline("."):match("[%w%p ]+$")
+	if not filename then
+		return
+	end
+
+	-- Set netrw target mark using netrw's command
+	vim.cmd("normal mt")
+
+	-- Create highlight group if it doesn't exist
+	vim.cmd([[highlight default NetrwTarget guibg=#2d2a2e guifg=#e0af68 gui=bold]])
+
+	-- Add highlight for the current line
+	target_matches[bufnr] = vim.fn.matchadd("NetrwTarget", "\\%" .. linenr .. "l" .. vim.fn.escape(filename, ".[]*"))
 end
+
+-- Clean up highlights when leaving netrw buffer
+vim.api.nvim_create_autocmd("BufLeave", {
+	pattern = "*",
+	callback = function()
+		local bufnr = vim.api.nvim_get_current_buf()
+		if target_matches[bufnr] then
+			pcall(vim.fn.matchdelete, target_matches[bufnr])
+			target_matches[bufnr] = nil
+		end
+	end,
+})
 
 -- Keybindings
 
 local map = vim.keymap.set
 
-map('n', '-', ':Explore<CR>', {
-  noremap = true, silent = true, desc = 'Explore current dir'
+map("n", "-", ":Explore<CR>", {
+	noremap = true,
+	silent = true,
+	desc = "Explore current dir",
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'netrw',
-  callback = function()
-    local opts = { buffer = true, silent = true, remap = true }
-    map('n', '<Tab>', 'mf', opts)                            -- Toggle mark on file
-    map('n', '<S-Tab>', 'mF', opts)                          -- Unmark all files
-    -- map('n', '-', '-^', opts)                   -- Go up directory
-    map('n', '%', create_file_or_dir, { buffer = true })     -- Create file/dir
-    map('n', '<D-f>', create_file_or_dir, { buffer = true }) -- Create file/dir
-    map('n', 'd', 'D', opts)                                 -- Delete file/directory
-    map('n', 'r', 'R', opts)                                 -- Rename file/directory
-    map('n', 'c', 'mc', opts)                                -- Copy marked files
-    map('n', 'm', 'mm', opts)                                -- Move marked files
-    map('n', '=', 'mt`', opts)                               -- Set mark target
-  end,
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "netrw",
+	callback = function()
+		local opts = { buffer = true, silent = true, remap = true }
+		map("n", "<Tab>", "mf", opts) -- Toggle mark on file
+		map("n", "<S-Tab>", "mF", opts) -- Unmark all files
+		-- map('n', '-', '-^', opts)                   -- Go up directory
+		map("n", "%", create_file_or_dir, { buffer = true }) -- Create file/dir
+		map("n", "<D-f>", create_file_or_dir, { buffer = true }) -- Create file/dir
+		map("n", "d", "D", opts) -- Delete file/directory
+		map("n", "r", "R", opts) -- Rename file/directory
+		map("n", "c", "mc", opts) -- Copy marked files
+		map("n", "m", "mm", opts) -- Move marked files
+		map("n", "=", toggle_target, opts) -- Toggle visual mark target
+	end,
 })
 
 -- hide header
