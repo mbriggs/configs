@@ -31,8 +31,8 @@ return {
       ui_select = true,
       sources = {
         explorer = {},
-        aerial = require("mbriggs.picker-aerial"),
-        directory = require("mbriggs.picker-directory"),
+        aerial = require("mbriggs.picker.picker-aerial"),
+        directory = require("mbriggs.picker.picker-directory"),
       },
       win = {
         input = {
