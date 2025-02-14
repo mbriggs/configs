@@ -1,0 +1,71 @@
+root = true
+
+# Default settings for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 120
+
+# Ruby files
+[*.{rb,rake,gemspec}]
+indent_style = space
+indent_size = 2
+max_line_length = 100
+
+# Ruby template files
+[*.{erb,haml,slim}]
+indent_style = space
+indent_size = 2
+
+# Rails configuration files
+[{config.ru,Gemfile,Rakefile,Guardfile,Capfile}]
+indent_style = space
+indent_size = 2
+
+# Python
+[*.py]
+indent_style = space
+indent_size = 4
+max_line_length = 88  # Black formatter default
+
+# YAML
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# JavaScript and JSON
+[*.{js,jsx,ts,tsx,json,json5}]
+indent_style = space
+indent_size = 2
+max_line_length = 80
+
+# Go
+[*.go]
+indent_style = tab
+indent_size = 4
+max_line_length = 100
+
+# Markdown
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+indent_size = 2
+indent_style = space
+
+# Shell scripts
+[*.sh]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+switch_case_indent = true
+
+# Makefiles
+[Makefile]
+indent_style = tab
+
+# Documentation
+[*.{txt,rst}]
+indent_style = space
+indent_size = 4
