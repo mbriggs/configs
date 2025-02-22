@@ -1,9 +1,11 @@
 inherit_from: "https://raw.githubusercontent.com/mbriggs/configs/main/dotfiles/rubocop.yml"
-require:
+plugins:
   - rubocop-rails
-  - rubocop-capybara
   - rubocop-performance
   - rubocop-minitest
+
+require:
+  - rubocop-capybara
 
 AllCops:
   NewCops: enable
