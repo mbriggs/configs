@@ -1,5 +1,4 @@
 begin
-  require 'irb/theme/tokyonight/night'
 rescue
   puts "Failed to load IRB theme. Please install the gem 'irb-theme-tokyonight' to use the theme."
 end
