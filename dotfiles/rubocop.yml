@@ -26,6 +26,11 @@ Lint/DuplicateBranch:
   Enabled: false
 Lint/EmptyClass:
   Enabled: false
+Lint/NestedMethodDefinition:
+  AllowedMethods: [ 'extending' ]
+# this is needed for repage.+ style api from minimagick
+Lint/Void:
+  Enabled: false
 
 Metrics/AbcSize:
   Enabled: false
@@ -114,3 +119,13 @@ Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
 Style/StringConcatenation:
   Mode: Conservative
+Style/FormatStringToken:
+  Enabled: false
+Style/FormatString:
+  EnforcedStyle: sprintf
+Style/NumericLiterals:
+  Enabled: false
+Style/SafeNavigationChainLength:
+  Enabled: false
+Style/AccessModifierDeclarations:
+  Enabled: false
