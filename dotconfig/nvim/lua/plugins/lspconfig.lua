@@ -60,7 +60,6 @@ return {
 			},
 		})
 		config.ruby_lsp.setup({})
-		config.stimulus_ls.setup({})
 		config.tailwindcss.setup({
 			filetypes = { "templ", "astro", "javascript", "typescript", "react" },
 			init_options = { userLanguages = { templ = "html" } },
