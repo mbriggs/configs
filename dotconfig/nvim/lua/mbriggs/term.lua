@@ -26,11 +26,12 @@ map("n", "<leader>m", function()
 	end
 end, { desc = "Toggle terminal buffer" })
 
--- Only applies in terminal mode
 map("t", "<Esc>", "<C-\\><C-n>", { silent = true })
 
--- Alternative: map specific sequence for terminal escape
-map("t", "<C-[>", "<C-\\><C-n>", { silent = true })
+map("t", "<D-h>", "<C-\\><C-n><C-w>h")
+map("t", "<D-j>", "<C-\\><C-n><C-w>j")
+map("t", "<D-k>", "<C-\\><C-n><C-w>k")
+map("t", "<D-l>", "<C-\\><C-n><C-w>l")
 
 -- Disable line numbers in terminal
 vim.api.nvim_create_autocmd("TermOpen", {
