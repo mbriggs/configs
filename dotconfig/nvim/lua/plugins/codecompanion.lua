@@ -65,7 +65,7 @@ Create behavior-driven tests that cover all practical usage patterns for this co
    - If you find yourself considering mocks, stop and ask for permission first
    - Request helper methods needed to verify actions completed on external services based on analyzing the client
 
-RUBY SPECIFIC GUIDELINES:
+RUBY SPECIFIC TEST GUIDELINES:
 1. SYNTAX & ASSERTIONS:
    - Use built-in Rails test syntax (Minitest), not RSpec
    - Use assert-style assertions (assert, assert_equal, etc.) rather than expect syntax
