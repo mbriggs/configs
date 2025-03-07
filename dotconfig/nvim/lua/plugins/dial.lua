@@ -13,8 +13,8 @@ return {
 	desc = "Increment and decrement numbers, dates, and more",
   -- stylua: ignore
   keys = {
-    { "<C-Down>", function() return dial(true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
-    { "<C-Up>", function() return dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
+    { "<C-:>", function() return dial(true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
+    { "<C-;>", function() return dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
     -- { "g<C-Down>", function() return dial(true, true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
     -- { "g<C-Up>", function() return dial(false, true) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
   },
