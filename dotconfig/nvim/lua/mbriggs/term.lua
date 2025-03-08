@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		if cmd and (cmd:match("sh$") or cmd:match("bash$") or cmd:match("zsh$")) then
 			vim.cmd("startinsert") -- Start in insert mode
 
-			map({ "t", "n" }, "<D-,>", function()
+			map({ "t", "n" }, "<C-,>", function()
 				vim.cmd("stopinsert")
 				vim.cmd("TermRename")
 			end, { buffer = true })
@@ -64,7 +64,7 @@ vim.api.nvim_create_user_command("TermRename", function()
 			-- Get current buffer number
 			local bufnr = vim.api.nvim_get_current_buf()
 			-- Set the buffer name
-			vim.api.nvim_buf_set_name(bufnr, name)
+			vim.api.nvim_buf_set_name(bufnr, "*" .. name .. "*")
 		end
 	end)
 end, {})
