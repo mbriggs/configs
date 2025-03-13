@@ -17,7 +17,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   popd
 
   echo "-- installing xcode toolchain"
-  xcode-select --install
+  # xcode-select --install
 
   echo "-- installing brew"
   curl -fsSL -o install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
