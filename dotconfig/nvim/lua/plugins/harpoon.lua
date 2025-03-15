@@ -18,5 +18,7 @@ return {
     { "<C-j>",     "<cmd>lua require('harpoon'):list():select(2)<cr>", desc = "Harpoon to file 2", silent = true },
     { "<C-k>",     "<cmd>lua require('harpoon'):list():select(3)<cr>", desc = "Harpoon to file 3", silent = true },
     { "<C-l>",     "<cmd>lua require('harpoon'):list():select(4)<cr>", desc = "Harpoon to file 4", silent = true },
+    { "<C-;>",     "<cmd>lua require('harpoon'):list():select(5)<cr>", desc = "Harpoon to file 5", silent = true },
+    { "<C-'>",     "<cmd>lua require('harpoon'):list():select(6)<cr>", desc = "Harpoon to file 6", silent = true },
   },
 }
