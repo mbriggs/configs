@@ -1,9 +1,9 @@
 vim.opt.formatoptions = "jqlnt"
 -- j: remove comment leader when joining
--- -- q: allow formatting of comments with gq
--- -- l: don't break long lines in insert mode
--- -- n: recognize numbered lists
--- -- t: auto-wrap text using textwidth
+-- q: allow formatting of comments with gq
+-- l: don't break long lines in insert mode
+-- n: recognize numbered lists
+-- t: auto-wrap text using textwidth
 
 -- 2 spaces by default
 vim.opt.tabstop = 2
