@@ -29,7 +29,7 @@ vim.opt.concealcursor = ""
 vim.opt.wrap = true
 
 -- show line numbers by default
-vim.opt.number = true
+vim.opt.number = false
 
 -- make extra files less irritating
 vim.opt.swapfile = false
