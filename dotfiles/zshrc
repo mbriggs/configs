@@ -104,7 +104,6 @@ if command -v /opt/homebrew/bin/brew &> /dev/null; then
         $HOMEBREW_PREFIX/opt/curl/bin
         $HOMEBREW_PREFIX/coreutils/libexec/gnubin
         $path
-        $HOMEBREW_PREFIX/opt/libpq/bin
     )
 fi
 
