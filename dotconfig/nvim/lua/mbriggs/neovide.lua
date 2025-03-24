@@ -23,6 +23,14 @@ vim.g.neovide_refresh_rate = 60
 vim.g.neovide_no_idle = false
 vim.g.neovide_cursor_antialiasing = true
 
+-- Add keybindings to adjust scale factor (zoom)
+vim.g.neovide_scale_factor = 1.0
+local change_scale_factor = function(delta)
+  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+end
+vim.keymap.set("n", "<C-=>", function() change_scale_factor(1.1) end)
+vim.keymap.set("n", "<C-->", function() change_scale_factor(1 / 1.1) end)
+
 -- needed to be going off of the right ruby when project changes
 vim.api.nvim_create_autocmd("DirChanged", {
   pattern = "*",
