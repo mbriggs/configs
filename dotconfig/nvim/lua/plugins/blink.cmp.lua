@@ -1,7 +1,7 @@
 return {
   "saghen/blink.cmp",
   lazy = false,
-  version = "v0.*",
+  version = "v1.*",
   opts = {
     keymap = {
       ["<D-space>"] = { "show" },
@@ -11,21 +11,6 @@ return {
       ["<C-p>"] = { "select_prev" },
       ["<PageDown>"] = { "scroll_documentation_down" },
       ["<PageUp>"] = { "scroll_documentation_up" },
-    },
-    completion = {
-      accept = {
-        auto_brackets = {
-          enabled = true,
-        },
-      },
-      menu = {
-        draw = {
-          treesitter = { "lsp" },
-        },
-      },
-      ghost_text = {
-        enabled = true,
-      },
     },
     sources = {
       default = {
