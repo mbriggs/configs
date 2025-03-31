@@ -12,6 +12,9 @@ return {
       ["<PageDown>"] = { "scroll_documentation_down" },
       ["<PageUp>"] = { "scroll_documentation_up" },
     },
+    signature = {
+      enabled = true,
+    },
     sources = {
       default = {
         "lazydev",
@@ -20,7 +23,6 @@ return {
         "snippets",
         "buffer",
       },
-
       providers = {
         lazydev = {
           name = "LazyDev",
