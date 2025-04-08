@@ -79,24 +79,24 @@ vim.api.nvim_create_autocmd("BufLeave", {
 
 local map = vim.keymap.set
 
-map("n", "-", ":Explore<CR>", {
-  noremap = true,
-  silent = true,
-  desc = "Explore current dir",
-})
+-- map("n", "-", ":Explore<CR>", {
+--   noremap = true,
+--   silent = true,
+--   desc = "Explore current dir",
+-- })
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "netrw",
   callback = function()
     local opts = { buffer = true, silent = true, remap = true }
-    map("n", "<Tab>", "mf", opts)                          -- Toggle mark on file
-    map("n", "<S-Tab>", "mF", opts)                        -- Unmark all files
+    map("n", "<Tab>", "mf", opts)                            -- Toggle mark on file
+    map("n", "<S-Tab>", "mF", opts)                          -- Unmark all files
     -- map('n', '-', '-^', opts)                   -- Go up directory
-    map("n", "%", create_file_or_dir, { buffer = true })   -- Create file/dir
+    map("n", "%", create_file_or_dir, { buffer = true })     -- Create file/dir
     map("n", "<D-f>", create_file_or_dir, { buffer = true }) -- Create file/dir
-    map("n", "d", "D", opts)                               -- Delete file/directory
-    map("n", "r", "R", opts)                               -- Rename file/directory
-    map("n", "=", toggle_target, opts)                     -- Toggle visual mark target
+    map("n", "d", "D", opts)                                 -- Delete file/directory
+    map("n", "r", "R", opts)                                 -- Rename file/directory
+    map("n", "=", toggle_target, opts)                       -- Toggle visual mark target
   end,
 })
 

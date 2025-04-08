@@ -26,7 +26,7 @@ return {
     input = { enabled = true },
     notifier = { enabled = true },
     quickfile = { enabled = true },
-    explorer = { replace_netrw = false },
+    explorer = { replace_netrw = true },
     picker = {
       ui_select = true,
       sources = {
