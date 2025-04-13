@@ -71,9 +71,12 @@ return {
       },
     },
     display = {
-      chat = {
-        show_settings = true,
-      },
+      -- chat = {
+      --   show_settings = true,
+      -- },
+      diff = {
+        provider = "mini_diff",
+      }
     },
     adapters = {
       opts = {
@@ -131,6 +134,9 @@ return {
             api_key = "cmd:op read op://Private/Gemini/credential --no-newline",
           },
           schema = {
+            model = {
+              default = "gemini-2.5-pro-exp-03-25",
+            },
             extended_output = {
               default = false,
             },

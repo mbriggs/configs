@@ -90,7 +90,8 @@ return {
             return msg
           end,
           padding = { left = 0, right = 3 }
-        }
+        },
+        { "location" }
       },
       lualine_y = {},
       lualine_z = {},
