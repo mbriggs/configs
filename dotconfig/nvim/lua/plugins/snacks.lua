@@ -226,21 +226,21 @@ return {
       [[<cmd>lua Snacks.git.blame_line()<cr>]],
       desc = "Blame",
     },
-    {
-      "<leader>gg",
-      [[<cmd>lua Snacks.lazygit.open()<cr>]],
-      desc = "LazyGit",
-    },
-    {
-      "<leader>gl",
-      [[<cmd>lua Snacks.lazygit.log()<cr>]],
-      desc = "Git Log",
-    },
-    {
-      "<leader>gf",
-      [[<cmd>lua Snacks.lazygit.log_file()<cr>]],
-      desc = "Git Log (file)",
-    },
+    -- {
+    --   "<leader>gg",
+    --   [[<cmd>lua Snacks.lazygit.open()<cr>]],
+    --   desc = "LazyGit",
+    -- },
+    -- {
+    --   "<leader>gl",
+    --   [[<cmd>lua Snacks.lazygit.log()<cr>]],
+    --   desc = "Git Log",
+    -- },
+    -- {
+    --   "<leader>gf",
+    --   [[<cmd>lua Snacks.lazygit.log_file()<cr>]],
+    --   desc = "Git Log (file)",
+    -- },
     {
       "<leader>H",
       [[<cmd>lua Snacks.notifier.show_history()<cr>]],

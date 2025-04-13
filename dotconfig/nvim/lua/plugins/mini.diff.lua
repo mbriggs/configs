@@ -13,5 +13,8 @@ return {
         delete = arrow,
       },
     }
+  },
+  keys = {
+    { "<leader>D", "<cmd>lua MiniDiff.toggle()<CR>", desc = "Toggle Diff" },
   }
 }
