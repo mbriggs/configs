@@ -79,11 +79,11 @@ vim.api.nvim_create_autocmd("BufLeave", {
 
 local map = vim.keymap.set
 
--- map("n", "-", ":Explore<CR>", {
---   noremap = true,
---   silent = true,
---   desc = "Explore current dir",
--- })
+map("n", "-", ":Explore<CR>", {
+  noremap = true,
+  silent = true,
+  desc = "Explore current dir",
+})
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "netrw",

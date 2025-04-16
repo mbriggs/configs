@@ -4,12 +4,6 @@ return {
     "nvim-lua/plenary.nvim",
   },
   keys = {
-    {
-      "<leader>gg",
-      function()
-        require("neogit").open()
-      end,
-      desc = "Neogit",
-    },
+    { "<leader>gg", function() require("neogit").open({ kind = "replace" }) end, desc = "Neogit" },
   },
 }

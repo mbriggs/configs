@@ -1,10 +1,11 @@
 dark-mode: true
 completion-menu-color: "#c0caf5"      # text
 completion-menu-bg-color: "#1f2335"   # background
-completion-menu-current-color: "#c0caf5"  # selected text  
+completion-menu-current-color: "#c0caf5"  # selected text
 completion-menu-current-bg-color: "#2a2e42"  # selected background
-
-gitignore: false # added to global gitignore
-
-chat-mode: ask
-editor-edit-format: editor-whole
+gitignore: false
+dirty-commits: false
+auto-commits: false
+chat-mode: code
+git: false
+model: gemini-2.5-pro

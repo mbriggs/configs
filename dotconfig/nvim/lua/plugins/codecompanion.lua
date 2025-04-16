@@ -9,7 +9,7 @@ return {
   opts = {
     strategies = {
       chat = {
-        adapter = "openai",
+        adapter = "gemini",
         slash_commands = {
           opts = {
             provider = "snacks",
@@ -44,7 +44,7 @@ return {
       openai = function()
         return require("codecompanion.adapters").extend("openai", {
           env = {
-            api_key = "cmd:op read op://Private/OpenAI/code-companion --no-newline",
+            api_key = "OPENAI_API_KEY",
           },
           schema = {
             model = {
@@ -66,7 +66,7 @@ return {
       anthropic = function()
         return require("codecompanion.adapters").extend("anthropic", {
           env = {
-            api_key = "cmd:op read op://Private/Anthropic/credential --no-newline",
+            api_key = "ANTHROPIC_API_KEY",
           },
           schema = {
             -- model = {
@@ -88,7 +88,7 @@ return {
       gemini = function()
         return require("codecompanion.adapters").extend("gemini", {
           env = {
-            api_key = "cmd:op read op://Private/Gemini/credential --no-newline",
+            api_key = "GEMINI_API_KEY",
           },
           schema = {
             model = {

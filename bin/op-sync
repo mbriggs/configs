@@ -1,0 +1,395 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'tempfile'
+require 'open3'
+require 'optparse'
+
+# --- Configuration ---
+VAULT = ENV.fetch('OP_SYNC_VAULT', "Private")
+ITEM = ENV.fetch('OP_SYNC_ITEM', "Dev Workstation")
+TARGET_DIR = ENV.fetch('OP_SYNC_TARGET_DIR', Dir.home)
+ITEMS_TO_MANAGE = [ ".ssh", ".extra.zsh" ].freeze
+
+# --- Global Debug Flag ---
+$debug_mode = ENV['OP_SYNC_DEBUG'] == 'true'
+
+# --- Custom Error Class ---
+class OpSyncError < StandardError; end
+
+# --- Helper Methods ---
+
+def debug_log(message)
+  puts "DEBUG: #{message}" if $debug_mode
+end
+
+def log_error(message)
+  warn "ERROR: #{message}"
+end
+
+# Executes an external command, handling errors and logging
+# Returns hash { stdout:, stderr:, status: } on success
+# Raises OpSyncError on failure if expect_success is true
+def run_command(*cmd_array, expect_success: true, redact_args: [])
+  debug_log "Running command: #{cmd_array.map { |a| redact_args.include?(a) ? '[REDACTED]' : a }.join(' ')}"
+
+  stdout_val = nil # Use nil to indicate not captured or binary
+  stderr_val = ""
+  status_val = nil
+  binary_output = false
+
+  # Determine command type for special handling
+  is_op_item_edit = (cmd_array[0] == 'op' && cmd_array[1] == 'item' && cmd_array[2] == 'edit')
+  is_op_read = (cmd_array[0] == 'op' && cmd_array[1] == 'read')
+
+  if is_op_item_edit
+    debug_log "  >> Using system() for 'op item edit' command <<"
+    # Execute with system, passing arguments directly
+    success = system(*cmd_array)
+    status_val = $? # Get the Process::Status object right after system call
+    # Cannot capture stdout/stderr easily here
+  elsif is_op_read
+     debug_log "  >> Capturing potential binary output for 'op read' <<"
+     # Capture stdout in binary mode using Open3.capture3's :binmode option
+     # Note: We capture stderr as text still. If stderr could be binary, more complex handling needed.
+     stdout_bin, stderr_val, status_val = Open3.capture3(*cmd_array, binmode: true)
+     stdout_val = stdout_bin # Keep it as binary data
+     binary_output = true
+  else
+    # Use Open3 normally for other commands (expecting text output)
+    stdout_text, stderr_val, status_val = Open3.capture3(*cmd_array)
+    stdout_val = stdout_text
+  end
+
+  # --- Logging ---
+  debug_log "  Exit Status: #{status_val.exitstatus}"
+  # Only log stdout content if it's not binary or empty
+  if !binary_output && stdout_val && !stdout_val.strip.empty?
+      debug_log "  Stdout: #{stdout_val.strip}"
+  elsif binary_output && stdout_val && !stdout_val.empty?
+      debug_log "  Stdout: [BINARY DATA - Length: #{stdout_val.bytesize}]"
+  end
+  # Log stderr if not empty (always text)
+  debug_log "  Stderr: #{stderr_val.strip}" unless stderr_val.strip.empty?
+
+  # --- Error Handling ---
+  unless status_val.success?
+    error_message = "Command failed: #{cmd_array[0]} (Exit Code: #{status_val.exitstatus})"
+    if expect_success
+      log_error error_message
+      log_error "  Stderr: #{stderr_val.strip}" unless stderr_val.strip.empty?
+      raise OpSyncError, error_message
+    else
+      debug_log "Command failed but expect_success is false. Continuing..."
+    end
+  end
+
+  # Return binary stdout for op read, text otherwise
+  { stdout: stdout_val, stderr: stderr_val, status: status_val }
+end
+
+
+def check_op_signin
+  debug_log "Checking 1Password CLI sign-in status..."
+  run_command('op', 'user', 'get', '--me')
+  debug_log "Sign-in check successful."
+rescue OpSyncError => e
+  log_error "Not signed in to 1Password CLI. Please run 'op signin' first."
+  raise
+end
+
+def check_op_item(allow_create)
+  debug_log "Checking for item '#{ITEM}' in vault '#{VAULT}'..."
+  begin
+    # We only care about success/failure here, output isn't needed
+    run_command('op', 'item', 'get', ITEM, '--vault', VAULT, '--format', 'json', expect_success: true)
+    debug_log "Item found."
+    return true
+  rescue OpSyncError # Catches failure from run_command if expect_success: true
+    debug_log "Item '#{ITEM}' not found (based on 'op item get' failure)."
+
+    unless allow_create
+      log_error "Item '#{ITEM}' not found in vault '#{VAULT}', and creation not allowed."
+      raise OpSyncError, "Required item '#{ITEM}' not found."
+    end
+
+    puts "Item '#{ITEM}' not found in vault '#{VAULT}'. Attempting to create..."
+    begin
+      run_command('op', 'item', 'create', "--category=Secure Note", "--vault=#{VAULT}", "--title=#{ITEM}", expect_success: true)
+      puts "Successfully created item '#{ITEM}'."
+      return true
+    rescue OpSyncError => create_error
+      log_error "Failed to create item '#{ITEM}' in vault '#{VAULT}'."
+      raise create_error
+    end
+  end
+end
+
+def sanitize_for_field_name(name)
+  sanitized = name.dup
+  sanitized.gsub!(%r{^/+}, '')
+  sanitized.sub!(/^\./, '_dot_')
+  sanitized.gsub!(/[\.\/]/, '_')
+  sanitized.gsub!(/\s+/, '_')
+  debug_log "Sanitized '#{name}' to '#{sanitized}'"
+  sanitized
+end
+
+# --- Backup Functions ---
+
+def backup_to_op
+  puts "Starting backup to 1Password item '#{ITEM}' in vault '#{VAULT}'..."
+  check_op_signin
+  check_op_item(true)
+
+  ITEMS_TO_MANAGE.each do |item_rel_path|
+    item_abs_path = File.join(TARGET_DIR, item_rel_path)
+    item_basename = File.basename(item_rel_path)
+    debug_log "Processing backup for '#{item_rel_path}' (abs: #{item_abs_path})"
+
+    unless File.exist?(item_abs_path)
+      warn "  SKIPPING: Source '#{item_abs_path}' does not exist."
+      next
+    end
+
+    if File.directory?(item_abs_path)
+      backup_directory(item_abs_path, item_basename)
+    elsif File.file?(item_abs_path)
+      backup_file(item_abs_path, item_basename)
+    else
+      warn "  SKIPPING: Item '#{item_abs_path}' is not a regular file or directory."
+    end
+  end
+  puts "Backup process finished."
+end
+
+def backup_directory(item_abs_path, item_basename)
+  debug_log "Handling directory backup for '#{item_basename}'"
+  if Dir.entries(item_abs_path).size <= 2
+     warn "  SKIPPING: Directory '#{item_abs_path}' is empty."
+     return
+  end
+
+  original_label = "#{item_basename}.tar.gz"
+  sanitized_label = sanitize_for_field_name(original_label)
+  parent_dir = File.dirname(item_abs_path)
+
+  Tempfile.create([item_basename, '.tar.gz']) do |temp_archive|
+    temp_archive_path = temp_archive.path
+    puts "  Creating archive for directory '#{item_basename}'..."
+    debug_log "  Archiving from '#{parent_dir}' into '#{temp_archive_path}'"
+
+    begin
+      Dir.chdir(parent_dir) do
+        run_command('tar', '-czpf', temp_archive_path, item_basename)
+      end
+    rescue OpSyncError => e
+      log_error "Failed to archive directory '#{item_basename}': #{e.message}"
+      next
+    end
+
+    unless File.size?(temp_archive_path)
+       log_error "Tar command succeeded but resulted in an empty file '#{temp_archive_path}'. Skipping upload."
+       next
+    end
+    puts "  Successfully created archive file: #{temp_archive_path}"
+
+    assignment_arg = "#{sanitized_label}[file]=#{temp_archive_path}"
+    puts "  Uploading archive for '#{original_label}' (using field label '#{sanitized_label}')..."
+    begin
+      # Uses system() via run_command for op item edit
+      run_command('op', 'item', 'edit', ITEM, '--vault', VAULT, assignment_arg)
+      puts "  Successfully uploaded archive."
+    rescue OpSyncError => e
+      log_error "Failed to upload archive using field label '#{sanitized_label}': #{e.message}"
+    end
+  end
+end
+
+def backup_file(item_abs_path, item_basename)
+  debug_log "Handling file backup for '#{item_basename}'"
+  original_label = item_basename
+  sanitized_label = sanitize_for_field_name(original_label)
+  assignment_arg = "#{sanitized_label}[file]=#{item_abs_path}"
+
+  puts "  Uploading file '#{original_label}' (using field label '#{sanitized_label}')..."
+  begin
+    # Uses system() via run_command for op item edit
+    run_command('op', 'item', 'edit', ITEM, '--vault', VAULT, assignment_arg)
+    puts "  Successfully uploaded file."
+  rescue OpSyncError => e
+    log_error "Failed to upload file using field label '#{sanitized_label}': #{e.message}"
+  end
+end
+
+# --- Restore Functions ---
+
+def restore_from_op
+  puts "Starting restore from 1Password item '#{ITEM}' in vault '#{VAULT}' to #{TARGET_DIR}..."
+  check_op_signin
+  check_op_item(false)
+
+  ITEMS_TO_MANAGE.each do |item_rel_path|
+    item_basename = File.basename(item_rel_path)
+    target_path = File.join(TARGET_DIR, item_rel_path)
+    debug_log "Processing restore for '#{item_rel_path}' (target: #{target_path})"
+
+    sanitized_dir_label = sanitize_for_field_name("#{item_basename}.tar.gz")
+    sanitized_file_label = sanitize_for_field_name(item_basename)
+
+    found_content = false
+    temp_download = nil
+
+    begin
+      # --- Try directory first ---
+      debug_log "Attempting restore as directory (field: '#{sanitized_dir_label}')"
+      temp_download = Tempfile.new([sanitized_dir_label, ''], binmode: true) # Create tempfile in binary mode
+      temp_download_path = temp_download.path
+
+      begin
+        # run_command now handles binary output for op read
+        cmd_result = run_command('op', 'read', "op://#{VAULT}/#{ITEM}/#{sanitized_dir_label}",
+                                 expect_success: false,
+                                 redact_args: ["op://#{VAULT}/#{ITEM}/#{sanitized_dir_label}"])
+
+        # Check if command succeeded and we got binary data
+        if cmd_result[:status].success? && cmd_result[:stdout] && !cmd_result[:stdout].empty?
+           # Write the captured binary data to the temp file
+           temp_download.write(cmd_result[:stdout])
+           temp_download.flush # Ensure data is written to disk
+           temp_download.rewind # Go back to beginning if needed later (though not strictly necessary here)
+
+           if File.size?(temp_download_path) # Double check file size on disk
+             puts "  Downloaded archive from field '#{sanitized_dir_label}'."
+             restore_directory_from_archive(temp_download_path, target_path, item_rel_path)
+             found_content = true
+           else
+             debug_log "Field '#{sanitized_dir_label}' read command succeeded but resulted in empty content/file."
+             temp_download.close! # Discard empty tempfile
+             temp_download = nil
+           end
+        else
+          debug_log "Field '#{sanitized_dir_label}' not found or read failed."
+          temp_download.close!
+          temp_download = nil
+        end
+      rescue OpSyncError => e
+         log_error "Unexpected error reading field '#{sanitized_dir_label}': #{e.message}"
+         temp_download&.close!
+         temp_download = nil
+      end
+
+      # --- Try file if directory failed ---
+      if !found_content
+        debug_log "Attempting restore as file (field: '#{sanitized_file_label}')"
+        temp_download = Tempfile.new([sanitized_file_label, ''], binmode: true) # New binary tempfile
+        temp_download_path = temp_download.path
+
+        begin
+          cmd_result = run_command('op', 'read', "op://#{VAULT}/#{ITEM}/#{sanitized_file_label}",
+                                   expect_success: false,
+                                   redact_args: ["op://#{VAULT}/#{ITEM}/#{sanitized_file_label}"])
+
+          if cmd_result[:status].success? && cmd_result[:stdout] && !cmd_result[:stdout].empty?
+            temp_download.write(cmd_result[:stdout])
+            temp_download.flush
+            temp_download.rewind
+
+            if File.size?(temp_download_path)
+              puts "  Downloaded file content from field '#{sanitized_file_label}'."
+              restore_file_from_temp(temp_download_path, target_path, item_rel_path)
+              found_content = true
+              temp_download.close # Keep file, just close handle (mv happens in restore_file_from_temp)
+              temp_download = nil # Mark as handled
+            else
+              debug_log "Field '#{sanitized_file_label}' read command succeeded but resulted in empty content/file."
+              temp_download.close! # Discard empty tempfile
+              temp_download = nil
+            end
+          else
+            warn "  SKIPPING: Attachment field '#{sanitized_file_label}' also not found or read failed for '#{item_rel_path}'."
+            temp_download.close!
+            temp_download = nil
+          end
+        rescue OpSyncError => e
+           log_error "Unexpected error reading field '#{sanitized_file_label}': #{e.message}"
+           temp_download&.close!
+           temp_download = nil
+        end
+      end
+
+    ensure
+      # Clean up temp file if it exists and wasn't handled (moved/closed without !)
+      temp_download&.close!
+    end # begin/ensure for tempfile
+  end # ITEMS_TO_MANAGE.each
+  puts "Restore process finished."
+end
+
+def restore_directory_from_archive(temp_archive_path, target_path, item_rel_path)
+  target_parent_dir = File.dirname(target_path)
+  FileUtils.mkdir_p(target_parent_dir)
+  puts "  Extracting archive to '#{TARGET_DIR}'..."
+  debug_log "  Extracting '#{temp_archive_path}'"
+  begin
+    run_command('tar', '-xzpf', temp_archive_path, '-C', TARGET_DIR)
+    puts "  Successfully restored directory '#{item_rel_path}'."
+  rescue OpSyncError => e
+    log_error "Failed to extract archive for '#{item_rel_path}': #{e.message}"
+  end
+end
+
+def restore_file_from_temp(temp_download_path, target_path, item_rel_path)
+  target_parent_dir = File.dirname(target_path)
+  FileUtils.mkdir_p(target_parent_dir)
+  puts "  Restoring file to '#{target_path}'..."
+  begin
+    FileUtils.mv(temp_download_path, target_path, force: true)
+    puts "  Successfully restored file '#{item_rel_path}'."
+  rescue SystemCallError => e
+    log_error "Failed to move temp file to '#{target_path}': #{e.message}"
+    # If move failed, temp file should be cleaned up by ensure block in restore_from_op
+  end
+end
+
+# --- Main Script Logic ---
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$PROGRAM_NAME} [options] [backup|restore]"
+  opts.on("-d", "--debug", "Enable debug logging") { $debug_mode = true; debug_log("Debug mode explicitly enabled via flag.") }
+  opts.on_tail("-h", "--help", "Show this message") { puts opts; exit }
+end.parse!
+
+unless ARGV.length == 1 && ['backup', 'restore'].include?(ARGV[0])
+  warn "Invalid command.\nUsage: #{$PROGRAM_NAME} [--debug] [backup|restore]"
+  exit(1)
+end
+
+MODE = ARGV[0]
+
+begin
+  debug_log "Script starting in mode: #{MODE}"
+  debug_log "Using Vault: #{VAULT}, Item: #{ITEM}, Target Dir: #{TARGET_DIR}"
+
+  if MODE == "backup"
+    backup_to_op
+  elsif MODE == "restore"
+    restore_from_op
+  end
+
+  puts "Operation '#{MODE}' completed successfully."
+  exit(0)
+
+rescue OpSyncError => e
+  log_error "Script failed: #{e.message}"
+  debug_log "Backtrace:\n#{e.backtrace.join("\n")}" if $debug_mode
+  exit(1)
+rescue SignalException => e
+   puts "\nInterrupted by user (#{e.class}). Exiting."
+   exit(130)
+rescue => e
+  log_error "An unexpected error occurred: #{e.class} - #{e.message}"
+  log_error "Backtrace:\n#{e.backtrace.join("\n")}"
+  exit(2)
+end

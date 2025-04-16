@@ -2,30 +2,6 @@ local map = vim.keymap.set
 
 vim.g.terminal_scrollback_buffer_size = 500000
 
--- Toggle terminal buffer
-local pre_term_buf
-map("n", "<leader>m", function()
-  local term_buf = vim.fn.bufnr("^\\*term\\*$")
-  local bufname = vim.fn.bufname("%")
-
-  if vim.bo.buftype == "terminal" and bufname == "*term*" then
-    if pre_term_buf and vim.fn.bufexists(pre_term_buf) == 1 then
-      vim.cmd("buffer " .. pre_term_buf)
-    else
-      print("No previous buffer found")
-    end
-    return
-  end
-
-  pre_term_buf = vim.fn.bufnr("%")
-  if term_buf ~= -1 then
-    vim.cmd("buffer " .. term_buf)
-  else
-    vim.cmd("terminal")
-    vim.cmd("file *term*")
-  end
-end, { desc = "Toggle terminal buffer" })
-
 map("t", "<Esc>", "<C-\\><C-n>", { silent = true })
 
 map("t", "<D-h>", "<C-\\><C-n><C-w>h")

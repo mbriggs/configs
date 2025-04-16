@@ -108,6 +108,8 @@ local function register_which_key(opts)
   require("which-key").add(ret, { notify = false })
 end
 
+
+
 return {
   "echasnovski/mini.ai",
   event = "VeryLazy",
@@ -133,6 +135,26 @@ return {
         k = { "%b||", "^|().-()|$" },
         u = ai.gen_spec.function_call(),                           -- u for "Usage"
         U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+        m = {
+          -- Around markdown code block: includes the backticks
+          a = function()
+            local start_line = vim.fn.search('^```', 'bnW')
+            local end_line = vim.fn.search('^```', 'nW')
+            if start_line == 0 or end_line == 0 or start_line == end_line then
+              return nil
+            end
+            return { from = { line = start_line, col = 1 }, to = { line = end_line, col = vim.fn.col('$') } }
+          end,
+          -- Inside markdown code block: excludes the backticks
+          i = function()
+            local start_line = vim.fn.search('^```', 'bnW')
+            local end_line = vim.fn.search('^```', 'nW')
+            if start_line == 0 or end_line == 0 or start_line == end_line or end_line - start_line <= 1 then
+              return nil
+            end
+            return { from = { line = start_line + 1, col = 1 }, to = { line = end_line - 1, col = vim.fn.col('$') } }
+          end,
+        },
       },
     }
   end,
