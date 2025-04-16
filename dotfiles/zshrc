@@ -42,7 +42,6 @@ alias dk="docker"
 alias dkc="docker compose"
 alias dke='docker compose exec $DKC_MAIN'
 alias rlog="tail -f log/development.log"
-alias aider='aider --model sonnet --anthropic-api-key "$(op read op://Private/Anthropic/credential --no-newline)"'
 
 # Git
 alias gs="git status"
@@ -134,3 +133,7 @@ bindkey -e                  # Use emacs key bindings
 bindkey '^[[A' up-line-or-search    # Up arrow for history search
 bindkey '^[[B' down-line-or-search  # Down arrow for history search
 
+extra="$HOME/.extra.zsh"
+if [[ -r "$extra" ]]; then
+  . "$extra"
+fi

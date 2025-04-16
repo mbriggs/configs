@@ -13,7 +13,7 @@ return {
       ["<PageUp>"] = { "scroll_documentation_up" },
     },
     signature = {
-      enabled = true,
+      enabled = false,
     },
     sources = {
       default = {

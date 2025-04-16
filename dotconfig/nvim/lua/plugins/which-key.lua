@@ -29,6 +29,8 @@ return {
         { "<leader>ol",        group = "link" },
         { "<leader>ox",        group = "task" },
         { "<leader>p",         group = "project" },
+        { "<leader>h",         group = "harpoon" },
+        { "<leader>a",         group = "aider" },
         { "<leader>t",         group = "test" },
         { "<leader>x",         group = "trouble" },
         { "<leader>S",         group = "snippets",     mode = { "v", "n" } },
