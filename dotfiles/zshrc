@@ -137,3 +137,6 @@ extra="$HOME/.extra.zsh"
 if [[ -r "$extra" ]]; then
   . "$extra"
 fi
+
+# Added by Windsurf
+export PATH="/Users/mbriggs/.codeium/windsurf/bin:$PATH"
