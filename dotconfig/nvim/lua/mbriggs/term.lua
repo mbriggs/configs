@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     if cmd and (cmd:match("sh$") or cmd:match("bash$") or cmd:match("zsh$")) then
       vim.cmd("startinsert") -- Start in insert mode
 
-      map({ "t", "n" }, "<C-,>", function()
+      map({ "t", "n" }, "<leader>R", function()
         vim.cmd("stopinsert")
         vim.cmd("TermRename")
       end, { buffer = true })

@@ -4,8 +4,8 @@
   path = ~/.config/delta/delta.config
 
 [user]
-  name = Matt Briggs
-  email = matt@mattbriggs.net
+	name = Matt Briggs
+	email = matt@mattbriggs.net
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBsWuyaFPxRx4z9G1Bs2dcbvpJal12HkdsQXfJoBKXFc
 
 [color]

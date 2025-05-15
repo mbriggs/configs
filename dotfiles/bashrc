@@ -38,19 +38,9 @@ alias gp="git push"
 alias gl="git pull"
 
 ### Prompt
-GREEN="\[\033[0;32m\]"
-RED="\[\033[0;31m\]"
 BLUE="\[\033[0;34m\]"
 RESET="\[\033[0m\]"
-
-# Exit status display (only if non-zero)
-exit_status() {
-  local status=$?
-  [ $status -ne 0 ] && echo -e "${RED}✖ $status${RESET} "
-}
-
-# Set the prompt
-PS1='$(exit_status)'$BLUE'\W'" ${RESET}➜ "
+PS1=$BLUE'\W'" ${RESET}➜ "
 
 ### ENV
 export EDITOR="nvim"
