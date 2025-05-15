@@ -1,8 +1,9 @@
-local map = require("map")
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
     "folke/snacks.nvim",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     { "Bilal2453/luvit-meta",    lazy = true },
     {
       "folke/lazydev.nvim",
@@ -29,28 +30,50 @@ return {
     { "saecki/live-rename.nvim", config = true },
   },
   event = { "BufReadPost", "BufNewFile" },
-  cmd = { "LspInfo", "LspInstall", "LspUninstall" },
+  cmd = { "LspInfo", "LspInstall", "LspUninstall", "Mason" },
+  keys = {
+    { "<leader>m", "<cmd>Mason<cr>", desc = "Mason" }
+  },
 
   config = function()
+    -- First set up mason
+    require("mason").setup()
+
+    -- Then set up mason-lspconfig with automatic enabling
+    require("mason-lspconfig").setup {
+      ensure_installed = {
+        "lua_ls",
+        "bashls",
+        "gopls",
+        "ruby_lsp",
+        "golangci_lint_ls",
+        "html",
+        "cssls",
+        "jsonls",
+        "eslint",
+        "cmake",
+        "nginx_language_server",
+        "sqlls",
+        "dockerls",
+        "tailwindcss",
+        "templ",
+        "ts_ls"
+      },
+      -- This will automatically enable all installed servers
+      automatic_enable = true,
+    }
+
     -- lsp notification with snacks notifier
     require("mbriggs.notifier-lspconfig").setup()
 
     vim.filetype.add({ extension = { templ = "templ" } })
 
-    local config = require("lspconfig")
+    -- Instead of individually setting up each server,
+    -- let's just configure the ones that need special settings
+    local lspconfig = require("lspconfig")
 
-    config.bashls.setup({})
-    config.golangci_lint_ls.setup({})
-    config.gopls.setup({})
-    config.html.setup({})
-    config.cssls.setup({})
-    config.jsonls.setup({})
-    config.eslint.setup({})
-    config.cmake.setup({})
-    config.nginx_language_server.setup({})
-    config.sqlls.setup({})
-    config.dockerls.setup({})
-    config.lua_ls.setup({
+    -- Configure lua_ls with custom settings
+    lspconfig.lua_ls.setup({
       settings = {
         Lua = {
           diagnostics = {
@@ -59,13 +82,12 @@ return {
         },
       },
     })
-    config.ruby_lsp.setup({})
-    config.tailwindcss.setup({
+
+    -- Configure tailwindcss with custom settings
+    lspconfig.tailwindcss.setup({
       filetypes = { "templ", "astro", "javascript", "typescript", "react" },
       init_options = { userLanguages = { templ = "html" } },
     })
-    config.templ.setup({})
-    config.ts_ls.setup({})
 
     vim.diagnostic.config({
       underline = true,
@@ -95,6 +117,8 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
       callback = function(ev)
+        local map = require("map")
+
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
