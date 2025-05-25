@@ -14,4 +14,3 @@ shell-integration = detect
 shell-integration-features = no-cursor,sudo,title
 
 window-vsync = true
-bind key=z modifiers=cmd action=window.zoom-pane
