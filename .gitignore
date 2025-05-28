@@ -4,6 +4,9 @@
 /dotfiles/ssh/known_hosts
 /dotfiles/ssh/known_hosts.old
 
+/dotfiles/aws/cli
+/dotfiles/aws/sso
+
 /dotconfig/op/*
 !/dotconfig/op/plugins.sh
 
