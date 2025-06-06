@@ -19,5 +19,6 @@ Thumbs.db
 .direnv
 .tasks
 .aider*
+.claude
 
 /dotfiles/ssh/1Password/config
