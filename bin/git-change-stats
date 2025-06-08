@@ -1,0 +1,148 @@
+#!/usr/bin/env ruby
+
+# Git commit stats analyzer
+# Usage: ruby git_stats.rb [options] [repo_path]
+
+require 'date'
+require 'open3'
+require 'optparse'
+
+class GitStatsAnalyzer
+  def initialize(options = {})
+    @author = options[:author] || 'Matt Briggs'
+    @days_ago = options[:days_ago] || 1
+    @repo_path = options[:repo_path] || '.'
+    @total_insertions = 0
+    @total_deletions = 0
+    @total_files = 0
+  end
+
+  def analyze
+    validate_git_repo
+
+    current_branch = get_current_branch
+    target_date = Date.today - @days_ago
+    commits = get_commits_from_date(target_date)
+
+    if commits.empty?
+      puts "No commits found from #{target_date} by #{@author}"
+      return
+    end
+
+    puts "Analyzing commits from #{target_date} by #{@author} on branch '#{current_branch}'"
+    puts "=" * 70
+
+    commits.each_with_index do |commit_hash, index|
+      analyze_commit(commit_hash, index + 1)
+    end
+
+    print_summary(target_date, commits.size)
+  end
+
+  private
+
+  def validate_git_repo
+    Dir.chdir(@repo_path)
+
+    unless system('git rev-parse --git-dir > /dev/null 2>&1')
+      abort "Error: Not in a git repository"
+    end
+  end
+
+  def get_current_branch
+    `git branch --show-current`.strip
+  end
+
+  def get_commits_from_date(date)
+    since = "#{date} 00:00:00"
+    until_date = "#{date + 1} 00:00:00"
+
+    stdout, stderr, status = Open3.capture3(
+      "git log --pretty=format:'%H' --since='#{since}' --until='#{until_date}' --author='#{@author}'"
+    )
+
+    return [] unless status.success?
+
+    stdout.split("\n").reject(&:empty?)
+  end
+
+  def analyze_commit(commit_hash, index)
+    commit_info = get_commit_info(commit_hash)
+    stats = get_commit_stats(commit_hash)
+
+    puts "\nCommit #{index}: #{commit_hash[0..7]}"
+    puts "  Author: #{commit_info[:author]}"
+    puts "  Time: #{commit_info[:time]}"
+    puts "  Message: #{commit_info[:message]}"
+    puts "  Changes: +#{stats[:insertions]} -#{stats[:deletions]} (#{stats[:files]} files)"
+
+    @total_insertions += stats[:insertions]
+    @total_deletions += stats[:deletions]
+    @total_files += stats[:files]
+  end
+
+  def get_commit_info(commit_hash)
+    author, time, message = `git log -1 --pretty=format:"%an|%cd|%s" --date=format:"%H:%M:%S" #{commit_hash}`.split('|', 3)
+
+    {
+      author: author,
+      time: time,
+      message: message
+    }
+  end
+
+  def get_commit_stats(commit_hash)
+    stats_output = `git show --stat --format="" #{commit_hash} | tail -1`
+
+    # Parse different stat formats
+    case stats_output
+    when /(\d+) files? changed, (\d+) insertions?\(\+\), (\d+) deletions?\(-\)/
+      { files: $1.to_i, insertions: $2.to_i, deletions: $3.to_i }
+    when /(\d+) files? changed, (\d+) insertions?\(\+\)/
+      { files: $1.to_i, insertions: $2.to_i, deletions: 0 }
+    when /(\d+) files? changed, (\d+) deletions?\(-\)/
+      { files: $1.to_i, insertions: 0, deletions: $2.to_i }
+    else
+      { files: 0, insertions: 0, deletions: 0 }
+    end
+  end
+
+  def print_summary(date, commit_count)
+    puts "\n" + "=" * 50
+    puts "SUMMARY FOR #{date}:"
+    puts "=" * 50
+    puts "Total commits: #{commit_count}"
+    puts "Total files changed: #{@total_files}"
+    puts "Total insertions: +#{@total_insertions}"
+    puts "Total deletions: -#{@total_deletions}"
+    puts "Net change: #{@total_insertions - @total_deletions} lines"
+  end
+end
+
+# Parse command line options
+options = {}
+repo_path = '.'
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: ruby git_stats.rb [options] [repo_path]"
+
+  opts.on("-a", "--author AUTHOR", "Author name to filter commits (default: Matt Briggs)") do |author|
+    options[:author] = author
+  end
+
+  opts.on("-d", "--days DAYS", Integer, "Number of days ago to check (default: 1)") do |days|
+    options[:days_ago] = days
+  end
+
+  opts.on("-h", "--help", "Show this help message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+# Remaining argument is repo path
+repo_path = ARGV[0] if ARGV[0]
+options[:repo_path] = repo_path
+
+analyzer = GitStatsAnalyzer.new(options)
+analyzer.analyze
