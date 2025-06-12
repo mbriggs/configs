@@ -1,65 +1,145 @@
 inherit_from: "https://raw.githubusercontent.com/mbriggs/configs/main/dotfiles/rubocop.yml"
+
+# => Plugin Configuration
+
 plugins:
-  - rubocop-rails
-  - rubocop-performance
-  - rubocop-minitest
-  - rubocop-capybara
+  - rubocop-rails        # Rails-specific cops
+  - rubocop-performance  # Performance-related cops
+  - rubocop-minitest     # Minitest-specific cops
+  - rubocop-capybara     # Capybara-specific cops
+
+# => Global Configuration
 
 AllCops:
-  NewCops: enable
+  NewCops: enable  # Automatically enable new cops as they're added
   Exclude:
-    - .irbrc
-    - db/schema.rb
-    - bin/*
-    - node_modules/**/*
-    - tmp/**/*
-    - vendor/**/*
-    - .git/**/*
+    - .irbrc               # IRB configuration
+    - db/schema.rb         # Auto-generated schema file
+    - bin/*                # Executable scripts
+    - node_modules/**/*    # Node.js dependencies
+    - tmp/**/*             # Temporary files
+    - vendor/**/*          # Vendored dependencies
+    - .git/**/*            # Git repository files
+
+# => Rails Cops - Framework specific rules
+
+# Database and Migrations
+Rails/BulkChangeTable:
+  Enabled: false  # Allow multiple table changes in one migration
 
 Rails/NotNullColumn:
-  Enabled: false
-
-Rails/InverseOf:
-  Enabled: false
-
-Rails/Output:
-  Enabled: false
+  Enabled: false  # Allow adding NOT NULL columns without defaults
 
 Rails/ThreeStateBooleanColumn:
-  Enabled: false
+  Enabled: false  # Allow boolean columns that can be null
 
-Rails/HelperInstanceVariable:
-  Enabled: false
+# Models and Associations
+Rails/InverseOf:
+  Enabled: false  # Don't require inverse_of on associations
 
 Rails/SkipsModelValidations:
-  Enabled: false
+  Enabled: false  # Allow methods that skip validations
 
-Rails/I18nLocaleTexts:
-  Enabled: false
+# Views and Helpers
+Rails/HelperInstanceVariable:
+  Enabled: false  # Allow instance variables in helpers
 
 Rails/OutputSafety:
-  Enabled: false
+  Enabled: false  # Allow html_safe and raw usage
 
+# Internationalization
+Rails/I18nLocaleTexts:
+  Enabled: false  # Don't require I18n for all text
+
+# SQL and Queries
 Rails/SquishedSQLHeredocs:
-  Enabled: false
+  Enabled: false  # Allow unsquished SQL heredocs
 
+# Miscellaneous
 Rails/NegateInclude:
-  Enabled: false
+  Enabled: false  # Allow !collection.include? over collection.exclude?
 
-Rails/BulkChangeTable:
-  Enabled: false
+Rails/Output:
+  Enabled: false  # Allow puts/print in Rails code
+
+Rails/RefuteMethods:
+  Enabled: false  # Allow assert_not over refute_*
+
+Rails/StrongParametersExpect:
+  Enabled: false  # Allow flexible strong parameters
+
+# => Capybara Cops - Integration testing rules
 
 Capybara/ClickLinkOrButtonStyle:
+  Enabled: false  # Allow flexible click methods
+
+# => Minitest Cops - Unit testing rules (all disabled for flexibility)
+
+# Assert Methods
+Minitest/AssertEmpty:
   Enabled: false
 
-Minitest/MultipleAssertions:
+Minitest/AssertEqual:
+  Enabled: false
+
+Minitest/AssertIncludes:
+  Enabled: false
+
+Minitest/AssertInstanceOf:
+  Enabled: false
+
+Minitest/AssertKindOf:
+  Enabled: false
+
+Minitest/AssertMatch:
+  Enabled: false
+
+Minitest/AssertNil:
+  Enabled: false
+
+Minitest/AssertOperator:
   Enabled: false
 
 Minitest/AssertPredicate:
   Enabled: false
 
+Minitest/AssertRespondTo:
+  Enabled: false
+
+Minitest/AssertWithExpectedArgument:
+  Enabled: false
+
+# Refute Methods
+Minitest/RefuteEmpty:
+  Enabled: false
+
+Minitest/RefuteEqual:
+  Enabled: false
+
+Minitest/RefuteIncludes:
+  Enabled: false
+
+Minitest/RefuteInstanceOf:
+  Enabled: false
+
+Minitest/RefuteKindOf:
+  Enabled: false
+
+Minitest/RefuteMatch:
+  Enabled: false
+
+Minitest/RefuteNil:
+  Enabled: false
+
+Minitest/RefuteOperator:
+  Enabled: false
+
 Minitest/RefutePredicate:
   Enabled: false
 
-Minitest/AssertOperator:
+Minitest/RefuteRespondTo:
   Enabled: false
+
+# Test Structure
+Minitest/MultipleAssertions:
+  Enabled: false  # Allow multiple assertions per test

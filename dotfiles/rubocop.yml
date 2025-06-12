@@ -1,131 +1,217 @@
 ---
+# => Layout Cops - Code formatting and indentation rules
+
 Layout/ArgumentAlignment:
-  Enabled: false
+  Enabled: false  # Allow flexible argument alignment
+
 Layout/CaseIndentation:
-  EnforcedStyle: end
+  EnforcedStyle: end  # Align case/when with end keyword
+
 Layout/EndAlignment:
-  EnforcedStyleAlignWith: variable
+  EnforcedStyleAlignWith: variable  # Align end with variable assignment
+
 Layout/FirstArrayElementIndentation:
-  Enabled: false
-Layout/HashAlignment:
-  Enabled: false
-Layout/LineLength:
-  Enabled: false
+  Enabled: false  # Allow flexible array indentation
+
 Layout/FirstHashElementIndentation:
-  EnforcedStyle: consistent
+  EnforcedStyle: consistent  # Keep hash indentation consistent
+
+Layout/HashAlignment:
+  Enabled: false  # Allow flexible hash alignment
+
+Layout/LineLength:
+  Enabled: false  # No line length enforcement
+
+# => Lint Cops - Error detection and potential bugs
+
+Lint/AssignmentInCondition:
+  Enabled: true
+  AllowSafeAssignment: false  # Prevent accidental assignment in conditions
 
 Lint/BooleanSymbol:
-  Enabled: false
-Lint/MissingSuper:
-  Enabled: false
-Lint/UnusedMethodArgument:
-  Enabled: false
-Lint/Loop:
-  Enabled: false
+  Enabled: false  # Allow :true/:false symbols
+
 Lint/DuplicateBranch:
-  Enabled: false
+  Enabled: false  # Allow duplicate conditional branches
+
 Lint/EmptyClass:
-  Enabled: false
+  Enabled: false  # Allow empty class definitions
+
+Lint/Loop:
+  Enabled: false  # Allow loop/break constructs
+
+Lint/MissingSuper:
+  Enabled: false  # Don't require super calls in initialize
+
 Lint/NestedMethodDefinition:
-  AllowedMethods: [ 'extending' ]
-# this is needed for repage.+ style api from minimagick
+  AllowedMethods: [ 'extending' ]  # Allow nested methods for DSL patterns
+
+Lint/UnusedMethodArgument:
+  Enabled: false  # Allow unused method arguments
+
 Lint/Void:
-  Enabled: false
+  Enabled: false  # Allow void expressions (needed for minimagick API)
+
+# => Metrics Cops - Code complexity measurements (all disabled for flexibility)
 
 Metrics/AbcSize:
   Enabled: false
+
 Metrics/BlockLength:
   Enabled: false
+
 Metrics/ClassLength:
   Enabled: false
+
 Metrics/CyclomaticComplexity:
   Enabled: false
+
 Metrics/MethodLength:
   Enabled: false
+
 Metrics/ModuleLength:
   Enabled: false
+
 Metrics/ParameterLists:
   Enabled: false
+
 Metrics/PerceivedComplexity:
   Enabled: false
 
+# => Naming Cops - Variable and method naming conventions
+
 Naming/MethodParameterName:
-  Enabled: false
+  Enabled: false  # Allow short parameter names
+
+Naming/PredicatePrefix:
+  Enabled: false  # Allow non-conventional predicate naming
+
 Naming/VariableNumber:
-  Enabled: false
+  Enabled: false  # Allow numbers in variable names
+
+# => Style Cops - Code style preferences
+
+# Access Modifiers
+Style/AccessModifierDeclarations:
+  Enabled: true
+  EnforcedStyle: inline  # Prefer private def over separate private declaration
 
 Style/AccessorGrouping:
-  EnforcedStyle: separated
-Style/ClassAndModuleChildren:
-  Enabled: false
+  EnforcedStyle: separated  # Keep attr_* declarations on separate lines
+
+# Control Flow
 Style/ConditionalAssignment:
-  Enabled: false
-Style/Documentation:
-  Enabled: false
-Style/EmptyMethod:
-  EnforcedStyle: expanded
-Style/ExplicitBlockArgument:
-  Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: false
-Style/GlobalStdStream:
-  Enabled: false
+  Enabled: false  # Allow explicit conditional assignments
+
 Style/GuardClause:
-  Enabled: false
-Style/HashSyntax:
-  Enabled: false
+  Enabled: false  # Don't enforce guard clauses
+
 Style/IfUnlessModifier:
-  Enabled: false
-Style/InverseMethods:
-  Enabled: false
-Style/MixinGrouping:
-  Enabled: false
-Style/ModuleFunction:
-  Enabled: false
-Style/MutableConstant:
-  Enabled: false
+  Enabled: false  # Allow both inline and block if/unless
+
 Style/NegatedIf:
-  Enabled: false
+  Enabled: false  # Allow negated if statements
+
 Style/NegatedIfElseCondition:
-  Enabled: false
+  Enabled: false  # Allow negated if/else conditions
+
 Style/NegatedUnless:
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: both  # Allow both unless and if !
+
 Style/NegatedWhile:
-  Enabled: false
+  Enabled: false  # Allow negated while loops
+
+Style/WhileUntilModifier:
+  Enabled: false  # Allow both inline and block while/until
+
+# Documentation
+Style/Documentation:
+  Enabled: false  # Don't require class documentation
+
+# Method Definitions
+Style/EmptyMethod:
+  EnforcedStyle: expanded  # Prefer multi-line empty methods
+
+Style/ExplicitBlockArgument:
+  Enabled: false  # Don't require explicit block arguments
+
+Style/ModuleFunction:
+  Enabled: false  # Allow module_function usage
+
 Style/RedundantAssignment:
-  Enabled: false
+  Enabled: false  # Allow redundant assignments for clarity
+
 Style/RedundantReturn:
-  Enabled: false
+  Enabled: false  # Allow explicit return statements
+
+# Object Handling
+Style/CaseEquality:
+  Enabled: false  # Allow case equality operator (===)
+
+Style/ClassAndModuleChildren:
+  Enabled: true
+  EnforcedStyle: nested  # Prefer nested class/module definitions
+
+Style/MixinGrouping:
+  Enabled: false  # Allow separate include/extend statements
+
+Style/MutableConstant:
+  Enabled: false  # Allow mutable constants
+
 Style/SafeNavigation:
-  Enabled: false
+  Enabled: false  # Don't enforce safe navigation
+
+Style/SafeNavigationChainLength:
+  Enabled: false  # Allow long safe navigation chains
+
+Style/SymbolProc:
+  Enabled: false  # Don't enforce symbol to proc conversion
+
+# String and Symbol Handling
+Style/FormatString:
+  EnforcedStyle: sprintf  # Prefer sprintf over % formatting
+
+Style/FormatStringToken:
+  Enabled: false  # Allow any format string tokens
+
+Style/FrozenStringLiteralComment:
+  Enabled: false  # Don't require frozen string literal comments
+
+Style/HashSyntax:
+  Enabled: false  # Allow both hash syntaxes
+
+Style/StringConcatenation:
+  Mode: Conservative  # Only flag obvious string concatenation issues
+
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
+  EnforcedStyle: double_quotes  # Prefer double quotes for strings
   SupportedStyles:
     - single_quotes
     - double_quotes
+
+# Arrays and Collections
 Style/SymbolArray:
-  EnforcedStyle: brackets
-Style/SymbolProc:
-  Enabled: false
+  EnforcedStyle: brackets  # Prefer [:a, :b] over %i[a b]
+
 Style/TrailingCommaInArguments:
-  EnforcedStyleForMultiline: comma
-Style/WordArray:
-  EnforcedStyle: brackets
-Style/WhileUntilModifier:
-  Enabled: false
-Style/GlobalVars:
-  Enabled: false
+  EnforcedStyleForMultiline: comma  # Require trailing commas in multi-line arguments
+
 Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: consistent_comma
-Style/StringConcatenation:
-  Mode: Conservative
-Style/FormatStringToken:
-  Enabled: false
-Style/FormatString:
-  EnforcedStyle: sprintf
+  EnforcedStyleForMultiline: consistent_comma  # Consistent trailing commas in hashes
+
+Style/WordArray:
+  EnforcedStyle: brackets  # Prefer ['a', 'b'] over %w[a b]
+
+# Miscellaneous
+Style/GlobalStdStream:
+  Enabled: false  # Allow STDOUT/STDERR usage
+
+Style/GlobalVars:
+  Enabled: false  # Allow global variables
+
+Style/InverseMethods:
+  Enabled: false  # Don't enforce inverse method usage
+
 Style/NumericLiterals:
-  Enabled: false
-Style/SafeNavigationChainLength:
-  Enabled: false
-Style/AccessModifierDeclarations:
-  Enabled: false
+  Enabled: false  # Allow any numeric literal format
