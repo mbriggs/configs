@@ -1,0 +1,12 @@
+{
+  "Expression Tag": {
+    "prefix": "=",
+    "description": "Insert an expression tag",
+    "body": ["<%= $0 %>"]
+  },
+  "Scriptlet Tag": {
+    "prefix": "-",
+    "description": "Insert a scriptlet tag",
+    "body": ["<% ${0:end} %>"]
+  }
+}

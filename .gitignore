@@ -13,3 +13,4 @@
 /dotconfig/tmux/plugins/*
 dotfiles/aws/credentials
 tags*
+dotconfig/zed/prompts/prompts-library-db.0.mdb

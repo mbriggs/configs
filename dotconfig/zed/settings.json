@@ -1,0 +1,48 @@
+{
+  "agent": {
+    "model_parameters": [],
+    "default_model": {
+      "provider": "openrouter",
+      "model": "anthropic/claude-sonnet-4"
+    },
+    "version": "2"
+  },
+  "theme": "Tokyo Night Storm",
+  "gutter": {
+    "line_numbers": false,
+    "folds": false
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": false,
+      "show_commit_summary": true
+    }
+  },
+  "load_direnv": "shell_hook",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "restore_on_startup": "none",
+  // find the actual name of the extensions by looking at the directory
+  // ls ~/Library/Application\ Support/Zed/extensions/installed/
+  "auto_install_extensions": {
+    "catppuccin": true,
+    "catppuccin-icons": true,
+    "dockerfile": true,
+    "html": true,
+    "postgres-context-server": true,
+    "ruby": true,
+    "sql": true,
+    "toml": true
+  },
+  "vim_mode": true,
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "buffer_line_height": { "custom": 1.7 },
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "!solargraph", "!rubocop"]
+    }
+  }
+}

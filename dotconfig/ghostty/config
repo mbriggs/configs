@@ -15,3 +15,4 @@ shell-integration-features = no-cursor,sudo,title
 unfocused-split-opacity = 1
 
 window-vsync = true
+keybind = shift+enter=text:\n

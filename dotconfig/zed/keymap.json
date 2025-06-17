@@ -1,0 +1,102 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "bindings": {
+      "cmd-h": "workspace::ActivatePaneLeft",
+      "cmd-l": "workspace::ActivatePaneRight",
+      "cmd-k": "workspace::ActivatePaneUp",
+      "cmd-j": "workspace::ActivatePaneDown"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-h": "workspace::ActivatePaneLeft",
+      "cmd-l": "workspace::ActivatePaneRight",
+      "cmd-k": "workspace::ActivatePaneUp",
+      "cmd-j": "workspace::ActivatePaneDown",
+      "cmd-t": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-1": ["pane::ActivateItem", 0],
+      "cmd-2": ["pane::ActivateItem", 1],
+      "cmd-3": ["pane::ActivateItem", 2],
+      "cmd-4": ["pane::ActivateItem", 3],
+      "cmd-5": ["pane::ActivateItem", 4],
+      "cmd-6": ["pane::ActivateItem", 5],
+      "cmd-7": ["pane::ActivateItem", 6],
+      "cmd-8": ["pane::ActivateItem", 7],
+      "cmd-9": ["pane::ActivateItem", 8],
+      "cmd-0": "pane::ActivateLastItem",
+      "cmd-{": "pane::SwapItemLeft",
+      "cmd-}": "pane::SwapItemRight"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual)",
+    "bindings": {
+      "cmd-h": "workspace::ActivatePaneLeft",
+      "cmd-l": "workspace::ActivatePaneRight",
+      "cmd-k": "workspace::ActivatePaneUp",
+      "cmd-j": "workspace::ActivatePaneDown",
+      "shift-h": "vim::StartOfLine",
+      "shift-l": "vim::EndOfLine",
+      "cmd-;": "editor::AcceptEditPrediction",
+      "tab": "vim::AutoIndent",
+      "space e": "pane::RevealInProjectPanel",
+      "space =": "outline::Toggle",
+      "space ;": "file_finder::Toggle",
+      "space '": "pane::SplitLeft",
+      "space shift-'": "pane::SplitDown",
+      "space w": "workspace::Save",
+      "space -": "pane::AlternateFile",
+
+      "space x x": "diagnostics::Deploy",
+
+      "space enter": "pane::CloseActiveItem",
+
+      // find
+      "space f p": "projects::OpenRecent",
+
+      // search
+      "space s w": "pane::DeploySearch",
+
+      // toggles
+      "space z i": "editor::ToggleInlayHints",
+      "space z b": "editor::ToggleGitBlameInline",
+      "space z w": "editor::ToggleSoftWrap",
+      "space z l": "editor::ToggleLineNumbers",
+
+      // tasks (tests basically)
+      "space t t": ["task::Spawn", { "task_name": "Test Line" }],
+      "space t f": ["task::Spawn", { "task_name": "Test File" }],
+      "space t a": ["task::Spawn", { "task_name": "Test Suite" }],
+      "space t ;": "task::Rerun",
+
+      // git
+      "space g h d": "editor::ToggleSelectedDiffHunks",
+      "space g h r": "git::Restore",
+      "space g b": "git::Blame",
+      "space g g": "git_panel::ToggleFocus",
+      "] h": "editor::GoToHunk",
+      "[ h": "editor::GoToPreviousHunk"
+    }
+  },
+
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      "space ;": "file_finder::Toggle",
+      "space f p": "projects::OpenRecent"
+    }
+  }
+]
