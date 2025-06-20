@@ -7,7 +7,7 @@
     },
     "version": "2"
   },
-  "theme": "Tokyo Night Storm",
+  "theme": "One Light",
   "gutter": {
     "line_numbers": false,
     "folds": false
@@ -24,8 +24,6 @@
   // find the actual name of the extensions by looking at the directory
   // ls ~/Library/Application\ Support/Zed/extensions/installed/
   "auto_install_extensions": {
-    "catppuccin": true,
-    "catppuccin-icons": true,
     "dockerfile": true,
     "html": true,
     "postgres-context-server": true,
@@ -38,7 +36,7 @@
     "edit_prediction_provider": "zed"
   },
   "ui_font_size": 16,
-  "buffer_font_size": 16,
+  "buffer_font_size": null,
   "buffer_line_height": { "custom": 1.7 },
   "languages": {
     "Ruby": {

@@ -42,12 +42,21 @@
     }
   },
   {
+    "context": "Editor",
+    "bindings": {
+      "cmd-up": "vim::SelectLargerSyntaxNode",
+      "cmd-down": "vim::SelectSmallerSyntaxNode"
+    }
+  },
+  {
     "context": "Editor && (vim_mode == normal || vim_mode == visual)",
     "bindings": {
       "cmd-h": "workspace::ActivatePaneLeft",
       "cmd-l": "workspace::ActivatePaneRight",
       "cmd-k": "workspace::ActivatePaneUp",
       "cmd-j": "workspace::ActivatePaneDown",
+      "cmd-up": "vim::SelectLargerSyntaxNode",
+      "cmd-down": "vim::SelectSmallerSyntaxNode",
       "shift-h": "vim::StartOfLine",
       "shift-l": "vim::EndOfLine",
       "cmd-;": "editor::AcceptEditPrediction",
@@ -59,22 +68,25 @@
       "space shift-'": "pane::SplitDown",
       "space w": "workspace::Save",
       "space -": "pane::AlternateFile",
+      "space .": "editor::GoToDefinition",
 
-      "space x x": "diagnostics::Deploy",
+      "space x": "diagnostics::Deploy",
 
       "space enter": "pane::CloseActiveItem",
+      "space shift-t": "pane::TogglePinTab",
 
       // find
-      "space f p": "projects::OpenRecent",
+      "space shift-p": "projects::OpenRecent",
 
       // search
-      "space s w": "pane::DeploySearch",
+      "space s": "pane::DeploySearch",
 
       // toggles
       "space z i": "editor::ToggleInlayHints",
       "space z b": "editor::ToggleGitBlameInline",
       "space z w": "editor::ToggleSoftWrap",
       "space z l": "editor::ToggleLineNumbers",
+      "space z t": "theme_selector::Toggle",
 
       // tasks (tests basically)
       "space t t": ["task::Spawn", { "task_name": "Test Line" }],
@@ -82,8 +94,6 @@
       "space t a": ["task::Spawn", { "task_name": "Test Suite" }],
       "space t ;": "task::Rerun",
 
-      // git
-      "space g h d": "editor::ToggleSelectedDiffHunks",
       "space g h r": "git::Restore",
       "space g b": "git::Blame",
       "space g g": "git_panel::ToggleFocus",
