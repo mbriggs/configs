@@ -1,41 +1,26 @@
 I'll help you understand the current state and plan this session's work.
 
 ## Load Context
-
-- Read relevant CLAUDE.md files
-- Read current/INTENT.md - problem and context
-- Read current/APPROACH.md - technical strategy
-- Read current/STEPS.md - progress and implementation notes
-- Read any commits that may exist on the current branch
-
-## Workflows
-
-- Either we are working in a team context, in which case there is a ticket already broken down, and INTENT.md should be enough
-- OR we are working independently, and we have an APPROACH with STEPS since we're working through a much larger chunk.
-
-## Current State Assessment
-
-EITHER:
-
-- First unchecked step in STEPS.md
-  OR:
-- How far along we are against INTENT based on git commits and worktree state
--
+- Read relevant CLAUDE.md files for patterns
+- Read current/INTENT.md for the goal
+- Read current/APPROACH.md if exists (strategy + implementation notes)
+- If APPROACH.md exists, find next unchecked step and read that step file
+- Run `git status` and `git log -3 --oneline` to see current state
 
 ## Session Planning
+Based on current state:
+1. What's today's step (from APPROACH.md progress) or overall goal (from INTENT.md)?
+2. What specific tasks from the step file?
+3. Any implementation notes from previous sessions?
 
-Break down work in the current step or overall INTENT into incremental steps.
+## Validation Checks
+- Is work still aligned with INTENT?
+- Any blockers discovered in implementation notes?
+- Does approach still make sense?
 
-Consider:
+Output:
+- Today's focus (specific step or single-session work)
+- Concrete tasks to complete
+- Definition of "done" for this session
 
-- Can we complete the full step or part of it?
-- What's the logical order?
-- Where are validation points?
-- Where should we commit?
-
-Scale the tasks based on risk:
-
-- Simple: Larger tasks, fewer commits
-- Complex: Smaller tasks, more validation, frequent commits
-
-The session should end with updated STEPS.md capturing what we learned and what we committed (if it exists).
+After work, update step file with commits and APPROACH.md with learnings (if they exist).

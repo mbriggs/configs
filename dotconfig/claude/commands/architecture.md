@@ -1,87 +1,28 @@
-Help me create technical architecture from product requirements.
-
-## Conversation Approach
-
-- One topic at a time - build naturally on responses
-- Think like a curious partner, not an interviewer
-- Surface assumptions and challenge gently
-- Connect insights across the conversation
-- Guide the discussion to build a compelling case.
-- Scale depth with complexity
+Design technical architecture for features. I'll investigate the codebase, ask clarifying questions, then create ARCHITECTURE.md.
 
 ## Context Loading
+1. Read current/REQUIREMENTS.md (or ask for PRD if missing)
+2. Read current/DISCOVERY.md if exists
+3. Investigate relevant code areas mentioned in requirements
+4. Check existing architecture patterns in the codebase
 
-Read:
+## Investigation
+Ask about:
+- How does this fit with existing systems?
+- What needs to be built vs modified?
+- What are the main technical risks?
+- Where are the natural boundaries?
 
-- current/REQUIREMENTS.md (if it does not exist, ask for the PRD)
-- current/DISCOVERY.md if it exists
+Challenge assumptions when you see issues.
 
-## Architecture Development
+## Output to ARCHITECTURE.md
+After investigation, create with:
+- Overview (2-3 sentences)
+- Component design with rationale
+- Key technical decisions and tradeoffs
+- Integration points with existing systems
+- Implementation patterns to follow
+- Risks and mitigations
+- Natural ticket boundaries
 
-From requirements, we'll determine:
-
-### System Design
-
-- Overall approach and why
-- New vs existing components
-- Service boundaries and interfaces
-- Data flow and storage strategy
-
-### Key Technical Decisions
-
-- Technology choices with rationale
-- Security model and authentication approach
-- Performance targets and scaling strategy
-- Code quality and maintainability concerns
-
-### Cross-Cutting Concerns
-
-- Error handling patterns
-- Logging and monitoring approach
-- Testing strategy
-- Deployment and rollback plan
-
-### Integration Points
-
-- API contracts between components
-- External service dependencies
-- Database schema impacts
-- Frontend/backend coordination
-
-## Output: ARCHITECTURE.md
-
-```markdown
-# Architecture: [Feature Name]
-
-## Overview
-
-[High-level approach in 2-3 sentences]
-
-## System Design
-
-[Component diagram or description]
-[Data flow overview]
-
-## Technical Decisions
-
-- **[Decision]**: [Choice] because [rationale]
-- **[Decision]**: [Choice] over [alternative] because [tradeoffs]
-
-## Implementation Patterns
-
-[Shared patterns all tickets should follow]
-
-## Integration Strategy
-
-[How this fits into existing system]
-
-## Risks & Mitigations
-
-[Technical risks and how we'll handle them]
-
-## Ticket Boundaries
-
-[Natural split points for implementation]
-```
-
-This architecture will guide ticket creation and ensure consistency across implementation.
+Keep it concrete and actionable. Reference specific files/classes where relevant.

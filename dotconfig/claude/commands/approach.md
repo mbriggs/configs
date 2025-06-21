@@ -1,44 +1,58 @@
-You're helping plan the technical approach for a feature. Create or refine current/APPROACH.md based on our discussion.
-
-## Conversation Approach
-
-- One topic at a time - build naturally on responses
-- Think like a curious partner, not an interviewer
-- Surface assumptions and challenge gently
-- Connect insights across the conversation
-- Guide the discussion to build a compelling case.
-- Scale depth with complexity
+Create technical approach with step breakdown. Output to current/APPROACH.md and current/steps/.
 
 ## Context Loading
+- Read current/INTENT.md for the goal
+- Note complexity and risk level
 
-- Check if current/APPROACH.md exists - if yes, read it
-- Read current/INTENT.md for problem understanding
-- Check if tickets/ARCHITECTURE.md exists - if yes, read it
-- Read ALL relevant CLAUDE.md files for patterns
-- Note existing solutions and conventions
+## Create APPROACH.md
+Include:
+1. Technical strategy (2-3 paragraphs)
+2. Key patterns to follow
+3. Progress checklist
+4. Implementation notes section
 
-## Risk Assessment
+## Create Step Files
+For each work session, create `current/steps/NN-name.md`:
+- No more then can comfortably fit into one LLM session context
+- Clear validation criteria
+- Order by dependencies (what must exist first)
+- Separate concerns (data layer, business logic, UI)
 
-Check for: change in a high stakes area (e.g. stuff to do with money), multi-team impact
+## Templates
 
-- High risk: Explore 2-3 approaches with failure analysis
-- Low risk: One straightforward approach
+APPROACH.md:
+```markdown
+# Technical Approach: [Feature]
 
-## Required in current/APPROACH.md
+## Strategy
+[Overall plan]
 
-- Technical strategy overview
-- Key decisions with rationale
-- Trade-offs we're accepting
-- Risk assessment and mitigation
-- Alternatives considered (for medium/high risk)
-- Implementation patterns to follow
+## Key Patterns
+- [Patterns from CLAUDE.md to follow]
 
-## From Product Context
+## Progress
+- [ ] 01: Setup database (steps/01-setup-database.md)
+- [ ] 02: Core models (steps/02-core-models.md)
 
-If REQUIREMENTS.md exists:
+## Implementation Notes
+[Updated during work]
+````
 
-- Map functional requirements to technical approach
-- Note non-functional requirements (performance, security)
-- Identify constraints that affect architecture
+Step file:
 
-Write to current/APPROACH.md as we discuss. Note any patterns that should be added to CLAUDE.md.
+```markdown
+# Step: [Name]
+
+## Goal
+[What this accomplishes]
+
+## Tasks
+- [ ] [Specific task]
+- [ ] [Tests]
+
+## Validation
+[How to verify success]
+
+## Commits
+[Added after session]
+```

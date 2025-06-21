@@ -1,21 +1,20 @@
 I'll determine if this change needs an RFC.
 
 ## Context Loading
+- Read current/ARCHITECTURE.md for technical approach
+- Read current/REQUIREMENTS.md for scope
+- Check for critical system touches (auth, payments, user data)
+- Note team/service boundaries crossed
 
-- Read current/ARCHITECTURE.md for technical approach and decisions
-- Read current/REQUIREMENTS.md for product requirements
-- Read current/INTENT.md and current/APPROACH.md if they exist
-- Note scope and approach already defined
+## RFC Decision
+Consider:
+- Breaking changes or API modifications
+- Security/compliance implications
+- Multiple team dependencies
+- Rollback complexity
+- Cost > $X or timeline > Y weeks
 
-## Risk Analysis
+## Output
+[Required/Recommended/Not needed] because [specific reasons].
 
-Considering:
-
-- Critical system impact (security, payments, data, etc.)
-- Technical complexity and rollback difficulty
-- Organizational scope and stakeholder needs
-- Potential failure modes and blast radius
-
-## Recommendation
-
-[Required/Recommended/Not needed] with specific reasoning.
+If recommended/required, note which stakeholders need to review.

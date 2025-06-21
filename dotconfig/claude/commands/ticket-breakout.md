@@ -1,59 +1,44 @@
-Help me break down architecture into implementable tickets.
+Break down architecture into implementable tickets. Create files in current/tickets/.
 
-## Context Loading
+## Context
+- Read current/ARCHITECTURE.md for components and boundaries
+- Read current/REQUIREMENTS.md for priorities
+- Look for natural seams: services, APIs, database tables, major classes
 
-Read:
-
-- current/REQUIREMENTS.md for user stories and priorities
-- current/ARCHITECTURE.md for technical approach and boundaries
-- Any CLAUDE.md for team conventions
-
-## Ticket Creation Strategy
-
-Using architecture boundaries, create tickets that:
-
-- Follow the technical decisions in ARCHITECTURE.md
-- Implement one architectural component or integration
-- Can be developed and tested independently
-- Build in dependency order
-- Store ticket files in current/tickets subfolder
-
-## Breaking Down by Architecture
-
-For each architectural component/boundary:
-
-1. **Foundation tickets** (schema, interfaces, base classes)
-2. **Core implementation** (business logic, services)
-3. **Integration tickets** (connecting components)
-4. **Validation tickets** (testing, monitoring)
+## Ticket Creation Rules
+1. One architectural component = one ticket (unless it's too big)
+2. Size limits: S = 1-2 days, M = 3-5 days, L = 1-2 weeks
+3. If bigger than L, split along:
+  - Data model vs business logic
+  - CRUD vs complex operations
+  - Happy path vs error handling
 
 ## Ticket Format
+Create files like: `001-user-authentication.md`, `002-payment-processing.md`
 
 ```
-Title: [Component/Outcome]
-Size: [S/M/L based on architecture complexity]
-Dependencies: [Other tickets, following architecture flow]
 
-Context:
-- From REQUIREMENTS: [Which user story this serves]
-- From ARCHITECTURE: [Which decisions apply]
+# [Clear outcome]
 
-Deliverables:
-- [ ] [Specific technical outcome]
-- [ ] [Tests/validation]
-- [ ] [Documentation updates]
+Size: [S/M/L with specific reason] Depends on: [ticket numbers] Blocks: [ticket numbers]
 
-Success Criteria:
-[How we verify this piece works in isolation]
+## Context
+
+From requirements: [specific requirement being addressed] From architecture: [specific decision being implemented]
+
+## Deliverables
+
+- [ ] Implementation: [specific files/classes]
+- [ ] Tests: [unit/integration/e2e]
+- [ ] Docs: [what needs updating]
+
+## Definition of Done
+
+[How to verify this works independently]
+
 ```
 
-## Dependency Sequencing
-
-Order tickets based on:
-
-- Architecture's data flow
-- Integration dependencies
-- Risk mitigation (unknowns first)
-- Team parallelization opportunities
-
-The architecture has already made the hard decisions - we're just breaking it into executable chunks.
+## Output
+1. Create numbered ticket files in dependency order
+2. Create current/tickets/DEPENDENCIES.md showing the DAG
+3. Suggest team assignment if clear from architecture

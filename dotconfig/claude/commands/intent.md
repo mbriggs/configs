@@ -1,48 +1,36 @@
-You're helping clarify intent for a feature. Create or refine current/INTENT.md based on our discussion.
-
-## Conversation Approach
-
-- One topic at a time - build naturally on responses
-- Think like a curious partner, not an interviewer
-- Surface assumptions and challenge gently
-- Connect insights across the conversation
-- Guide the discussion to build a compelling case.
-- Scale depth with complexity
+Help clarify intent for a feature by creating/refining current/INTENT.md based on our discussion.
 
 ## Context Loading
+1. Read current/INTENT.md if exists
+2. Read current/TICKET.md if exists
+3. Read tickets/ARCHITECTURE.md for system context
+4. Read tickets/REQUIREMENTS.md for product specs
+5. Check relevant CLAUDE.md files for patterns
+6. Investigate code that would be affected
 
-- Check if current/INTENT.md exists - if yes, read it
-- Check if current/TICKET.md exists - if yes, read it
-- Check if tickets/ARCHITECTURE.md exists - if yes, read it
-- Check if tickets/REQUIREMENTS.md exists - read for product specs
-- Read relevant CLAUDE.md files for patterns
-- Note any tickets/stories mentioned
+## Key Questions
+- What problem does this solve?
+- Why now? What changed?
+- What happens if we don't do this?
+- How does this fit with existing systems?
+- What's the simplest version that provides value?
 
-## If INTENT.md exists (refining)
+## INTENT.md Structure
+Adapt based on work type:
 
-Help structure their brain dump into:
-
-- Clear problem statement
-- Current vs desired system
-- Success criteria
+### Standard Structure
+- Ticket reference (if applicable)
+- Problem statement (1-2 sentences)
+- Current system behavior
+- Desired system behavior
+- Success criteria (measurable)
+- Technical constraints discovered
 - Open questions
 
-## If starting fresh
+### Adaptations by Type
+**Refactoring**: Success = same behavior, better structure
+**Bug Fix**: Include root cause analysis if known
+**Performance**: Include current vs target metrics
+**Feature**: Focus on user-facing behavior change
 
-Build from available context:
-
-- From REQUIREMENTS.md: Extract technical implications
-- From DISCOVERY.md: Understand problem depth
-- From conversation: Explore gaps
-
-## Required in current/INTENT.md
-
-- Story/ticket reference (if any)
-- Problem we're solving
-- Current system state (relevant parts)
-- Desired system state
-- Success criteria
-- Constraints discovered
-- Open questions
-
-Write to current/INTENT.md as we discuss. Keep original insights while adding structure.
+Write to current/INTENT.md as insights emerge. Keep it concrete - reference specific code/systems.
