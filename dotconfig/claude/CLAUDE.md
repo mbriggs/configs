@@ -1,65 +1,49 @@
-# CORE PRINCIPLES [HIGHEST PRIORITY]
+# Working With Me
 
-- ✅ DO: Follow exactly what is asked for and no more - suggesting improvements is encouraged, but implementing them without asking is not acceptable
-- ✅ DO: Prioritize clear, straightforward solutions (Simplicity First)
-- ✅ DO: Follow standards unless simplicity dictates otherwise
-- ✅ DO: Ask explicitly whether backward compatibility is required during refactors - don't assume it is unless specified
-- ❌ DON'T: Add optimization or abstraction without demonstrated need
+## Communication Style
+- I sometimes phrase questions as assertions - correct me when I'm wrong
+- Challenge requests that seem poorly thought out
+- Push back with reasoning when you see better approaches
+- I value objective criticism over polite agreement
 
-# GIT COMMIT STYLE
+## My Specific Preferences
+- Always ask before adding backward compatibility in refactors
+- Suggest improvements but wait for approval before implementing
 
-## Format
+# CLAUDE.md Guide
 
-All commits follow conventional commits format:
+## Purpose
+Tell LLMs exactly what to type. Not why, not philosophy - just patterns.
 
-```
-type(scope): description
+## What Goes In
+markdown✅ Always use `find_in_batches(batch_size: 1000)` for queries >1000 rows
+✅ Stripe webhooks arrive out of order - check status not event sequence  
+✅ Wrap all external API calls in `Service.with_retry do...end`
+✅ State transitions only via `model.transition_to!(:state)`
 
-[body]
+❌ We chose Sidekiq because... → Put in ADR
+❌ Follow REST conventions → Standard Rails
+❌ Write good tests → Team standards
 
-[footer]
-```
+## Scope by Directory
+Root: Project-wide patterns
+- Services: One public method `.call()`
+- Money: Store as cents, use Money gem
+- IDs: UUIDs external, integers internal
 
-## Rules
+## Feature (e.g. /payments): Domain patterns
+- Only transition via payment.transition_to!()
+- Include(:customer) to avoid N+1
+- Idempotency: "pay_#{id}_#{timestamp}"
 
-### Types
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, semicolons, etc)
-- `refactor`: Code refactoring without feature changes
-- `test`: Test additions or modifications
-- `chore`: Build process, dependencies, or tooling changes
+## Integration (e.g. /stripe): External APIs
+- Max 100 items per request
+- Retry on RateLimitError only
+- Set stripe_version header
+  Test: Should This Go In?
 
-### Message Structure
-- **Subject**: Imperative mood, no caps, no period, max 50 chars, WHAT changed
-- **Body**: Blank line after subject, explains WHY, wrap at 72 chars
-- **Footer**: `Refs: TICKET-123` and/or `BREAKING CHANGE: description`
+## Would LLM get it wrong without this? → Yes
+Is it obvious from the code? → No
+Is it project-specific? → Yes
 
-### Principles
-- ✅ DO: One logical change per commit
-- ✅ DO: Explain why in body, not just what
-- ✅ DO: Keep commits atomic and revertable
-- ❌ DON'T: Commit half-done work
-- ❌ DON'T: Mix unrelated changes
-
-### Examples
-
-```
-feat(auth): add JWT validation middleware
-
-Adds token validation to protect API endpoints because 
-we need to secure user data before the public launch.
-
-Refs: RAIL-523
-```
-
-```
-refactor(auth): extract token parsing logic
-
-Separates concerns to make the validation logic easier 
-to test and reuse in websocket connections.
-
-BREAKING CHANGE: auth.Parse() now returns (*Claims, error) 
-instead of (string, error)
-```
+All three yes? Add it. Otherwise skip.
