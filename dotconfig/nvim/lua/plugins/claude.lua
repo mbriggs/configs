@@ -1,8 +1,8 @@
 return {
   "coder/claudecode.nvim",
+  lazy = false,
   config = true,
   keys = {
-    { "<leader>cc", "<cmd>ClaudeCode<cr>",     desc = "Toggle Claude" },
-    { "<leader>cs", "<cmd>ClaudeCodeSend<cr>", mode = "v",            desc = "Send to Claude" },
+    { "<leader>cc", "<cmd>ClaudeCodeStop<cr><cmd>ClaudeCodeStart<cr>", desc = "Restart Claude Integration" },
   },
 }
