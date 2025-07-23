@@ -6,6 +6,5 @@ completion-menu-current-bg-color: "#2a2e42"  # selected background
 gitignore: false
 dirty-commits: false
 auto-commits: false
-chat-mode: code
 git: false
 model: gemini-2.5-pro
