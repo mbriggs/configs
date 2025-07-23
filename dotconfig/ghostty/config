@@ -16,3 +16,5 @@ unfocused-split-opacity = 1
 
 window-vsync = true
 keybind = shift+enter=text:\n
+keybind = cmd+f=text:%
+macos-option-as-alt = true
