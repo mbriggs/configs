@@ -27,8 +27,11 @@ S-l = "goto_line_end"
 # more useful X
 S-x = "extend_line_above"
 
-tab = "goto_next_function" # select and jump to the next function via Treesitter
-S-tab = "goto_prev_function" # select and jump to the previous function via Treesitter
+ # select and jump to the next function via Treesitter
+tab = "goto_next_function"
+
+ # select and jump to the previous function via Treesitter
+S-tab = "goto_prev_function"
 
 # delete line
 backspace = ["extend_to_line_bounds", "delete_selection"]
