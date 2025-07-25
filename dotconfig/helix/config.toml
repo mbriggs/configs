@@ -60,6 +60,7 @@ s = [
 ]
 
 # lazygit
+g = [
     ":write-all",
     ":insert-output lazygit >/dev/tty",
     ":redraw"
