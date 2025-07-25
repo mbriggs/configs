@@ -43,13 +43,13 @@ RESET="\[\033[0m\]"
 PS1=$BLUE'\W'" ${RESET}➜ "
 
 ### ENV
-export EDITOR="nvim"
+export EDITOR="hx"
 export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 export XDG_CONFIG_HOME="$HOME/.config"
 export CLAUDE_CONFIG_DIR="$HOME/.config/claude"
 
 ### Path
-export PATH="$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.gem/ruby/3.3.0/bin:$HOME/configs/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/.config/emacs/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.gem/ruby/3.3.0/bin:$HOME/configs/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/.config/emacs/bin:$PATH"
 
 
 ### Homebrew
