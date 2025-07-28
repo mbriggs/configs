@@ -14,8 +14,8 @@ insert = "bar"
 select = "underline"
 
 [keys.normal]
-# ; = :
-";" = "command_mode"
+# tab = :
+tab = "command_mode"
 
 # for macros, always use the q register. qq to record, Q to run
 S-q = "@q"
@@ -33,13 +33,6 @@ C-h = "extend_to_line_start"
 
 # more practical X
 S-x = ["extend_line_up", "extend_to_line_bounds"]
-
-# make sure there is only one selection, select word under cursor, set search to selection, then switch to select mode
-Cmd-e = ["keep_primary_selection", "move_prev_word_start", "move_next_word_end", "search_selection", "select_mode"]
-
-[keys.select]
-# if already in select mode, just add new selection at next occurrence
-Cmd-e = ["search_selection", "extend_search_next"]
 
 [keys.normal.space]
 # yazi instead of built in file explorer

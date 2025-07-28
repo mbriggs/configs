@@ -5,6 +5,7 @@ return {
 	"lewis6991/gitsigns.nvim",
 	event = "VeryLazy",
 	opts = {
+		linehl = false,
 		signs = {
 			add = { text = bar },
 			change = { text = bar },

@@ -2,7 +2,6 @@ font-family = JetBrains Mono
 theme = tokyonight_moon
 font-size = 16
 
-term = xterm-256color
 adjust-cell-width = 0
 adjust-cell-height = 15%
 macos-titlebar-style = transparent
@@ -17,6 +16,4 @@ unfocused-split-opacity = 1
 window-vsync = true
 keybind = shift+enter=text:\n
 keybind = cmd+f=text:%
-# Remap Command + semicolon to send Ctrl‑Z (undo / suspend)
-keybind = cmd+semicolon=text:\x1A
 macos-option-as-alt = true

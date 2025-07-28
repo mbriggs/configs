@@ -1,0 +1,7 @@
+[[language]]
+name = "ruby"
+auto-format = true
+
+[[language]]
+name = "javascript"
+auto-format = true
