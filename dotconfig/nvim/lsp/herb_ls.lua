@@ -22,6 +22,13 @@
 --- ```
 return {
 	cmd = { "herb-language-server", "--stdio" },
-	filetypes = { "html", "ruby", "eruby" },
+	filetypes = { "eruby" },
 	root_markers = { "Gemfile", ".git" },
+	settings = {
+		languageServerHerb = {
+			formatter = {
+				enabled = true,
+			},
+		},
+	},
 }
