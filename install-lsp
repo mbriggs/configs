@@ -2,6 +2,7 @@
 
 brew install lua-language-server
 brew install stylua
+brew install marksman
 
 if command -v rbenv >/dev/null 2>&1; then
 	for version in $(rbenv versions --bare); do
@@ -20,3 +21,6 @@ npm i -g typescript typescript-language-server
 npm i -g dockerfile-language-server-nodejs
 npm i -g sql-language-server
 npm i -g @herb-tools/language-server
+npm i -g yaml-language-server
+npm i -g @microsoft/compose-language-service
+npm i -g stimulus-language-server
