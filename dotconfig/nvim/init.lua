@@ -670,11 +670,7 @@ local function setup_fzf()
 	local config = fzf.config
 	local actions = fzf.actions
 
-	-- Quickfix
 	config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
-	config.defaults.keymap.fzf["ctrl-u"] = "half-page-up"
-	config.defaults.keymap.fzf["ctrl-d"] = "half-page-down"
-	config.defaults.keymap.fzf["ctrl-x"] = "jump"
 
 	-- Toggle root dir / cwd
 	config.defaults.actions.files["ctrl-r"] = function(_, ctx)
@@ -709,6 +705,11 @@ local function setup_fzf()
 			actions = {
 				["alt-i"] = { actions.toggle_ignore },
 				["alt-h"] = { actions.toggle_hidden },
+			},
+		},
+		buffers = {
+			actions = {
+				["alt-d"] = { fn = actions.buf_del, exec = false },
 			},
 		},
 		grep = {
