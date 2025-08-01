@@ -827,6 +827,51 @@ local function setup_fzf()
 		desc = "Buffers",
 	})
 
+	map("n", "<leader>fd", function()
+		require("fzf-lua").fzf_exec("fd --type d --hidden --exclude .git", {
+			fzf_opts = {
+				["--preview"] = "eza --color=always -lA '{}' 2>/dev/null",
+				["--preview-window"] = "nohidden,down,50%",
+				["--ansi"] = "",
+				["--multi"] = "",
+			},
+			actions = {
+				-- On enter, open netrw in that directory
+				["default"] = function(selected)
+					if not selected or #selected == 0 then
+						return
+					end
+
+					if #selected == 1 then
+						local d = selected[1]
+						if d and d ~= "" then
+							vim.cmd("Explore " .. vim.fn.fnameescape(d))
+						end
+					else
+						local list = {}
+						for _, d in ipairs(selected) do
+							if type(d) == "string" and d ~= "" then
+								table.insert(list, { filename = d, lnum = 1, col = 1, text = "[dir]" })
+							end
+						end
+						if #list == 0 then
+							return
+						end
+
+						vim.fn.setqflist(list, "r")
+						vim.cmd("copen")
+
+						-- Jump to the first entry directory in current buffer:
+						local first = list[1].filename
+						if first and vim.fn.isdirectory(first) == 1 then
+							vim.cmd("cd " .. vim.fn.fnameescape(first))
+						end
+					end
+				end,
+			},
+		})
+	end, { desc = "Find Dir" })
+
 	map("n", "<leader>ff", "<cmd>FzfLua files<cr>", {
 		desc = "Find Files (Root Dir)",
 	})
