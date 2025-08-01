@@ -41,7 +41,6 @@ vim.opt.number = false
 -- make extra files less irritating
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.config/nvim/undo"
 vim.opt.undofile = true
 
 -- folding
@@ -102,21 +101,6 @@ map({ "n", "v", "o", "i" }, "<D-f>", "%")
 -- dabbrev style completion
 map("i", "<D-/>", "<C-n>", { desc = "next completion", noremap = "true" })
 map("i", "<D-S-/>", "<C-x><C-n>", { desc = "next completion in current file", noremap = "true" })
-
--- built in snippets
-map({ "s", "i" }, "<Tab>", function()
-	if vim.snippet.active({ direction = 1 }) then
-		vim.snippet.jump(1)
-	elseif next(vim.lsp.get_clients({ bufnr = 0 })) and vim.lsp.completion then
-		vim.lsp.completion.trigger()
-	end
-end)
-
-map("s", "<S-Tab>", function()
-	if vim.snippet.active({ direction = -1 }) then
-		vim.snippet.jump(-1)
-	end
-end)
 
 -- nuke buffer
 map("n", "<leader>bk", "<cmd>bd!<cr>", { desc = "nuke buffer" })
@@ -278,6 +262,51 @@ vim.g.netrw_altv = 1
 vim.cmd("hi! link netrwMarkFile Search")
 --- }}}
 
+-- {{{ Terminal
+
+vim.g.terminal_scrollback_buffer_size = 500000
+
+map("t", "<Esc>", "<C-\\><C-n>", { silent = true })
+
+map("t", "<D-h>", "<C-\\><C-n><C-w>h")
+map("t", "<D-j>", "<C-\\><C-n><C-w>j")
+map("t", "<D-k>", "<C-\\><C-n><C-w>k")
+map("t", "<D-l>", "<C-\\><C-n><C-w>l")
+
+vim.api.nvim_create_autocmd("TermOpen", {
+	callback = function()
+		-- Get the command that opened the terminal
+		local cmd = vim.bo.channel
+			and vim.fn.jobpid(vim.bo.channel)
+			and vim.split(vim.fn.system(string.format("ps -p %d -o comm=", vim.fn.jobpid(vim.bo.channel))), "\n")[1]
+
+		-- Only proceed if it's a regular shell
+		if cmd and (cmd:match("sh$") or cmd:match("bash$") or cmd:match("zsh$")) then
+			vim.cmd("startinsert") -- Start in insert mode
+
+			map({ "t", "n" }, "<leader>R", function()
+				vim.cmd("stopinsert")
+				vim.cmd("TermRename")
+			end, { buffer = true })
+		end
+	end,
+})
+
+vim.api.nvim_create_user_command("TermRename", function()
+	vim.ui.input({
+		prompt = "Terminal name: ",
+	}, function(name)
+		if name then
+			-- Get current buffer number
+			local bufnr = vim.api.nvim_get_current_buf()
+			-- Set the buffer name
+			vim.api.nvim_buf_set_name(bufnr, "*" .. name .. "*")
+		end
+	end)
+end, {})
+
+-- }}}
+
 -- {{{ Plugin Setup
 
 -- Mini {{{
@@ -326,12 +355,21 @@ local function setup_mini_pick()
 end
 
 local function setup_mini_sessions()
-	require("mini.sessions").setup()
+	require("mini.sessions").setup({
+		force = {
+			delete = true,
+		},
+		verbose = {
+			write = false,
+			delete = false,
+		},
+	})
 
 	map("n", "<leader>vv", function()
 		vim.cmd("wa")
 		require("mini.sessions").write()
 		require("mini.sessions").select()
+		lsp_cleanup()
 	end, { desc = "Switch Session" })
 
 	map("n", "<leader>vw", function()
@@ -343,6 +381,7 @@ local function setup_mini_sessions()
 	map("n", "<leader>ve", function()
 		vim.cmd("wa")
 		require("mini.sessions").select()
+		lsp_cleanup()
 	end, { desc = "Load Session" })
 
 	map("n", "<leader>vd", function()
@@ -920,7 +959,19 @@ local function setup_gitsigns()
 	})
 end
 
-local function setup_gitlinker() end
+local function setup_gitportal()
+	map({ "v", "n" }, "<leader>gp", function()
+		require("gitportal").open_file_in_browser()
+	end, { desc = "Open file in browser" })
+
+	map({ "v", "n" }, "<leader>gy", function()
+		require("gitportal").copy_link_to_clipboard()
+	end, { desc = "Copy link to clipboard" })
+
+	map("n", "<leader>gv", function()
+		require("gitportal").open_file_in_neovim()
+	end, { desc = "Visit file in neovim" })
+end
 
 local function setup_undotree()
 	map("n", "<leader>u", vim.cmd.UndotreeToggle, {
@@ -1263,68 +1314,92 @@ end
 -- }}}
 
 -- {{{ Plugins
+-- cmd to update treesitter parsers when nvim-treesitter is installed or updated
+vim.api.nvim_create_autocmd("PackChanged", {
+	group = vim.api.nvim_create_augroup("TSUpdateForTreesitter", {}),
+	callback = function(event)
+		local name = event.spec and event.spec.name
+		local src = event.spec and event.spec.src or ""
+		if
+			(name == "nvim-treesitter" or src:match("nvim%-treesitter"))
+			and (event.kind == "install" or event.kind == "update")
+		then
+			vim.schedule(function()
+				vim.cmd("TSUpdate")
+			end)
+		end
+	end,
+})
 
 vim.pack.add({
 	"https://github.com/dgagn/diagflow.nvim",
 	"https://github.com/echasnovski/mini.nvim",
 	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/gbprod/substitute.nvim",
-	"https://github.com/lewis6991/gitsigns.nvim",
-	"https://github.com/linrongbin16/gitlinker.nvim",
-	"https://github.com/mbbill/undotree",
 	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/mbbill/undotree",
 	"https://github.com/meanderingprogrammer/render-markdown.nvim",
+	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/nvim-lualine/lualine.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
-	"https://github.com/nvim-treesitter/nvim-treesitter-context",
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	"https://github.com/stevearc/conform.nvim",
+	"https://github.com/trevorhauter/gitportal.nvim",
 	"https://github.com/vim-test/vim-test",
 	"https://github.com/zbirenbaum/copilot.lua",
-	"https://github.com/nvim-lua/plenary.nvim",
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 })
 
 vim.cmd([[colorscheme tokyonight-moon]])
 
+setup_conform()
+setup_copilot()
+setup_diagflow()
+setup_fzf()
+setup_gitportal()
+setup_gitsigns()
+setup_harpoon()
+setup_lualine()
+setup_mini_ai()
+setup_mini_clue()
+setup_mini_completion()
+setup_mini_diff()
+setup_mini_files()
 setup_mini_icons()
-setup_mini_starter()
 setup_mini_pick()
 setup_mini_sessions()
-setup_diagflow()
-setup_mini_ai()
-setup_mini_diff()
-setup_mini_surround()
-setup_mini_completion()
-setup_mini_files()
 setup_mini_splitjoin()
-setup_mini_clue()
-setup_fzf()
-setup_substitute()
-setup_gitsigns()
-setup_gitlinker()
+setup_mini_starter()
+setup_mini_surround()
 setup_render_markdown()
-setup_lualine()
+setup_substitute()
 setup_treesitter()
 setup_treesitter_context()
-setup_conform()
-setup_vim_test()
-setup_copilot()
-setup_harpoon()
 setup_undotree()
+setup_vim_test()
 
 -- }}}
 
 -- {{{ LSP
-local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-local has_blink, blink = pcall(require, "blink.cmp")
-if has_blink then
-	capabilities = blink.get_lsp_capabilities(capabilities)
+function _G.lsp_cleanup()
+	local new_root = vim.fs.root(0, {
+		".git",
+		"Gemfile",
+		"go.mod",
+		"package.json",
+		"Cargo.toml",
+	})
+
+	for _, client in pairs(vim.lsp.get_clients()) do
+		if client.config.root_dir and client.config.root_dir ~= new_root then
+			client:stop()
+		end
+	end
 end
 
 vim.lsp.config("*", {
-	capabilities = capabilities,
 	on_attach = function(client, bufnr)
 		local opts = { buffer = bufnr, silent = true }
 

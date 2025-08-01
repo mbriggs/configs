@@ -85,6 +85,12 @@ return {
 			diagnostics = {
 				globals = { "vim", "Snacks", "it", "describe", "before_each", "after_each" },
 			},
+
+			workspace = {
+				ignoreDir = {
+					"undo",
+				},
+			},
 		},
 	},
 }
