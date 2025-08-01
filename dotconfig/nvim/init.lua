@@ -511,6 +511,7 @@ local function setup_mini_clue()
 			{ mode = "n", keys = "<leader>b", desc = "+buffer" },
 			{ mode = "n", keys = "<leader>c", desc = "+code" },
 			{ mode = "n", keys = "<leader>g", desc = "+git" },
+			{ mode = "n", keys = "<leader>gd", desc = "+diff" },
 			{ mode = "n", keys = "<leader>v", desc = "+sessions" },
 			{ mode = "n", keys = "<leader>f", desc = "+find" },
 			{ mode = "n", keys = "<leader>s", desc = "+search" },
@@ -641,7 +642,7 @@ local function setup_mini_diff()
 		},
 	})
 
-	map("n", "<leader>D", "<cmd>lua MiniDiff.toggle()<CR>", { desc = "Toggle Diff" })
+	map("n", "<leader>_", "<cmd>lua MiniDiff.toggle()<CR>", { desc = "Toggle Diff" })
 end
 
 local function setup_mini_surround()
@@ -744,6 +745,14 @@ local function setup_fzf()
 
 	map("n", "<leader>f'", "<cmd>FzfLua resume<cr>", {
 		desc = "Resume pick",
+	})
+
+	map("n", "<leader>d", "<cmd>FzfLua diagnostics_document<cr>", {
+		desc = "Document Diagnostics",
+	})
+
+	map("n", "<leader>D", "<cmd>FzfLua diagnostics_workspace<cr>", {
+		desc = "Workspace Diagnostics",
 	})
 
 	local kind_filter = {
@@ -924,43 +933,76 @@ local function setup_gitsigns()
 		},
 		on_attach = function(buffer)
 			local gs = package.loaded.gitsigns
+			local pick = require("mini.pick")
 
-			local function map(mode, l, r, desc)
-				vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-			end
+			map("n", "]h", function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "]c", bang = true })
+				else
+					gs.nav_hunk("next")
+				end
+			end, { desc = "Next Hunk" })
 
-          -- stylua: ignore start
-          map("n", "]h", function()
-            if vim.wo.diff then
-              vim.cmd.normal({ "]c", bang = true })
-            else
-              gs.nav_hunk("next")
-            end
-          end, "Next Hunk")
-          map("n", "[h", function()
-            if vim.wo.diff then
-              vim.cmd.normal({ "[c", bang = true })
-            else
-              gs.nav_hunk("prev")
-            end
-          end, "Prev Hunk")
-          map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
-          map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
-          map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-          map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-          map("n", "<leader>gS", gs.stage_buffer, "Stage Buffer")
-          map("n", "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
-          map("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
-          map("n", "<leader>gp", gs.preview_hunk_inline, "Preview Hunk Inline")
-          map("n", "<leader>gd", gs.diffthis, "Diff This")
-          map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
-          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+			map("n", "[h", function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					gs.nav_hunk("prev")
+				end
+			end, { desc = "Prev Hunk" })
+
+			map("n", "]H", function()
+				gs.nav_hunk("last")
+			end, { desc = "Last Hunk" })
+
+			map("n", "[H", function()
+				gs.nav_hunk("first")
+			end, { desc = "First Hunk" })
+
+			map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>", { desc = "Stage Hunk" })
+			map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>", { desc = "Reset Hunk" })
+			map("n", "<leader>gS", gs.stage_buffer, { desc = "Stage Buffer" })
+			map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "Undo Stage Hunk" })
+			map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset Buffer" })
+			map("n", "<leader>gp", gs.preview_hunk_inline, { desc = "Preview Hunk Inline" })
+			map("n", "<leader>gdd", gs.diffthis, { desc = "Diff This" })
+
+			map("n", "<leader>gdp", function()
+				gs.diffthis("~")
+			end, { desc = "Diff This ~" })
+
+			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select Hunk" })
+
+			map("n", "<leader>gdb", function()
+				local branches = vim.fn.systemlist("git branch --format='%(refname:short)'")
+				vim.ui.select(branches, {
+					prompt = "Diff branch> ",
+				}, function(choice)
+					if choice then
+						require("gitsigns").diffthis(choice)
+					end
+				end)
+			end, { desc = "Diff this against Branch" })
+
+			map("n", "<leader>gdc", function()
+				local log = vim.fn.systemlist("git log --pretty=format:'%h %s' -n 50")
+				vim.ui.select(log, {
+					prompt = "Diff commit> ",
+				}, function(choice)
+					if choice then
+						local commit = choice:match("^(%w+)")
+						if commit then
+							require("gitsigns").diffthis(commit)
+						end
+					end
+				end)
+			end, { desc = "Diff this against commit" })
 		end,
 	})
 end
 
 local function setup_gitportal()
-	map({ "v", "n" }, "<leader>gp", function()
+	map({ "v", "n" }, "<leader>gb", function()
 		require("gitportal").open_file_in_browser()
 	end, { desc = "Open file in browser" })
 
@@ -1007,10 +1049,8 @@ local function setup_lualine()
 							["i"] = "INS",
 							["v"] = "VIS",
 							["V"] = "VIS",
-							[""] = "VIS",
 							["s"] = "SEL",
 							["S"] = "SEL",
-							[""] = "SEL",
 							["c"] = "CMD",
 							["R"] = "REP",
 							["r"] = "REP",
