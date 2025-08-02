@@ -16,3 +16,4 @@ tags*
 dotconfig/zed/prompts/prompts-library-db.0.mdb
 dotconfig/claude/shell-snapshots
 dotconfig/claude/.claude.json.backup
+dotconfig/nvim/undo/*
