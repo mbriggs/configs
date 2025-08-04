@@ -666,6 +666,7 @@ end
 -- }}}
 
 local function setup_fzf()
+	require("fzf-lua-frecency").setup()
 	local fzf = require("fzf-lua")
 	local config = fzf.config
 	local actions = fzf.actions
@@ -740,7 +741,7 @@ local function setup_fzf()
 		desc = "Command History",
 	})
 
-	map("n", "<leader>;", "<cmd>FzfLua files<cr>", {
+	map("n", "<leader>;", "<cmd>FzfLua frecency cwd_only=true<cr>", {
 		desc = "Find files",
 	})
 
@@ -1423,6 +1424,7 @@ vim.pack.add({
 	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/gbprod/substitute.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/elanmed/fzf-lua-frecency.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/mbbill/undotree",
 	"https://github.com/meanderingprogrammer/render-markdown.nvim",
