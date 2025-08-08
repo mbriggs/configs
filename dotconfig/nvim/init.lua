@@ -343,13 +343,13 @@ local function setup_mini_files()
 		},
 	})
 
-	map("n", "<leader>fm", function()
+	map("n", "-", function()
 		require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
 	end, {
 		desc = "Open mini.files (Directory of Current File)",
 	})
 
-	map("n", "<leader>fM", function()
+	map("n", "<leader>fm", function()
 		require("mini.files").open(vim.uv.cwd(), true)
 	end, {
 		desc = "Open mini.files (cwd)",
@@ -375,6 +375,11 @@ local function setup_mini_files()
 			local buf_id = args.data.buf_id
 
 			map("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle hidden files" })
+			-- this isnt strictly necessary, since j will also go out, but i want to be able to tap -
+			map("n", "-", require("mini.files").go_out, { buffer = buf_id, desc = "Go up directory" })
+			map("n", "<CR>", function()
+				require("mini.files").go_in({ close_on_file = true })
+			end, { buffer = buf_id, desc = "Open file and close" })
 		end,
 	})
 
