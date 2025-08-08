@@ -287,6 +287,15 @@ local function setup_mini_pick()
 	vim.ui.select = pick.ui_select
 end
 
+local function setup_mini_visits()
+	require("mini.visits").setup({
+		-- Store visit data persistently
+		store = {
+			path = vim.fn.stdpath("data") .. "/mini-visits-index",
+		},
+	})
+end
+
 local function setup_mini_sessions()
 	require("mini.sessions").setup({
 		force = {
@@ -598,7 +607,6 @@ end
 -- }}}
 
 local function setup_fzf()
-	require("fzf-lua-frecency").setup()
 	local fzf = require("fzf-lua")
 	local config = fzf.config
 	local actions = fzf.actions
@@ -673,7 +681,7 @@ local function setup_fzf()
 		desc = "Command History",
 	})
 
-	map("n", "<leader>;", "<cmd>FzfLua frecency cwd_only=true<cr>", {
+	map("n", "<leader>;", "<cmd>FzfLua files cwd_only=true<cr>", {
 		desc = "Find files",
 	})
 
@@ -778,7 +786,8 @@ local function setup_fzf()
 					if #selected == 1 then
 						local d = selected[1]
 						if d and d ~= "" then
-							vim.cmd("Explore " .. vim.fn.fnameescape(d))
+							-- vim.cmd("Explore " .. vim.fn.fnameescape(d))
+							require("mini.files").open(vim.fn.fnameescape(d), true)
 						end
 					else
 						local list = {}
@@ -793,12 +802,6 @@ local function setup_fzf()
 
 						vim.fn.setqflist(list, "r")
 						vim.cmd("copen")
-
-						-- Jump to the first entry directory in current buffer:
-						local first = list[1].filename
-						if first and vim.fn.isdirectory(first) == 1 then
-							vim.cmd("cd " .. vim.fn.fnameescape(first))
-						end
 					end
 				end,
 			},
@@ -816,6 +819,40 @@ local function setup_fzf()
 	map("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", {
 		desc = "Recent",
 	})
+
+	map("n", "<leader>e", function()
+		local visits = require("mini.visits")
+		local cwd = vim.fn.getcwd()
+		local current_file = vim.api.nvim_buf_get_name(0)
+
+		-- Use pure recency sorting (MRU - Most Recently Used)
+		local sort = visits.gen_sort.default({ recency_weight = 1 })
+		local paths = visits.list_paths(cwd, { sort = sort })
+
+		local items = {}
+		for _, path in ipairs(paths) do
+			-- Skip the current buffer's file
+			if path ~= current_file then
+				local relative = vim.fn.fnamemodify(path, ":.")
+				table.insert(items, relative)
+			end
+		end
+
+		if #items == 0 then
+			vim.notify("No visited files in current directory", vim.log.levels.INFO)
+			return
+		end
+
+		require("fzf-lua").fzf_exec(items, {
+			actions = {
+				["default"] = function(selected)
+					if selected and selected[1] then
+						vim.cmd("edit " .. vim.fn.fnameescape(selected[1]))
+					end
+				end,
+			},
+		})
+	end, { desc = "MRU" })
 
 	-- git
 	map("n", "<leader>gc", "<cmd>FzfLua git_commits<cr>", {
@@ -886,6 +923,18 @@ local function setup_substitute()
 	})
 	map({ "v", "x" }, "S", "<cmd>lua require('substitute').visual()<cr>", {
 		desc = "substitute",
+	})
+end
+
+local function setup_neogit()
+	require("neogit").setup({
+		integrations = {
+			diffview = true,
+		},
+	})
+
+	map("n", "<leader>gg", "<cmd>Neogit kind=replace<cr>", {
+		desc = "Open Neogit",
 	})
 end
 
@@ -1356,11 +1405,12 @@ vim.pack.add({
 	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/gbprod/substitute.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
-	"https://github.com/elanmed/fzf-lua-frecency.nvim",
+	"https://github.com/sindrets/diffview.nvim", -- for neogit
+	"https://github.com/NeogitOrg/neogit",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/mbbill/undotree",
 	"https://github.com/meanderingprogrammer/render-markdown.nvim",
-	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/nvim-lua/plenary.nvim", -- for neogit and others
 	"https://github.com/nvim-lualine/lualine.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
@@ -1378,6 +1428,7 @@ setup_copilot()
 setup_diagflow()
 setup_fzf()
 setup_gitportal()
+setup_neogit()
 setup_gitsigns()
 setup_harpoon()
 setup_lualine()
@@ -1392,6 +1443,7 @@ setup_mini_sessions()
 setup_mini_splitjoin()
 setup_mini_starter()
 setup_mini_surround()
+setup_mini_visits()
 setup_render_markdown()
 setup_substitute()
 setup_treesitter()
