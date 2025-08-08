@@ -271,7 +271,18 @@ end
 
 local function setup_mini_pick()
 	local pick = require("mini.pick")
-	pick.setup()
+
+	-- Custom function to send all items to quickfix (Ctrl-Q behavior)
+	local choose_all = function()
+		local mappings = pick.get_picker_opts().mappings
+		vim.api.nvim_input(mappings.mark_all .. mappings.choose_marked)
+	end
+
+	pick.setup({
+		mappings = {
+			choose_all = { char = "<C-q>", func = choose_all },
+		},
+	})
 
 	vim.ui.select = pick.ui_select
 end
