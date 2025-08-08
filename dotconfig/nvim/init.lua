@@ -184,84 +184,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
 })
 -- }}}
 
--- {{{ Netrw
-local function create_file_or_dir()
-	vim.ui.input({ prompt = "New File (or dir): " }, function(name)
-		if name == "" or name == nil then
-			return
-		end
-
-		-- Get current directory from netrw
-		local current_dir = vim.b.netrw_curdir
-		local full_path = vim.fn.fnamemodify(current_dir .. "/" .. name, ":p")
-
-		if name:sub(-1) == "/" then
-			-- Remove trailing slash and create directory
-			full_path = full_path:sub(1, -2)
-			vim.fn.mkdir(full_path, "p")
-		else
-			-- Create parent directories if they don't exist
-			local parent_dir = vim.fn.fnamemodify(full_path, ":h")
-			vim.fn.mkdir(parent_dir, "p")
-
-			-- Create file
-			local file = io.open(full_path, "w")
-			if file then
-				file:close()
-			end
-		end
-
-		-- Refresh netrw
-		vim.cmd("edit " .. vim.fn.fnameescape(current_dir))
-	end)
-end
-
--- Keybindings
-
-map("n", "-", ":Explore<CR>", {
-	noremap = true,
-	silent = true,
-	desc = "Explore current dir",
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "netrw",
-	callback = function()
-		local opts = { buffer = true, silent = true, remap = true }
-		map("n", "<Tab>", "mf", opts) -- Toggle mark on file
-		map("n", "<S-Tab>", "mF", opts) -- Unmark all files
-		-- map('n', '-', '-^', opts)                   -- Go up directory
-		map("n", "%", create_file_or_dir, { buffer = true }) -- Create file/dir
-		map("n", "<D-f>", create_file_or_dir, { buffer = true }) -- Create file/dir
-		map("n", "d", "D", opts) -- Delete file/directory
-		map("n", "r", "R", opts) -- Rename file/directory
-	end,
-})
-
--- hide header
-vim.g.netrw_banner = 0
-
--- Show directories first (sorting)
-vim.g.netrw_sort_sequence = [[[\/]$,*]]
-
--- start hidden
-vim.g.netrw_list_hide = [[^\..*]]
-
--- Human-readable files sizes
-vim.g.netrw_sizestyle = "H"
-
--- Setup file operations commands (enable recursive copy and remove)
-vim.g.netrw_localcopydircmd = "cp -r"
-vim.g.netrw_localmkdir = "mkdir -p"
-vim.g.netrw_localrmdir = "rm -r"
-
--- split to the right instead of the left
-vim.g.netrw_altv = 1
-
--- Highlight marked files in the same way search matches are
-vim.cmd("hi! link netrwMarkFile Search")
---- }}}
-
 -- {{{ Terminal
 
 vim.g.terminal_scrollback_buffer_size = 500000
@@ -397,8 +319,7 @@ local function setup_mini_files()
 			width_preview = 30,
 		},
 		options = {
-			-- Whether to use for editing directories (use `netrw`)
-			use_as_default_explorer = false,
+			use_as_default_explorer = true,
 		},
 	})
 
