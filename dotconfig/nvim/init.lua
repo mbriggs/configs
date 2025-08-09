@@ -1342,48 +1342,6 @@ local function setup_copilot()
 	vim.cmd([[Copilot auth]])
 end
 
-local function setup_harpoon()
-	require("harpoon").setup({
-		settings = {
-			save_on_toggle = true,
-		},
-	})
-
-	map("n", "<leader>ha", "<cmd>lua require('harpoon'):list():add()<cr>", {
-		silent = true,
-		desc = "Add to Harpoon",
-	})
-
-	map("n", "<leader>hh", "<cmd>require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>", {
-		silent = true,
-		desc = "Toggle Harpoon",
-	})
-
-	map({ "n", "t" }, "<C-h>", "<cmd>lua require('harpoon'):list():select(1)<cr>", {
-		desc = "Harpoon to file 1",
-		silent = true,
-	})
-	map({ "n", "t" }, "<C-j>", "<cmd>lua require('harpoon'):list():select(2)<cr>", {
-		desc = "Harpoon to file 2",
-		silent = true,
-	})
-	map({ "n", "t" }, "<C-k>", "<cmd>lua require('harpoon'):list():select(3)<cr>", {
-		desc = "Harpoon to file 3",
-		silent = true,
-	})
-	map({ "n", "t" }, "<C-l>", "<cmd>lua require('harpoon'):list():select(4)<cr>", {
-		desc = "Harpoon to file 4",
-		silent = true,
-	})
-	map({ "n", "t" }, "<C-;>", "<cmd>lua require('harpoon'):list():select(5)<cr>", {
-		desc = "Harpoon to file 5",
-		silent = true,
-	})
-	map({ "n", "t" }, "<C-'>", "<cmd>lua require('harpoon'):list():select(6)<cr>", {
-		desc = "Harpoon to file 6",
-		silent = true,
-	})
-end
 -- }}}
 
 -- {{{ Plugins
@@ -1435,7 +1393,6 @@ setup_fzf()
 setup_gitportal()
 setup_neogit()
 setup_gitsigns()
-setup_harpoon()
 setup_lualine()
 setup_mini_ai()
 setup_mini_clue()
