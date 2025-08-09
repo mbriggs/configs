@@ -302,14 +302,18 @@ local function setup_mini_sessions()
 			delete = true,
 		},
 		verbose = {
-			write = false,
-			delete = false,
+			write = true,
+			delete = true,
 		},
 	})
 
 	map("n", "<leader>vv", function()
 		vim.cmd("wa")
-		require("mini.sessions").write()
+		local current_session = require("mini.sessions").get_latest()
+		require("mini.sessions").write(current_session, { force = true })
+		if current_session then
+			vim.notify("Session '" .. current_session .. "' saved", vim.log.levels.INFO)
+		end
 		require("mini.sessions").select()
 		lsp_cleanup()
 	end, { desc = "Switch Session" })
@@ -318,16 +322,29 @@ local function setup_mini_sessions()
 		local cwd = vim.fn.getcwd()
 		local last_folder = cwd:match("([^/]+)$")
 		require("mini.sessions").write(last_folder)
+		vim.notify("Session '" .. last_folder .. "' saved", vim.log.levels.INFO)
 	end, { desc = "Save Session" })
 
 	map("n", "<leader>ve", function()
 		vim.cmd("wa")
-		require("mini.sessions").select()
+		require("mini.sessions").select("read", {
+			post = function(session_name)
+				if session_name then
+					vim.notify("Session '" .. session_name .. "' loaded", vim.log.levels.INFO)
+				end
+			end,
+		})
 		lsp_cleanup()
 	end, { desc = "Load Session" })
 
 	map("n", "<leader>vd", function()
-		require("mini.sessions").select("delete")
+		require("mini.sessions").select("delete", {
+			post = function(session_name)
+				if session_name then
+					vim.notify("Session '" .. session_name .. "' deleted", vim.log.levels.WARN)
+				end
+			end,
+		})
 	end, { desc = "Delete Session" })
 end
 
@@ -874,6 +891,10 @@ local function setup_fzf()
 		desc = "Buffer",
 	})
 
+	map("n", "<leader>sw", "<cmd>FzfLua grep_cword<cr>", {
+		desc = "Word under cursor",
+	})
+
 	map("n", "<leader>sc", "<cmd>FzfLua command_history<cr>", {
 		desc = "Command History",
 	})
@@ -1381,7 +1402,6 @@ vim.pack.add({
 	"https://github.com/trevorhauter/gitportal.nvim",
 	"https://github.com/vim-test/vim-test",
 	"https://github.com/zbirenbaum/copilot.lua",
-	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 })
 
 vim.cmd([[colorscheme tokyonight-moon]])
