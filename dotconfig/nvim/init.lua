@@ -1028,17 +1028,25 @@ local function setup_gitsigns()
 			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select Hunk" })
 
 			map("n", "<leader>gdb", function()
+				-- Capture the buffer before mini.pick takes over
+				local bufnr = vim.api.nvim_get_current_buf()
 				local branches = vim.fn.systemlist("git branch --format='%(refname:short)'")
 				vim.ui.select(branches, {
 					prompt = "Diff branch> ",
 				}, function(choice)
 					if choice then
-						require("gitsigns").diffthis(choice)
+						-- Restore buffer context and call diffthis
+						vim.schedule(function()
+							vim.api.nvim_set_current_buf(bufnr)
+							require("gitsigns").diffthis(choice)
+						end)
 					end
 				end)
 			end, { desc = "Diff this against Branch" })
 
 			map("n", "<leader>gdc", function()
+				-- Capture the buffer before mini.pick takes over
+				local bufnr = vim.api.nvim_get_current_buf()
 				local log = vim.fn.systemlist("git log --pretty=format:'%h %s' -n 50")
 				vim.ui.select(log, {
 					prompt = "Diff commit> ",
@@ -1046,7 +1054,11 @@ local function setup_gitsigns()
 					if choice then
 						local commit = choice:match("^(%w+)")
 						if commit then
-							require("gitsigns").diffthis(commit)
+							-- Restore buffer context and call diffthis
+							vim.schedule(function()
+								vim.api.nvim_set_current_buf(bufnr)
+								require("gitsigns").diffthis(commit)
+							end)
 						end
 					end
 				end)
