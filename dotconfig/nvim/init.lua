@@ -1375,6 +1375,52 @@ local function setup_copilot()
 	vim.cmd([[Copilot auth]])
 end
 
+local function setup_harpoon()
+	local harpoon = require("harpoon")
+
+	harpoon.setup({
+		settings = {
+			save_on_toggle = true,
+		},
+	})
+
+	map("n", "<leader>ha", "<cmd>lua require('harpoon'):list():add()<cr>", {
+		silent = true,
+		desc = "Add to Harpoon",
+	})
+
+	map("n", "<leader>hh", function()
+		harpoon.ui:toggle_quick_menu(harpoon:list())
+	end, {
+		silent = true,
+		desc = "Toggle Harpoon",
+	})
+
+	map({ "n", "t" }, "<C-h>", "<cmd>lua require('harpoon'):list():select(1)<cr>", {
+		desc = "Harpoon to file 1",
+		silent = true,
+	})
+	map({ "n", "t" }, "<C-j>", "<cmd>lua require('harpoon'):list():select(2)<cr>", {
+		desc = "Harpoon to file 2",
+		silent = true,
+	})
+	map({ "n", "t" }, "<C-k>", "<cmd>lua require('harpoon'):list():select(3)<cr>", {
+		desc = "Harpoon to file 3",
+		silent = true,
+	})
+	map({ "n", "t" }, "<C-l>", "<cmd>lua require('harpoon'):list():select(4)<cr>", {
+		desc = "Harpoon to file 4",
+		silent = true,
+	})
+	map({ "n", "t" }, "<C-;>", "<cmd>lua require('harpoon'):list():select(5)<cr>", {
+		desc = "Harpoon to file 5",
+		silent = true,
+	})
+	map({ "n", "t" }, "<C-'>", "<cmd>lua require('harpoon'):list():select(6)<cr>", {
+		desc = "Harpoon to file 6",
+		silent = true,
+	})
+end
 -- }}}
 
 -- {{{ Plugins
@@ -1414,6 +1460,7 @@ vim.pack.add({
 	"https://github.com/trevorhauter/gitportal.nvim",
 	"https://github.com/vim-test/vim-test",
 	"https://github.com/zbirenbaum/copilot.lua",
+	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 })
 
 vim.cmd([[colorscheme tokyonight-moon]])
@@ -1425,6 +1472,7 @@ setup_fzf()
 setup_gitportal()
 setup_neogit()
 setup_gitsigns()
+setup_harpoon()
 setup_lualine()
 setup_mini_ai()
 setup_mini_clue()
