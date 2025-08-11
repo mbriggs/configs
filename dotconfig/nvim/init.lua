@@ -974,11 +974,10 @@ local function setup_neogit()
 		desc = "Open Neogit",
 	})
 
-	-- AI Commit Message Generation
 	local claude = require("mbriggs.claude")
 	local function generate(custom_instructions, insert_at)
 		local base_prompt =
-			"Generate a commit message for the staged changes only. Explain accurately and succinctly. Use imperative mood. Subject line: max 50 chars, captures WHAT at high level. Body: explains WHY and HOW, wrapped at 72 chars with hard breaks. Focus on clarity over cleverness. Output ONLY the commit message text."
+			"Generate a commit message for the staged changes only. Explain accurately and succinctly. Use imperative mood. Subject line: max 50 chars, captures WHAT at high level. Body: explains WHY and HOW, wrapped at 72 chars with hard breaks. Use simple, direct language. Output ONLY the commit message text."
 
 		local function execute(additional_instructions)
 			local prompt = additional_instructions
