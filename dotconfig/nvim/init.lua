@@ -1021,17 +1021,6 @@ local function setup_neogit()
 	map("n", "<leader>gM", function()
 		generate(true) -- Insert at cursor with instructions
 	end, { desc = "Generate commit message with instructions" })
-
-	-- Auto-generate commit message when opening Neogit commit buffer
-	vim.api.nvim_create_autocmd("FileType", {
-		pattern = "NeogitCommitEditor",
-		callback = function()
-			-- Auto-generate at start of buffer after small delay
-			vim.defer_fn(function()
-				generate(false, "start")
-			end, 100)
-		end,
-	})
 end
 
 local function setup_gitsigns()
