@@ -627,17 +627,7 @@ local function setup_mini_surround()
 end
 
 local function setup_mini_notify()
-	require("mini.notify").setup({
-		window = {
-			winblend = 0,
-			config = {
-				border = "single",
-			},
-		},
-		lsp_progress = {
-			enable = false, -- You can enable this if you want LSP progress
-		},
-	})
+	require("mini.notify").setup()
 
 	-- Make mini.notify the default vim.notify
 	vim.notify = require("mini.notify").make_notify()
@@ -982,6 +972,52 @@ local function setup_neogit()
 
 	map("n", "<leader>gg", "<cmd>Neogit kind=replace<cr>", {
 		desc = "Open Neogit",
+	})
+
+	-- AI Commit Message Generation
+	local claude = require("mbriggs.claude")
+	local function generate(custom_instructions, insert_at)
+		local base_prompt =
+			"Follow Claude Code's git commit analysis process: analyze staged changes to understand 1) files changed, 2) nature of changes (feat/fix/refactor/test/docs), 3) purpose and motivation, 4) project impact. Focus on WHY not WHAT. Use imperative mood, be specific not generic. Generate a commit message with a subject line (max 50 chars) AND a body paragraph explaining the changes and why they were made. Wrap body lines at 72 characters with hard line breaks Output ONLY the commit message text - no analysis tags, no markdown, no explanation, no attribution footer."
+
+		local function execute(additional_instructions)
+			local prompt = additional_instructions
+					and additional_instructions ~= ""
+					and (base_prompt .. ". " .. additional_instructions)
+				or base_prompt
+
+			claude.run(prompt, nil, {
+				insert_at = insert_at,
+				notify_msg = "Generating commit message...",
+				model = "sonnet",
+			})
+		end
+
+		if custom_instructions then
+			vim.ui.input({ prompt = "Additional instructions: " }, execute)
+		else
+			execute()
+		end
+	end
+
+	-- Global keymaps for commit message generation
+	map("n", "<leader>gm", function()
+		generate(false) -- Insert at cursor
+	end, { desc = "Generate commit message" })
+
+	map("n", "<leader>gM", function()
+		generate(true) -- Insert at cursor with instructions
+	end, { desc = "Generate commit message with instructions" })
+
+	-- Auto-generate commit message when opening Neogit commit buffer
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "NeogitCommitEditor",
+		callback = function()
+			-- Auto-generate at start of buffer after small delay
+			vim.defer_fn(function()
+				generate(false, "start")
+			end, 100)
+		end,
 	})
 end
 
