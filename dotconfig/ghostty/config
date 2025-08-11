@@ -18,6 +18,7 @@ keybind = shift+enter=text:\n
 keybind = cmd+f=text:%
 macos-option-as-alt = true
 
+keybind = cmd+period=toggle_split_zoom
 keybind = cmd+comma=prompt_surface_title
 
 auto-update-channel = tip
