@@ -116,7 +116,7 @@ map("n", "<leader>-", "<C-^>", { desc = "go to alternate file" })
 map("n", "<leader>bx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "make file executable" })
 
 -- make it super easy to quit
-map("n", "<leader><CR>", ":q<cr>", { desc = "quit" })
+map("n", "<leader><leader>", ":q<cr>", { desc = "quit" })
 
 -- make it super easy to split
 map("n", "<leader>'", ":vsp<cr>", { desc = "vertical split" })
