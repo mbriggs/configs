@@ -626,6 +626,27 @@ local function setup_mini_surround()
 	})
 end
 
+local function setup_mini_notify()
+	require("mini.notify").setup({
+		window = {
+			winblend = 0,
+			config = {
+				border = "single",
+			},
+		},
+		lsp_progress = {
+			enable = false, -- You can enable this if you want LSP progress
+		},
+	})
+
+	-- Make mini.notify the default vim.notify
+	vim.notify = require("mini.notify").make_notify()
+
+	map("n", "<leader>H", function()
+		require("mini.notify").show_history()
+	end, { desc = "Show Notify History" })
+end
+
 -- }}}
 
 local function setup_fzf()
@@ -1480,6 +1501,7 @@ setup_mini_completion()
 setup_mini_diff()
 setup_mini_files()
 setup_mini_icons()
+setup_mini_notify()
 setup_mini_pick()
 setup_mini_sessions()
 setup_mini_splitjoin()
