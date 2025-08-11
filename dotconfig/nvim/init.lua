@@ -238,6 +238,9 @@ local function setup_mini_icons()
 	icons.mock_nvim_web_devicons()
 end
 
+local function setup_mini_pairs()
+	require("mini.pairs").setup()
+end
 local function setup_mini_starter()
 	local starter = require("mini.starter")
 	starter.setup({
@@ -1536,6 +1539,7 @@ setup_mini_completion()
 setup_mini_diff()
 setup_mini_files()
 setup_mini_icons()
+setup_mini_pairs()
 setup_mini_notify()
 setup_mini_pick()
 setup_mini_sessions()
