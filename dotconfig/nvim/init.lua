@@ -990,13 +990,14 @@ local function setup_neogit()
 	local claude = require("mbriggs.claude")
 	local function generate(custom_instructions, insert_at)
 		local base_prompt =
-			"Generate a commit message for the staged changes only. Explain accurately and succinctly. Use imperative mood. Subject line: max 50 chars, captures WHAT at high level. Body: explains WHY and HOW, wrapped at 72 chars with hard breaks. Use simple, direct language. Output ONLY the commit message text."
+			"Generate a conventional commit message for the staged changes only. Explain accurately and succinctly. Use imperative mood. Subject line: max 50 chars, captures WHAT at high level. Body: explains WHY and HOW, wrapped at 72 chars with hard breaks. Use simple, direct language. Output ONLY the commit message text."
 
 		local function execute(additional_instructions)
-			local prompt = additional_instructions
-					and additional_instructions ~= ""
-					and (base_prompt .. ". " .. additional_instructions)
-				or base_prompt
+			local prompt = base_prompt
+
+			if additional_instructions and additional_instructions ~= "" then
+				prompt = base_prompt .. ". " .. additional_instructions
+			end
 
 			claude.run(prompt, nil, {
 				insert_at = insert_at,
