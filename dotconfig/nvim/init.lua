@@ -1431,7 +1431,14 @@ local function setup_copilot()
 			enabled = false,
 		},
 	})
-	vim.cmd([[Copilot auth]])
+
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "CopilotStarted",
+		once = true,
+		callback = function()
+			vim.cmd("Copilot auth")
+		end,
+	})
 end
 
 local function setup_harpoon()
