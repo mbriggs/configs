@@ -231,6 +231,10 @@ end, {})
 
 -- {{{ Plugin Setup
 
+local function setup_pqf()
+	require("pqf").setup()
+end
+
 local function setup_mini_icons()
 	local icons = require("mini.icons")
 	icons.mock_nvim_web_devicons()
@@ -1516,6 +1520,7 @@ vim.pack.add({
 	"https://github.com/meanderingprogrammer/render-markdown.nvim",
 	"https://github.com/nvim-lua/plenary.nvim", -- for neogit and others
 	"https://github.com/nvim-lualine/lualine.nvim",
+	"https://github.com/yorickpeterse/nvim-pqf",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	"https://github.com/stevearc/conform.nvim",
@@ -1531,6 +1536,7 @@ setup_conform()
 setup_copilot()
 setup_diagflow()
 setup_fzf()
+setup_pqf()
 setup_gitportal()
 setup_neogit()
 setup_gitsigns()
