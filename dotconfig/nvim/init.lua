@@ -231,6 +231,21 @@ end, {})
 
 -- {{{ Plugin Setup
 
+local function setup_mini_hipatterns()
+	local hipatterns = require("mini.hipatterns")
+	local hi_words = require("mini.extra").gen_highlighter.words
+	hipatterns.setup({
+		highlighters = {
+			fixme = hi_words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
+			hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
+			todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
+			note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
+
+			hex_color = hipatterns.gen_highlighter.hex_color(),
+		},
+	})
+end
+
 local function setup_pqf()
 	require("pqf").setup()
 end
@@ -1490,6 +1505,7 @@ end
 -- }}}
 
 -- {{{ Plugins
+
 -- cmd to update treesitter parsers when nvim-treesitter is installed or updated
 vim.api.nvim_create_autocmd("PackChanged", {
 	group = vim.api.nvim_create_augroup("TSUpdateForTreesitter", {}),
@@ -1544,6 +1560,7 @@ setup_harpoon()
 setup_lualine()
 setup_mini_ai()
 setup_mini_clue()
+setup_mini_hipatterns()
 setup_mini_completion()
 setup_mini_diff()
 setup_mini_files()
