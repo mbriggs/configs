@@ -231,8 +231,6 @@ end, {})
 
 -- {{{ Plugin Setup
 
--- Mini {{{
-
 local function setup_mini_icons()
 	local icons = require("mini.icons")
 	icons.mock_nvim_web_devicons()
@@ -649,8 +647,6 @@ local function setup_mini_notify()
 		require("mini.notify").show_history()
 	end, { desc = "Show Notify History" })
 end
-
--- }}}
 
 local function setup_fzf()
 	local fzf = require("fzf-lua")
