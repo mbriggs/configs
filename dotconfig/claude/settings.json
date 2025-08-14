@@ -4,5 +4,10 @@
   "model": "opus",
   "feedbackSurveyState": {
     "lastShownTime": 1754063054368
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx ccusage statusline"
+  },
+  "theme": "dark"
 }
