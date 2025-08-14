@@ -301,6 +301,7 @@ end
 
 local function setup_mini_pick()
 	local pick = require("mini.pick")
+	local extra = require("mini.extra")
 
 	-- Custom function to send all items to quickfix (Ctrl-Q behavior)
 	local choose_all = function()
@@ -311,10 +312,297 @@ local function setup_mini_pick()
 	pick.setup({
 		mappings = {
 			choose_all = { char = "<C-q>", func = choose_all },
+			-- Add some familiar fzf-like bindings
+			move_down = "<C-n>",
+			move_up = "<C-p>",
+			toggle_preview = "<Tab>",
+			toggle_info = "<S-Tab>",
+		},
+		options = {
+			use_cache = true, -- Cache matches for better performance
+		},
+
+		window = {
+			config = function()
+				local win_width = vim.o.columns
+				local win_height = vim.o.lines
+
+				-- Responsive width logic:
+				-- - 100% if terminal is smaller than 80 columns
+				-- - 90% if terminal is between 80 and ~167 columns
+				-- - Capped at 150 columns for larger terminals
+				local width
+				if win_width < 80 then
+					width = win_width
+				elseif win_width <= 167 then -- 167 * 0.9 ≈ 150
+					width = math.floor(win_width * 0.9)
+				else
+					width = 150 -- Cap at 150
+				end
+
+				local height = math.floor(win_height * 0.5)
+
+				-- Position at lower left, above statusline
+				local col = 1 -- Small left padding
+				-- Account for statusline (1 line) and cmdline (1 line) and small padding
+				local row = win_height - height - 4
+
+				return {
+					anchor = "NW", -- Northwest anchor (top-left corner of window)
+					col = col,
+					row = row,
+					height = height,
+					width = width,
+					border = { " ", " ", " ", " ", " ", " ", " ", " " },
+					style = "minimal", -- No extra UI elements
+				}
+			end,
+			prompt_prefix = "",
 		},
 	})
 
 	vim.ui.select = pick.ui_select
+
+	-- Setup multigrep
+	require("mbriggs.multigrep").setup()
+
+	-- Core file/buffer operations
+	map("n", "<leader>,", function()
+		extra.pickers.buf_lines({ scope = "all" })
+	end, { desc = "Switch Buffer" })
+
+	map("n", "<leader>;", function()
+		pick.builtin.files({ cwd = vim.fn.getcwd() })
+	end, { desc = "Find files" })
+
+	map("n", "<leader>ff", function()
+		pick.builtin.files()
+	end, { desc = "Find Files (Root Dir)" })
+
+	map("n", "<leader>fg", function()
+		extra.pickers.git_files()
+	end, { desc = "Find Files (git-files)" })
+
+	map("n", "<leader>fr", function()
+		extra.pickers.oldfiles()
+	end, { desc = "Recent" })
+
+	map("n", "<leader>fb", function()
+		extra.pickers.buf_lines({ scope = "all" })
+	end, { desc = "Buffers" })
+
+	-- MRU using visits
+	map("n", "<leader>e", function()
+		local visits = require("mini.visits")
+		local cwd = vim.fn.getcwd()
+		local current_file = vim.api.nvim_buf_get_name(0)
+
+		-- Use pure recency sorting (MRU - Most Recently Used)
+		local sort = visits.gen_sort.default({ recency_weight = 1 })
+		local paths = visits.list_paths(cwd, { sort = sort })
+
+		local items = {}
+		for _, path in ipairs(paths) do
+			-- Skip the current buffer's file
+			if path ~= current_file then
+				local relative = vim.fn.fnamemodify(path, ":.")
+				table.insert(items, relative)
+			end
+		end
+
+		if #items == 0 then
+			vim.notify("No visited files in current directory", vim.log.levels.INFO)
+			return
+		end
+
+		pick.start({
+			source = {
+				items = items,
+				name = "MRU",
+			},
+		})
+	end, { desc = "MRU" })
+
+	-- Search/grep operations
+	map("n", "<leader>/", function()
+		pick.registry.multigrep()
+	end, { desc = "Multi grep (pattern::glob)" })
+
+	map("n", "<leader>sw", function()
+		local word = vim.fn.expand("<cword>")
+		pick.builtin.grep({ pattern = word })
+	end, { desc = "Word under cursor" })
+
+	map("n", "<leader>sb", function()
+		-- Search in current buffer
+		local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+		local items = {}
+		for i, line in ipairs(lines) do
+			if line ~= "" then
+				table.insert(items, {
+					text = string.format("%d: %s", i, line),
+					lnum = i,
+					bufnr = vim.api.nvim_get_current_buf(),
+				})
+			end
+		end
+		pick.start({
+			source = {
+				items = items,
+				name = "Buffer Lines",
+				choose = function(item)
+					if item then
+						vim.api.nvim_win_set_cursor(0, { item.lnum, 0 })
+					end
+				end,
+			},
+		})
+	end, { desc = "Buffer" })
+
+	-- Git operations
+	map("n", "<leader>gc", function()
+		extra.pickers.git_commits()
+	end, { desc = "Git Commits" })
+
+	map("n", "<leader>gs", function()
+		-- Git status using CLI picker
+		pick.builtin.cli({
+			command = { "git", "status", "--porcelain", "-u" },
+			postprocess = function(lines)
+				local items = {}
+				for _, line in ipairs(lines) do
+					if line ~= "" then
+						local status = line:sub(1, 2)
+						local file = line:sub(4)
+						table.insert(items, {
+							text = line,
+							path = file,
+							status = status,
+						})
+					end
+				end
+				return items
+			end,
+		})
+	end, { desc = "Git Status" })
+
+	-- Diagnostics
+	map("n", "<leader>d", function()
+		extra.pickers.diagnostic({ scope = "current" })
+	end, { desc = "Document Diagnostics" })
+
+	map("n", "<leader>D", function()
+		extra.pickers.diagnostic({ scope = "all" })
+	end, { desc = "Workspace Diagnostics" })
+
+	map("n", "<leader>sd", function()
+		extra.pickers.diagnostic({ scope = "current" })
+	end, { desc = "Document Diagnostics" })
+
+	map("n", "<leader>sD", function()
+		extra.pickers.diagnostic({ scope = "all" })
+	end, { desc = "Workspace Diagnostics" })
+
+	-- LSP
+	map("n", "<leader>=", function()
+		extra.pickers.lsp({ scope = "document_symbol" })
+	end, { desc = "Goto Symbol (Document)" })
+
+	-- Utility pickers
+	map("n", "<leader>:", function()
+		extra.pickers.history({ scope = ":" })
+	end, { desc = "Command History" })
+
+	map("n", "<leader>sc", function()
+		extra.pickers.history({ scope = ":" })
+	end, { desc = "Command History" })
+
+	map("n", "<leader>sC", function()
+		extra.pickers.commands()
+	end, { desc = "Commands" })
+
+	map("n", "<leader>sh", function()
+		pick.builtin.help()
+	end, { desc = "Help Pages" })
+
+	map("n", "<leader>sH", function()
+		extra.pickers.hl_groups()
+	end, { desc = "Search Highlight Groups" })
+
+	map("n", "<leader>sj", function()
+		extra.pickers.list({ scope = "jump" })
+	end, { desc = "Jumplist" })
+
+	map("n", "<leader>sk", function()
+		extra.pickers.keymaps()
+	end, { desc = "Keymaps" })
+
+	map("n", "<leader>sq", function()
+		extra.pickers.list({ scope = "quickfix" })
+	end, { desc = "Quickfix List" })
+
+	-- Grep in current file type
+	map("n", "<leader>st", function()
+		local ft = vim.bo.filetype
+		local pattern = vim.fn.input("Pattern: ")
+		if pattern ~= "" then
+			pick.builtin.grep({
+				pattern = pattern,
+				globs = { "*." .. ft },
+			})
+		end
+	end, { desc = "Grep in current filetype" })
+
+	-- Live grep with glob input
+	map("n", "<leader>sg", function()
+		local glob = vim.fn.input("Glob pattern (e.g., *.lua): ")
+		if glob ~= "" then
+			pick.builtin.grep_live({
+				globs = { glob },
+			})
+		end
+	end, { desc = "Live grep with glob" })
+
+	-- Regular live grep (simpler interface)
+	map("n", "<leader>s/", function()
+		pick.builtin.grep_live()
+	end, { desc = "Live grep (simple)" })
+
+	map("n", "<leader>f'", function()
+		pick.builtin.resume()
+	end, { desc = "Resume pick" })
+
+	-- Directory picker (custom implementation)
+	map("n", "<leader>fd", function()
+		pick.builtin.cli({
+			command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
+			postprocess = function(lines)
+				local items = {}
+				for _, line in ipairs(lines) do
+					if line ~= "" then
+						table.insert(items, line)
+					end
+				end
+				return items
+			end,
+		}, {
+			source = {
+				name = "Directories",
+				preview = function(buf_id, item)
+					-- Show directory contents as preview
+					local cmd = string.format("ls -la %s 2>/dev/null", vim.fn.shellescape(item))
+					local output = vim.fn.system(cmd)
+					local lines = vim.split(output, "\n")
+					vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+				end,
+				choose = function(item)
+					if item then
+						require("mini.files").open(item, true)
+					end
+				end,
+			},
+		})
+	end, { desc = "Find Dir" })
 end
 
 local function setup_mini_visits()
@@ -383,11 +671,26 @@ local function setup_mini_files()
 		windows = {
 			preview = true,
 			width_focus = 30,
-			width_preview = 30,
+			width_preview = 50, -- Wider preview window
+			width_nofocus = 20, -- Narrower for non-focused windows
 		},
 		options = {
 			use_as_default_explorer = true,
 		},
+	})
+
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "MiniFilesWindowOpen",
+		callback = function(args)
+			local win_id = args.data.win_id
+
+			-- Customize window-local settings
+			local config = vim.api.nvim_win_get_config(win_id)
+			config.border = { " ", " ", " ", " ", " ", " ", " ", " " }
+			config.style = "minimal"
+
+			vim.api.nvim_win_set_config(win_id, config)
+		end,
 	})
 
 	map("n", "-", function()
@@ -466,6 +769,23 @@ local function setup_mini_clue()
 	miniclue.setup({
 		window = {
 			delay = 300,
+			config = function()
+				local win_width = vim.o.columns
+				local max_width = 40
+
+				local width
+				if win_width <= max_width then
+					width = win_width - 2
+				else
+					width = max_width
+				end
+
+				return {
+					width = width,
+					border = { " ", " ", " ", " ", " ", " ", " ", " " },
+					style = "minimal",
+				}
+			end,
 		},
 
 		triggers = {
@@ -657,7 +977,16 @@ local function setup_mini_surround()
 end
 
 local function setup_mini_notify()
-	require("mini.notify").setup()
+	require("mini.notify").setup({
+		window = {
+			config = function()
+				return {
+					border = "none",
+					style = "minimal",
+				}
+			end,
+		},
+	})
 
 	-- Make mini.notify the default vim.notify
 	vim.notify = require("mini.notify").make_notify()
@@ -665,310 +994,6 @@ local function setup_mini_notify()
 	map("n", "<leader>H", function()
 		require("mini.notify").show_history()
 	end, { desc = "Show Notify History" })
-end
-
-local function setup_fzf()
-	local fzf = require("fzf-lua")
-	local config = fzf.config
-	local actions = fzf.actions
-
-	config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
-
-	-- Toggle root dir / cwd
-	config.defaults.actions.files["ctrl-r"] = function(_, ctx)
-		local o = vim.deepcopy(ctx.__call_opts)
-		o.root = o.root == false
-		o.cwd = nil
-		o.buf = ctx.__CTX.bufnr
-	end
-	config.defaults.actions.files["alt-c"] = config.defaults.actions.files["ctrl-r"]
-	config.set_action_helpstr(config.defaults.actions.files["ctrl-r"], "toggle-root-dir")
-
-	fzf.setup({
-		fzf_colors = true,
-		fzf_opts = {
-			["--no-scrollbar"] = true,
-		},
-		defaults = {
-			header = false,
-			formatter = "path.dirname_first",
-		},
-		winopts = {
-			width = 0.8,
-			height = 0.8,
-			row = 0.5,
-			col = 0.5,
-			preview = {
-				scrollchars = { "┃", "" },
-			},
-		},
-		files = {
-			cwd_prompt = false,
-			actions = {
-				["alt-i"] = { actions.toggle_ignore },
-				["alt-h"] = { actions.toggle_hidden },
-			},
-		},
-		buffers = {
-			actions = {
-				["alt-d"] = { fn = actions.buf_del, exec = false },
-			},
-		},
-		grep = {
-			actions = {
-				["alt-i"] = { actions.toggle_ignore },
-				["alt-h"] = { actions.toggle_hidden },
-			},
-		},
-		lsp = {
-			symbols = {
-				symbol_style = 2, -- 2 = icon only
-				symbol_fmt = function(s, opts)
-					return s
-				end, -- remove default "[" .. s .. "]"
-			},
-		},
-	})
-
-	map("n", "<leader>,", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", {
-		desc = "Switch Buffer",
-	})
-
-	map("n", "<leader>/", "<cmd>FzfLua live_grep<cr>", {
-		desc = "Search",
-	})
-
-	map("n", "<leader>:", "<cmd>FzfLua command_history<cr>", {
-		desc = "Command History",
-	})
-
-	map("n", "<leader>;", "<cmd>FzfLua files cwd_only=true<cr>", {
-		desc = "Find files",
-	})
-
-	map("n", "<leader>f'", "<cmd>FzfLua resume<cr>", {
-		desc = "Resume pick",
-	})
-
-	map("n", "<leader>d", "<cmd>FzfLua diagnostics_document<cr>", {
-		desc = "Document Diagnostics",
-	})
-
-	map("n", "<leader>D", "<cmd>FzfLua diagnostics_workspace<cr>", {
-		desc = "Workspace Diagnostics",
-	})
-
-	local kind_filter = {
-		default = {
-			"Class",
-			"Constructor",
-			"Enum",
-			"Field",
-			"Function",
-			"Interface",
-			"Method",
-			"Module",
-			"Namespace",
-			"Package",
-			"Property",
-			"Struct",
-			"Trait",
-		},
-		markdown = false,
-		help = false,
-		-- you can specify a different filter for each filetype
-		lua = {
-			"Class",
-			"Constructor",
-			"Enum",
-			"Field",
-			"Function",
-			"Interface",
-			"Method",
-			"Module",
-			"Namespace",
-			-- "Package", -- remove package since luals uses it for control flow structures
-			"Property",
-			"Struct",
-			"Trait",
-		},
-	}
-
-	local function get_kind_filter(buf)
-		buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
-		local ft = vim.bo[buf].filetype
-		if kind_filter[ft] == false then
-			return
-		end
-		if type(kind_filter[ft]) == "table" then
-			return kind_filter[ft]
-		end
-		---@diagnostic disable-next-line: return-type-mismatch
-		return type(kind_filter) == "table" and type(kind_filter.default) == "table" and kind_filter.default or nil
-	end
-
-	local function symbols_filter(entry, ctx)
-		if ctx.symbols_filter == nil then
-			ctx.symbols_filter = get_kind_filter(ctx.bufnr) or false
-		end
-		if ctx.symbols_filter == false then
-			return true
-		end
-		return vim.tbl_contains(ctx.symbols_filter, entry.kind)
-	end
-
-	map("n", "<leader>=", function()
-		require("fzf-lua").lsp_document_symbols({
-			regex_filter = symbols_filter,
-		})
-	end, { desc = "Goto Symbol (Document)" })
-
-	-- find
-
-	map("n", "<leader>fb", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", {
-		desc = "Buffers",
-	})
-
-	map("n", "<leader>fd", function()
-		require("fzf-lua").fzf_exec("fd --type d --hidden --exclude .git", {
-			fzf_opts = {
-				["--preview"] = "eza --color=always -lA '{}' 2>/dev/null",
-				["--preview-window"] = "nohidden,down,50%",
-				["--ansi"] = "",
-				["--multi"] = "",
-			},
-			actions = {
-				-- On enter, open netrw in that directory
-				["default"] = function(selected)
-					if not selected or #selected == 0 then
-						return
-					end
-
-					if #selected == 1 then
-						local d = selected[1]
-						if d and d ~= "" then
-							-- vim.cmd("Explore " .. vim.fn.fnameescape(d))
-							require("mini.files").open(vim.fn.fnameescape(d), true)
-						end
-					else
-						local list = {}
-						for _, d in ipairs(selected) do
-							if type(d) == "string" and d ~= "" then
-								table.insert(list, { filename = d, lnum = 1, col = 1, text = "[dir]" })
-							end
-						end
-						if #list == 0 then
-							return
-						end
-
-						vim.fn.setqflist(list, "r")
-						vim.cmd("copen")
-					end
-				end,
-			},
-		})
-	end, { desc = "Find Dir" })
-
-	map("n", "<leader>ff", "<cmd>FzfLua files<cr>", {
-		desc = "Find Files (Root Dir)",
-	})
-
-	map("n", "<leader>fg", "<cmd>FzfLua git_files<cr>", {
-		desc = "Find Files (git-files)",
-	})
-
-	map("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", {
-		desc = "Recent",
-	})
-
-	map("n", "<leader>e", function()
-		local visits = require("mini.visits")
-		local cwd = vim.fn.getcwd()
-		local current_file = vim.api.nvim_buf_get_name(0)
-
-		-- Use pure recency sorting (MRU - Most Recently Used)
-		local sort = visits.gen_sort.default({ recency_weight = 1 })
-		local paths = visits.list_paths(cwd, { sort = sort })
-
-		local items = {}
-		for _, path in ipairs(paths) do
-			-- Skip the current buffer's file
-			if path ~= current_file then
-				local relative = vim.fn.fnamemodify(path, ":.")
-				table.insert(items, relative)
-			end
-		end
-
-		if #items == 0 then
-			vim.notify("No visited files in current directory", vim.log.levels.INFO)
-			return
-		end
-
-		require("fzf-lua").fzf_exec(items, {
-			actions = {
-				["default"] = function(selected)
-					if selected and selected[1] then
-						vim.cmd("edit " .. vim.fn.fnameescape(selected[1]))
-					end
-				end,
-			},
-		})
-	end, { desc = "MRU" })
-
-	-- git
-	map("n", "<leader>gc", "<cmd>FzfLua git_commits<cr>", {
-		desc = "Git Commits",
-	})
-
-	map("n", "<leader>gs", "<cmd>FzfLua git_status<cr>", {
-		desc = "Git Status",
-	})
-
-	-- search
-
-	map("n", "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>", {
-		desc = "Buffer",
-	})
-
-	map("n", "<leader>sw", "<cmd>FzfLua grep_cword<cr>", {
-		desc = "Word under cursor",
-	})
-
-	map("n", "<leader>sc", "<cmd>FzfLua command_history<cr>", {
-		desc = "Command History",
-	})
-
-	map("n", "<leader>sC", "<cmd>FzfLua commands<cr>", {
-		desc = "Commands",
-	})
-
-	map("n", "<leader>sd", "<cmd>FzfLua diagnostics_document<cr>", {
-		desc = "Document Diagnostics",
-	})
-
-	map("n", "<leader>sD", "<cmd>FzfLua diagnostics_workspace<cr>", {
-		desc = "Workspace Diagnostics",
-	})
-
-	map("n", "<leader>sh", "<cmd>FzfLua help_tags<cr>", {
-		desc = "Help Pages",
-	})
-
-	map("n", "<leader>sH", "<cmd>FzfLua highlights<cr>", {
-		desc = "Search Highlight Groups",
-	})
-
-	map("n", "<leader>sj", "<cmd>FzfLua jumps<cr>", {
-		desc = "Jumplist",
-	})
-
-	map("n", "<leader>sk", "<cmd>FzfLua keymaps<cr>", {
-		desc = "Keymaps",
-	})
-
-	map("n", "<leader>sq", "<cmd>FzfLua quickfix<cr>", {
-		desc = "Quickfix List",
-	})
 end
 
 local function setup_diagflow()
@@ -1528,7 +1553,6 @@ vim.pack.add({
 	"https://github.com/echasnovski/mini.nvim",
 	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/gbprod/substitute.nvim",
-	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/sindrets/diffview.nvim", -- for neogit
 	"https://github.com/NeogitOrg/neogit",
 	"https://github.com/lewis6991/gitsigns.nvim",
@@ -1551,7 +1575,6 @@ vim.cmd([[colorscheme tokyonight-moon]])
 setup_conform()
 setup_copilot()
 setup_diagflow()
-setup_fzf()
 setup_pqf()
 setup_gitportal()
 setup_neogit()
