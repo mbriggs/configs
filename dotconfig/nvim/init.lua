@@ -353,11 +353,8 @@ local function setup_mini_pick()
 					row = row,
 					height = height,
 					width = width,
-					border = { " ", " ", " ", " ", " ", " ", " ", " " },
-					style = "minimal", -- No extra UI elements
 				}
 			end,
-			prompt_prefix = "",
 		},
 	})
 
@@ -679,20 +676,6 @@ local function setup_mini_files()
 		},
 	})
 
-	vim.api.nvim_create_autocmd("User", {
-		pattern = "MiniFilesWindowOpen",
-		callback = function(args)
-			local win_id = args.data.win_id
-
-			-- Customize window-local settings
-			local config = vim.api.nvim_win_get_config(win_id)
-			config.border = { " ", " ", " ", " ", " ", " ", " ", " " }
-			config.style = "minimal"
-
-			vim.api.nvim_win_set_config(win_id, config)
-		end,
-	})
-
 	map("n", "-", function()
 		require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
 	end, {
@@ -782,8 +765,6 @@ local function setup_mini_clue()
 
 				return {
 					width = width,
-					border = { " ", " ", " ", " ", " ", " ", " ", " " },
-					style = "minimal",
 				}
 			end,
 		},
@@ -977,16 +958,7 @@ local function setup_mini_surround()
 end
 
 local function setup_mini_notify()
-	require("mini.notify").setup({
-		window = {
-			config = function()
-				return {
-					border = "none",
-					style = "minimal",
-				}
-			end,
-		},
-	})
+	require("mini.notify").setup()
 
 	-- Make mini.notify the default vim.notify
 	vim.notify = require("mini.notify").make_notify()
