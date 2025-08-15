@@ -21,4 +21,7 @@ macos-option-as-alt = true
 keybind = cmd+period=toggle_split_zoom
 keybind = cmd+comma=prompt_surface_title
 
+# Unbind Cmd+Shift+P to allow Neovim to use it for quickfix navigation
+keybind = cmd+shift+p=unbind
+
 auto-update-channel = tip

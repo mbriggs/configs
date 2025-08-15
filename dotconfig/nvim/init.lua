@@ -158,8 +158,8 @@ map("n", "<leader>Y", [["+Y]], { desc = "yank rest of line to system clipboard" 
 map("n", "Q", "@q", { desc = "replay macro" })
 
 -- qf nav, keep cursor in the middle of the screen, go off of option
-map("n", "<C-S-n>", "<cmd>cnext<CR>zz", { desc = "next quickfix" })
-map("n", "<C-S-p>", "<cmd>cprev<CR>zz", { desc = "previous quickfix" })
+map("n", "<D-S-n>", "<cmd>cnext<CR>zz", { desc = "next quickfix" })
+map("n", "<D-S-p>", "<cmd>cprev<CR>zz", { desc = "previous quickfix" })
 
 -- substitute current word
 map("n", "<leader>cs", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "substitute current word" })
