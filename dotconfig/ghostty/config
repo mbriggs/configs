@@ -25,3 +25,9 @@ keybind = cmd+comma=prompt_surface_title
 keybind = cmd+shift+p=unbind
 
 auto-update-channel = tip
+
+# Split navigation with Cmd+Shift+HJKL
+keybind = cmd+shift+h=goto_split:left
+keybind = cmd+shift+j=goto_split:bottom
+keybind = cmd+shift+k=goto_split:top
+keybind = cmd+shift+l=goto_split:right
