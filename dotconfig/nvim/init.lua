@@ -1201,8 +1201,8 @@ local function setup_lualine()
 					padding = 1,
 					color = function()
 						return {
-							fg = "#7a88cf",
-							bg = "#222436",
+							-- fg = "#7a88cf",
+							-- bg = "#222436",
 						}
 					end,
 				},
@@ -1223,8 +1223,8 @@ local function setup_lualine()
 					end,
 					color = function()
 						return {
-							fg = "#7a88cf",
-							bg = "#222436",
+							-- fg = "#7a88cf",
+							-- bg = "#222436",
 						}
 					end,
 				},
@@ -1240,14 +1240,14 @@ local function setup_lualine()
 					color = function()
 						if vim.fn.bufname() == "" then
 							return {
-								fg = "#7a88cf",
-								bg = "#222436",
+								-- fg = "#7a88cf",
+								-- bg = "#222436",
 							}
 						end
 
 						return {
-							fg = "#e0af68",
-							bg = "#222436",
+							-- fg = "#e0af68",
+							-- bg = "#222436",
 							gui = "bold",
 						}
 					end,
@@ -1521,9 +1521,9 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 vim.pack.add({
+	"https://github.com/scottmckendry/cyberdream.nvim",
 	"https://github.com/dgagn/diagflow.nvim",
 	"https://github.com/echasnovski/mini.nvim",
-	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/gbprod/substitute.nvim",
 	"https://github.com/sindrets/diffview.nvim", -- for neogit
 	"https://github.com/NeogitOrg/neogit",
@@ -1539,10 +1539,22 @@ vim.pack.add({
 	"https://github.com/trevorhauter/gitportal.nvim",
 	"https://github.com/vim-test/vim-test",
 	"https://github.com/zbirenbaum/copilot.lua",
+	"https://github.com/nyoom-engineering/oxocarbon.nvim",
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 })
 
-vim.cmd([[colorscheme tokyonight-moon]])
+require("cyberdream").setup({
+	saturation = 0.8,
+	borderless_pickers = true,
+	hide_fillchars = true,
+})
+vim.cmd([[colorscheme cyberdream]])
+map(
+	"n",
+	"<leader>T",
+	"<cmd>CyberdreamToggleMode<CR>",
+	{ noremap = true, silent = true, desc = "Toggle Cyberdream Mode" }
+)
 
 setup_conform()
 setup_copilot()

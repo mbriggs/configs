@@ -1,5 +1,5 @@
 font-family = JetBrains Mono
-theme = tokyonight_moon
+theme = cyberdream
 font-size = 16
 
 adjust-cell-width = 0
@@ -11,7 +11,6 @@ window-theme = dark
 macos-non-native-fullscreen = true
 shell-integration = detect
 shell-integration-features = no-cursor,sudo,title
-unfocused-split-opacity = 1
 
 window-vsync = true
 keybind = shift+enter=text:\n
