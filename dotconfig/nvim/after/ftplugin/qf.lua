@@ -146,8 +146,6 @@ map("n", "p", function()
 	navigate("prev")
 end, vim.tbl_extend("force", opts, { desc = "Previous quickfix entry (stay in qf)" }))
 
--- Additional useful keybindings
-
 -- Open entry and keep quickfix window open (o or Enter)
 map("n", "o", "<CR><C-w>p", vim.tbl_extend("force", opts, { desc = "Open entry, keep quickfix open" }))
 map("n", "<CR>", "<CR><C-w>p", vim.tbl_extend("force", opts, { desc = "Open entry, keep quickfix open" }))

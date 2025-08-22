@@ -1521,7 +1521,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 vim.pack.add({
-	"https://github.com/scottmckendry/cyberdream.nvim",
+	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/dgagn/diagflow.nvim",
 	"https://github.com/echasnovski/mini.nvim",
 	"https://github.com/gbprod/substitute.nvim",
@@ -1543,18 +1543,13 @@ vim.pack.add({
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 })
 
-require("cyberdream").setup({
-	saturation = 0.8,
-	borderless_pickers = true,
-	hide_fillchars = true,
+require("tokyonight").setup({
+	plugins = {
+		all = true,
+	},
 })
-vim.cmd([[colorscheme cyberdream]])
-map(
-	"n",
-	"<leader>T",
-	"<cmd>CyberdreamToggleMode<CR>",
-	{ noremap = true, silent = true, desc = "Toggle Cyberdream Mode" }
-)
+
+vim.cmd([[colorscheme tokyonight-moon]])
 
 setup_conform()
 setup_copilot()
