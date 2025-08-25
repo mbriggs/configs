@@ -102,6 +102,9 @@ map({ "n", "v", "o", "i" }, "<D-f>", "%")
 map("i", "<D-/>", "<C-n>", { desc = "next completion", noremap = "true" })
 map("i", "<D-S-/>", "<C-x><C-n>", { desc = "next completion in current file", noremap = "true" })
 
+-- i like this more then *
+map("n", "g/", "*", { desc = "search word under cursor" })
+
 -- nuke buffer
 map("n", "<leader>bk", "<cmd>bd!<cr>", { desc = "nuke buffer" })
 
